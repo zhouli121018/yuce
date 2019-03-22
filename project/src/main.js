@@ -18,7 +18,13 @@ import {
   Col,
   Field,
   Area,
-  Checkbox
+  Checkbox,
+  NavBar,
+  Tag ,
+  Icon ,
+  Tab,
+  Tabs,
+  PullRefresh
 } from 'vant'
 import wx from 'weixin-js-sdk'
 import { VueSpinners } from '@saeris/vue-spinners'
@@ -69,6 +75,12 @@ Vue
 .use(Area)
 .use(Field)
 .use(Checkbox)
+.use(NavBar)
+.use(Tag )
+.use(Icon  )
+.use(Tab  )
+.use(Tabs  )
+.use(PullRefresh  )
 Vue.prototype.$wx = wx
 new Vue({
   store,
