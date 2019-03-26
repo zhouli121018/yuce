@@ -1,0 +1,99 @@
+<template>
+    <div class="container">
+        <h4>模拟双色球投注8红球中6奖励1000元</h4>
+        <div class="simulate_num">
+            <span v-for="(item,index) in list" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
+        </div>
+        <div class="simulate_div">
+        <van-button type="danger" class="simulate_btn" size="large">模拟投注</van-button>
+        </div>
+        <div class="xian"></div>
+        <div class="simulate_rules">
+            <h4 class="rules_h">模拟投注规则</h4>
+            <p>1.人和注册用户可以免费模拟投注</p>
+            <p>2.每项只能模拟投注一注</p>
+            <p>1.人和注册用户可以免费模拟投注</p>
+            <p>2.每项只能模拟投注一注</p>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data() {
+        return {
+            list: [],
+            arr: []
+        }
+    },
+    methods: {
+        lists() {
+            let obj = {}
+            for(let i = 0; i < 35; i++) {
+                obj = {a:i}
+                this.list.push(obj)
+            }
+            console.log('---',this.list)
+        },
+        onclick(n,value) {
+            if(this.arr.indexOf(value) != -1) {
+                this.arr.splice(this.arr.indexOf(value), 1)
+            }else {
+                if(this.arr.length < 8) {
+                    this.arr.push(value)
+                }else {
+                    this.$toast('最多选择八个数字')
+                }
+            }
+            console.log(this.arr)
+        }
+    },
+    created() {
+        this.lists()
+    }
+}
+</script>
+
+<style lang="stylus" scoped>
+.simulate_rules
+    width 100%
+    padding .2rem
+    box-sizing border-box
+    text-align left 
+    p
+        line-height .6rem
+        font-size .34rem
+        color #666
+.simulate_btn
+    width 90%!important
+.simulate_div
+    width 100%
+    text-align center
+    margin-top 1rem
+h4
+    width 100%
+    text-align center
+    padding .2rem 0
+    border-bottom 1px solid #eeeeee
+    font-size .4rem
+    &.rules_h
+        text-align left
+        margin-bottom .2rem
+.simulate_num
+    width 100%
+    display flex
+    flex-wrap wrap
+    justify-content space-around
+    align-items center
+    span 
+        width .8rem
+        height .8rem
+        border-radius 50%
+        border 1px solid #eeeeee
+        line-height .8rem
+        text-align center
+        margin .2rem
+        &.active
+            background red
+            color #ffffff
+</style>

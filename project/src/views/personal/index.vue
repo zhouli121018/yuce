@@ -1,0 +1,120 @@
+<template>
+    <div class="container">
+        <div class="my_title">
+            <img class="my_title_photo" src="~@/assets/skill.png" alt="">
+            <div class="my_title_center">
+                <div>
+                    <span>8888888</span>
+                    <img class="my_title_center_img" src="~@/assets/vip.png" alt="">
+                    <span class="red">(22天)</span>
+                </div>
+                <div class="goldcoins_fans">
+                    <p><span>金币: </span><span class="red">50000</span></p>
+                    <p><span>粉丝: </span><span class="red">50000</span></p>
+                </div>
+            </div>
+            <van-button class="orange_btn" round>开通特权会员</van-button>
+        </div>
+        <div class="my_title">
+            <img class="my_title_photo title_photo" src="~@/assets/icon.png" alt="">
+            <div class="my_title_center my_centers">
+                <p>
+                    金币充值
+                </p>
+                <p class="goldcoins_fans">
+                    可看预测推荐文章详情
+                </p>
+            </div>
+            <van-button type="danger" size="small">前往充值</van-button>
+        </div>
+        <div class="xian"></div>        
+        <div>
+            <van-cell title="我的关注" is-link icon="shop" url="/personal/myFocus"/>
+            <van-cell title="我的查看" is-link icon="look"  url="/personal/myLook"/>
+            <van-cell title="我的消息" is-link icon="message" url="/personal/message/index"/>
+            
+        </div>
+        <div class="xian"></div>
+        <div>
+            <van-cell title="意见反馈" is-link icon="feedback" url="/home/feedback"/>
+            <van-cell title="关于彩票预测大师" is-link icon="feedback" />
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style scoped lang="stylus">
+.my_centers
+    width 60%!important
+    p 
+        line-height .6rem
+        &:last-child
+            color #666
+/deep/ .van-cell
+    line-height .88rem
+    border-bottom 1px solid #eee
+/deep/ .van-icon-shop::before
+    content ''
+    width .88rem
+    height .88rem
+    background url('~@/assets/myFocus.png') no-repeat
+    background-size contain
+/deep/ .van-icon-look::before
+    content ''
+    width .88rem
+    height .88rem
+    background url('~@/assets/look.png') no-repeat
+    background-size contain
+/deep/ .van-icon-message::before
+    content ''
+    width .88rem
+    height .88rem
+    background url('~@/assets/message.png') no-repeat
+    background-size contain
+/deep/ .van-icon-feedback::before
+    content ''
+    width .88rem
+    height .88rem
+    background url('~@/assets/feedback.png') no-repeat
+    background-size contain
+.my_title
+    width: 100%
+    padding .2rem 
+    box-sizing border-box 
+    display flex
+    align-items center
+    border-bottom 1px solid #eeeeee
+    .my_title_center
+        width 70%
+        span 
+            line-height .5rem
+            padding-right .1rem
+    .my_title_photo
+        width 1.5rem
+        height 1.5rem
+        border-radius 50%
+        margin-right .3rem
+    .goldcoins_fans
+        display flex
+        p
+            padding-right .3rem
+    .my_title_center_img
+        width .5rem
+        height .5rem
+        margin 0 .2rem
+.orange_btn
+    border-radius .6rem
+    background orange
+    color #ffffff
+    height 1rem
+    line-height 1rem
+    padding 0 .2rem
+.title_photo
+    width .88rem!important
+    height .88rem!important
+</style>

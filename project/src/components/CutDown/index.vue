@@ -4,7 +4,7 @@
       :plain='true'
       :disabled='disabled || isStart' :style="{color:color}"
       v-if="!isStart" @click.stop="onClick">
-      获取
+      获取验证码
     </button>
     <button v-else :style="{color:color}">
       {{ count }}秒
@@ -22,7 +22,7 @@
       },
       color: {
         type: String,
-        default: '#333333'
+        default: 'red'
       },
       toStart: {
         type: Boolean,

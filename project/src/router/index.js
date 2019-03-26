@@ -31,15 +31,6 @@ const router = new Router({
 const LOGIN_PAGE_NAME = 'bind'
 const HASLOGIN_PAGE_NAME = 'home'
 router.beforeEach((to, from, next) => {
-    // setToken('c2d3afdb19f65568937eff902af1f5cc5762a5f5')
-    // let { title } = to.meta
-    // if (title) {
-    //     document.title = title
-    // }
-    // getUserInfo().then(() => {
-    //     next()
-    // })
-    // 80030577201800001
     const { title } = to.meta
     if (title) {
         document.title = title
@@ -49,90 +40,91 @@ router.beforeEach((to, from, next) => {
         store.commit('SET_TOKEN', login_token)
     }
     let token = store.state.user.token
-    if (!token && to.name !== HASLOGIN_PAGE_NAME) {
-        console.log('没有登录且跳转的不是首页', to)
-        window.localStorage.setItem('resultUrl', JSON.stringify(to))
-        // 未登录且要跳转的页面不是登录页，没有token,把要调往的页面信息存入localstorage, 去登录页判断是否授权，授权完跳回来
-        next({
-            name: HASLOGIN_PAGE_NAME, // 跳转到登录页
-            replace: true
-        })
-    } else if (!token && to.name === HASLOGIN_PAGE_NAME) {
-        console.log('没有登录且跳转的是首页', to)
-        // 未登陆且要跳转的页面是登录页
-        next()
-    } else {
-        console.log('有登录', to)
-        const isBind = store.getters.isBind
-        // 页面是否需要获取用户信息，在meta字段里添加 requiredUserInfo
-        const isRequiredUserInfo = to.matched.some(route => {   
-            return route.meta.requiredUserInfo
-        })
-        console.log('%cisRequiredUserInfo: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;',isRequiredUserInfo);
-        // 如果绑定过手机，且跳往页面不需要获取用户信息
-        if (isBind && !isRequiredUserInfo) {
-            console.log('有绑定手机号调往的页面不需要用户信息', to)
-            let resultUrl = window.localStorage.getItem('resultUrl')
-            if (resultUrl) {
-                console.log('%c有登录记录resultUrl: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;', resultUrl);
-                window.localStorage.removeItem('resultUrl')
-                resultUrl = JSON.parse(resultUrl)
-                next({
-                    ...resultUrl,
-                    replace: true
-                })
-            } else {
-                next()
-            }
-        } else {
-            // 有token 并跳往的不是登录页
-            getUserInfo().then(() => {
-                // 没有绑定手机，去绑定手机
-                const isBind = store.getters.isBind
-                if (!isBind && to.name !== LOGIN_PAGE_NAME) {
-                    console.log('有登录没有绑定手机号调往的不是绑定手机页面', to)
-                    // 如果是邀请新用户，进注册页面
-                    window.localStorage.setItem('resultUrl', JSON.stringify(to))
-                    next({
-                        name: LOGIN_PAGE_NAME, // 跳转到登录页
-                        replace: true
-                    })
-                } else if (!isBind && to.name === LOGIN_PAGE_NAME) {
-                    console.log('有登录没有绑定手机号调往的是绑定手机页面', to)
-                    next()
-                } else if (isBind && to.name === LOGIN_PAGE_NAME) {
-                    console.log('有登录有绑定手机号调往的是绑定手机页面', to)
-                    next({
-                        name: HASLOGIN_PAGE_NAME,
-                        replace: true
-                    })
-                } else {
-                    console.log('正常跳转', to)
-                    // 获取跳转前的url，授完权跳回去
-                    let resultUrl = window.localStorage.getItem('resultUrl')
-                    if (resultUrl) {
-                        console.log('%cresultUrl: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;',resultUrl);
-                        window.localStorage.removeItem('resultUrl')
-                        resultUrl = JSON.parse(resultUrl)
-                        next({
-                            ...resultUrl,
-                            replace: true
-                        })
-                    } else {
-                        next()
-                    }
-                }
-            }).catch(err => {
-                console.log('%cerr: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;', err);
-                Toast(err.message || err.errMsg || err.msg || '网络连接异常, 请刷新页面重试')
-                store.commit('REMOVE_TOKEN')
-                next({
-                    name: HASLOGIN_PAGE_NAME, // 跳转到登录页
-                    replace: true
-                })
-            })
-        }
-    }
+    // if (!token && to.name !== HASLOGIN_PAGE_NAME) {
+    //     console.log('没有登录且跳转的不是首页', to)
+    //     window.localStorage.setItem('resultUrl', JSON.stringify(to))
+    //     // 未登录且要跳转的页面不是登录页，没有token,把要调往的页面信息存入localstorage, 去登录页判断是否授权，授权完跳回来
+    //     next({
+    //         name: HASLOGIN_PAGE_NAME, // 跳转到登录页
+    //         replace: true
+    //     })
+    // } else if (!token && to.name === HASLOGIN_PAGE_NAME) {
+    //     console.log('没有登录且跳转的是首页', to)
+    //     // 未登陆且要跳转的页面是登录页
+    //     // next()
+    // } else {
+    //     console.log('有登录', to)
+    //     const isBind = store.getters.isBind
+    //     // 页面是否需要获取用户信息，在meta字段里添加 requiredUserInfo
+    //     const isRequiredUserInfo = to.matched.some(route => {   
+    //         return route.meta.requiredUserInfo
+    //     })
+    //     console.log('%cisRequiredUserInfo: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;',isRequiredUserInfo);
+    //     // 如果绑定过手机，且跳往页面不需要获取用户信息
+    //     if (isBind && !isRequiredUserInfo) {
+    //         console.log('有绑定手机号调往的页面不需要用户信息', to)
+    //         let resultUrl = window.localStorage.getItem('resultUrl')
+    //         if (resultUrl) {
+    //             console.log('%c有登录记录resultUrl: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;', resultUrl);
+    //             window.localStorage.removeItem('resultUrl')
+    //             resultUrl = JSON.parse(resultUrl)
+    //             next({
+    //                 ...resultUrl,
+    //                 replace: true
+    //             })
+    //         } else {
+    //             next()
+    //         }
+    //     } else {
+    //         // 有token 并跳往的不是登录页
+    //         getUserInfo().then(() => {
+    //             // 没有绑定手机，去绑定手机
+    //             const isBind = store.getters.isBind
+    //             if (!isBind && to.name !== LOGIN_PAGE_NAME) {
+    //                 console.log('有登录没有绑定手机号调往的不是绑定手机页面', to)
+    //                 // 如果是邀请新用户，进注册页面
+    //                 window.localStorage.setItem('resultUrl', JSON.stringify(to))
+    //                 next({
+    //                     name: LOGIN_PAGE_NAME, // 跳转到登录页
+    //                     replace: true
+    //                 })
+    //             } else if (!isBind && to.name === LOGIN_PAGE_NAME) {
+    //                 console.log('有登录没有绑定手机号调往的是绑定手机页面', to)
+    //                 next()
+    //             } else if (isBind && to.name === LOGIN_PAGE_NAME) {
+    //                 console.log('有登录有绑定手机号调往的是绑定手机页面', to)
+    //                 next({
+    //                     name: HASLOGIN_PAGE_NAME,
+    //                     replace: true
+    //                 })
+    //             } else {
+    //                 console.log('正常跳转', to)
+    //                 // 获取跳转前的url，授完权跳回去
+    //                 let resultUrl = window.localStorage.getItem('resultUrl')
+    //                 if (resultUrl) {
+    //                     console.log('%cresultUrl: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;',resultUrl);
+    //                     window.localStorage.removeItem('resultUrl')
+    //                     resultUrl = JSON.parse(resultUrl)
+    //                     next({
+    //                         ...resultUrl,
+    //                         replace: true
+    //                     })
+    //                 } else {
+    //                     next()
+    //                 }
+    //             }
+    //         }).catch(err => {
+    //             console.log('%cerr: ','color: MidnightBlue; background: Aquamarine; font-size: 20px;', err);
+    //             Toast(err.message || err.errMsg || err.msg || '网络连接异常, 请刷新页面重试')
+    //             store.commit('REMOVE_TOKEN')
+    //             next({
+    //                 name: HASLOGIN_PAGE_NAME, // 跳转到登录页
+    //                 replace: true
+    //             })
+    //         })
+        // }
+    next()
+    // }
 })
 router.afterEach((to, from) => {
     // 每次路由更新后初始化js-sdk 请求使用的url

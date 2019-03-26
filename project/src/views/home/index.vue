@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     onClickLeft() {
-      
+      this.$router.push('/login/index')
     },
     onRefresh() {
       setTimeout(() => {
@@ -134,7 +134,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .btn_group button{
     margin-top:10px;
   }
@@ -164,9 +164,9 @@ export default {
   .text_center{
     text-align:center;
   }
-  #home_page .van-nav-bar__title{
+  /* #home_page .van-nav-bar__title{ */
     /* font-size:0.5rem; */
-  }
+  /* } */
   #home_page .van-nav-bar__text{
     color:#000;
   }
@@ -196,7 +196,7 @@ export default {
   }
   .rank_item{
     padding:10px 10px;
-    border-top:2px solid #F0F0F0;
+    border-top:1px solid #F0F0F0;
   }
   .rank_item .desc>h3{
     font-weight:bold;
