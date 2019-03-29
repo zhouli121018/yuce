@@ -3,7 +3,7 @@
         <div class="openingMember_box" @click="onClick(index)" :class="active == index?'active':''" v-for="(item,index) in list" :key="index">
             <p class="red">开通{{item.count}}天</p>
             <div>
-                <p class="red"><img src="~@/assets/icon.png" alt=""> 限时特惠: ¥{{item.money}}元</p>
+                <p class="red"><img src="~@/assets/huo@2x.png" alt=""> 限时特惠: ¥{{item.money}}元</p>
                 <p>原价:{{item.oldMoney}}</p>
             </div>
         </div>
