@@ -27,6 +27,24 @@ export default [
                     cache: true
                 }
             },
+            {//充值
+                path: 'topUp',
+                name: 'topUp',
+                component: _import('home/topUp'),
+                meta: {
+                    title: '充值',
+                    cache: true
+                }
+            },
+            {//开通会员
+                path: 'openingMember',
+                name: 'openingMember',
+                component: _import('home/openingMember'),
+                meta: {
+                    title: '开通会员',
+                    cache: true
+                }
+            },
             {//走势图
                 path: 'charts',
                 name: 'charts',
@@ -49,6 +67,15 @@ export default [
                 path: 'awardSpredict',
                 name: "awardSpredict",
                 component: _import ('home/awardSpredict'),
+                meta: {
+                    title: '大奖预测组合',
+                    cache: true
+                }
+            },
+            {//大奖预测组合  记录
+                path: 'award',
+                name: 'award',
+                component: _import('home/award'),
                 meta: {
                     title: '大奖预测组合',
                     cache: true
