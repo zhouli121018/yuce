@@ -2,7 +2,6 @@
   首页模块
 */
 import request from '@/utils/request'
-import md5 from 'js-md5'
 
 export function deviceList (data) {
   return request({

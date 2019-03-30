@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <title-bar title_name="反馈" />
         <input type="text" placeholder="QQ或者微信号">
         <textarea class="textarea" placeholder="请输入反馈内容"></textarea>
         <van-button type="danger" size="large">提交反馈</van-button>

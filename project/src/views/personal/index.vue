@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <title-bar title_name="用户中心" />
         <div class="my_title">
             <img class="my_title_photo" src="~@/assets/skill.png" alt="">
             <div class="my_title_center">
@@ -13,7 +14,7 @@
                     <p><span>粉丝: </span><span class="red">50000</span></p>
                 </div>
             </div>
-            <van-button class="orange_btn" round>开通特权会员</van-button>
+            <van-button class="orange_btn" round @click="jumpTo('/home/openingMember')">开通特权会员</van-button>
         </div>
         <div class="my_title">
             <img class="my_title_photo title_photo" src="~@/assets/icon.png" alt="">
@@ -25,7 +26,7 @@
                     可看预测推荐文章详情
                 </p>
             </div>
-            <van-button type="danger" size="small">前往充值</van-button>
+            <van-button type="danger" size="small" @click="jumpTo('/home/topUp')">前往充值</van-button>
         </div>
         <div class="xian"></div>        
         <div>
@@ -44,7 +45,11 @@
 
 <script>
 export default {
-
+    methods:{
+        jumpTo(path){
+            this.$router.push(path);
+        }
+    }
 }
 </script>
 
