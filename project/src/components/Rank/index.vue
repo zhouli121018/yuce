@@ -29,7 +29,7 @@
             <van-col span="18">
               <van-row :gutter="10">
                 <van-col span="5">
-                  <img src="~@/assets/skill.png" alt="" class="max_width_100">
+                  <img :src="'http://freessq.com/'+item.uicon" alt="" class="max_width_100">
                 </van-col>
                 <van-col span="19" class="desc">
                   <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{item.fans}}人关注</van-tag></h3>

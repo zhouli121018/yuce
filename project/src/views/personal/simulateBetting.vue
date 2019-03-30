@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <title-bar title_name="模拟投注"></title-bar>
         <h4>模拟双色球投注8红球中6奖励1000元</h4>
         <div class="simulate_num">
             <span v-for="(item,index) in list" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>

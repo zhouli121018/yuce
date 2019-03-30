@@ -1,33 +1,51 @@
 <template>
     <div class="container">
-        <van-tabs v-model="tabs_active" :swipe-threshold="7" class="tabs_type">
-            <van-tab title="福彩3D"></van-tab>
-            <van-tab title="双色球"></van-tab>
-            <van-tab title="大乐透"></van-tab>
-            <van-tab title="七乐彩"></van-tab>
-            <van-tab title="排列三"></van-tab>
-            <van-tab title="排列五"></van-tab>
-            <van-tab title="七星彩"></van-tab>
+        <title-bar title_name="选号技巧" />
+        <van-tabs v-model="tabs_active" :swipe-threshold="5" class="tabs_type" @click="change_lottype">
+            <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" ></van-tab>
         </van-tabs>
         <div class="xian"></div>
-        <div class="message_box">
-            <van-cell title="双色球投注技巧: 排除红色选号法" is-link />
-        </div>
-        <div class="message_box">
-            <van-cell title="双色球投注技巧: 排除红色选号法" is-link />
-        </div>
-        <div class="message_box">
-            <van-cell title="双色球投注技巧: 排除红色选号法" is-link />
+        <div class="message_box" v-for="(l,index) in list" :key="index">
+            <van-cell :title="l.title" is-link />
         </div>
     </div>
 </template>
 
 <script>
+import {getproperty,getjiqiaolist } from '@/api/home'
 export default {
     data() {
         return {
-            tabs_active: 0
+            tabs_active: 0,
+            list:[],
         }
+    },
+    methods:{
+        async getjiqiaolist () {
+          const { data }    = await getjiqiaolist({
+              lottype : this.lottypes[this.tabs_active].lottype,
+          });
+          this.list = data.list;
+        },
+        change_lottype(index){
+            this.tabs_active = index;
+            this.getjiqiaolist();
+        },
+    },
+    created(){
+        if(this.$store.getters.lottypes){
+            this.getjiqiaolist();
+            }else{
+            getproperty().then(res=>{
+                this.$store.dispatch('set_lottypes',res.data.lottypes)
+                this.getjiqiaolist();
+            })
+        }
+    },
+    computed:{
+      lottypes(){
+          return this.$store.getters.lottypes;
+      },
     }
 }
 </script>

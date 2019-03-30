@@ -48,10 +48,43 @@ export function getpredzuhe (data) {
   })
 }
 
-//获取公告列表
+//获取走势图列表协议 gettrendlist.php
+export function gettrendlist (data) {
+  return request({
+    url: '/gettrendlist.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
+
+//获取技巧列表协议 getjiqiaolist.php
+export function getjiqiaolist (data) {
+  return request({
+    url: '/getjiqiaolist.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
+
+//获取公告列表协议 getnotices.php
 export function getnotices (data) {
   return request({
     url: '/getnotices.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
+
+//获取公告内容协议 notice.php?noticeid=100
+export function notice (data) {
+  return request({
+    url: '/notice.php',
     method: 'post',
     data:{
       ...data

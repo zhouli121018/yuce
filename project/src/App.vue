@@ -54,11 +54,14 @@ export default {
   position: absolute;
 .max_width_100
     max-width:100%;
-.van-ellipsis
+.van-tab .van-ellipsis
   overflow:visible;
 .no_border_btn
     border: none;
     color: #438CEB;
     text-decoration: underline;
-  
+.ellipsis_box .van-cell__title
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 </style>

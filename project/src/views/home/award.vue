@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <title-bar title_name="测试"></title-bar>
+        <title-bar title_name="大奖预测"></title-bar>
         <van-tabs v-model="tabs_active" :swipe-threshold="7" class="tabs_type">
             <van-tab title="福彩3D"></van-tab>
             <van-tab title="双色球"></van-tab>
