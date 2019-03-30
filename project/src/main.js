@@ -24,7 +24,8 @@ import {
   Icon ,
   Tab,
   Tabs,
-  PullRefresh
+  PullRefresh,
+  NoticeBar
 } from 'vant'
 import wx from 'weixin-js-sdk'
 import { VueSpinners } from '@saeris/vue-spinners'
@@ -37,6 +38,8 @@ import VueAMap from 'vue-amap'
 //注册全局title组件
 import TitleBar from '@/components/Title/index'
 Vue.component('title-bar',TitleBar)
+import Rank from '@/components/Rank/index'
+Vue.component('rank',Rank)
 
 import md5 from 'js-md5';
 Vue.prototype.$md5 = md5;
@@ -88,6 +91,7 @@ Vue
 .use(Tab  )
 .use(Tabs  )
 .use(PullRefresh  )
+.use(NoticeBar  )
 Vue.prototype.$wx = wx
 new Vue({
   store,

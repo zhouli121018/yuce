@@ -6,6 +6,7 @@ import store from '@/store'
 import config from '@/config'
 import { urlParse } from '@/utils';
 import { Toast } from 'vant'
+import md5 from 'js-md5'
 const {  apiURL, timeout } = config.request
 const baseURL = process.env.NODE_ENV === 'production' ?  apiURL : '/api'
 const service = axios.create({
@@ -19,9 +20,12 @@ service.interceptors.request.use(config => {
   if (noLoading) {
     store.commit('Change_Loading', true)  // 显示全局loading图
   }
-  const token =  store.state.user.token
-  if (token) {
-    config.data.login_token = token
+  
+  if(config){//给所有请求加上 token 和 data 参数
+    let now = new Date();
+    let md5_data = md5('token='+now.getTime()+'&key=lldu98382');
+    config.data.token = now.getTime();
+    config.data.data = md5_data;
   }
   
   // 文件流采用formdata数据类型
@@ -44,17 +48,10 @@ service.interceptors.response.use(
       let errorMesg = ''
       switch (response.status) {
         case 200:
-        {let { code, msg } = response.data
-          if (code !== 1) {
-            if (code === 10001) {
-              store.commit('REMOVE_TOKEN')
-              setTimeout(() => {
-                location.reload()
-              }, 1000);
-              return
-            } 
-            if (noToast !== 'false') {
-              Toast(msg)
+        {let { errorcode, message } = response.data
+          if (errorcode == 1) {
+            if(message){
+              Toast(message)
             }
           }
         }

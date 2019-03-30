@@ -14,12 +14,20 @@
         </van-swipe-item>
       </van-swipe>
       
-      <div class="gonggao_box">
-        <van-button plain type="danger" size="mini">公告</van-button>
-        <img src="~@/assets/gonggao.png" alt="" class="gonggao_img">
-        <span>【活动】充值彩币最高领取1000元京东E卡</span>
+     
+      <div class="gonggao_box" v-if="notice && notice.length>0">
+          <van-button plain type="danger" size="mini">公告</van-button>
+          <img src="~@/assets/gonggao.png" alt="" class="gonggao_img">
+          <div class="grow_1">
+            <van-notice-bar>
+              <a :href="n.url" v-for="(n,index) in notice" :key="index" style="margin-right:50px;">
+                {{n.text}}
+              </a>
+            </van-notice-bar>
+          </div>
       </div>
-
+      
+      
       <van-row :gutter="30" class="list_box text_center">
         <van-col span="6" v-for="(l,index) in list" :key="index">
           <div class="item_box"  @click="jumpTo(l.link)">
@@ -29,73 +37,16 @@
         </van-col>
       </van-row>
       <div class="space_bar"></div>
-
-      <van-tabs v-model="tabs_active" :swipe-threshold="7" class="tabs_type">
-        <van-tab title="福彩3D"></van-tab>
-        <van-tab title="双色球"></van-tab>
-        <van-tab title="大乐透"></van-tab>
-        <van-tab title="七乐彩"></van-tab>
-        <van-tab title="排列三"></van-tab>
-        <van-tab title="排列五"></van-tab>
-        <van-tab title="七星彩"></van-tab>
-      </van-tabs>
-      <van-tabs v-model="num_active" :swipe-threshold="7">
-        <van-tab title="杀码"></van-tab>
-        <van-tab title="胆码"></van-tab>
-        <van-tab title="百位"></van-tab>
-        <van-tab title="十位"></van-tab>
-        <van-tab title="个位"></van-tab>
-      </van-tabs>
-      <van-row class="text_center btn_group">
-        <van-col span="6"><van-button type="danger" size="small">杀一码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀二码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀三码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀四码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀一码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀二码</van-button></van-col>
-        <van-col span="6"><van-button size="small" class="no_border_btn">指标说明</van-button></van-col>
-      </van-row>
-
-      <div class="space_bar"></div>
-      <div class="clear text_box">
-        <span class="fl">019期开：15 16 21 27 20 33#04</span>
-        <select class="no_border fr">
-          <option value="0">近三期排名</option>
-          <option value="1">近七期排名</option>
-          <option value="2">近十期排名</option>
-          <option value="3">近三十期排名</option>
-        </select>
-      </div>
-      <ul>
-        <li class="rank_item" v-for="item in rank_list" :key="item.id">
-          <van-row type="flex" align="center">
-            <van-col span="18">
-              <van-row :gutter="10">
-                <van-col span="5">
-                  <img src="~@/assets/skill.png" alt="" class="max_width_100">
-                </van-col>
-                <van-col span="19" class="desc">
-                  <h3>{{item.name}} <van-tag color="#6B5BFF">{{item.attention}}</van-tag></h3>
-                  <div>{{item.desc}}</div>
-                </van-col>
-              </van-row>
-            </van-col>
-            <van-col span="6" class="text_center">
-              <van-button type="danger" size="small" >本期预测</van-button>
-            </van-col>
-          </van-row>
-          <van-row class="rank_item_bottom">
-            <van-col >上期杀{{item.last}} <span class="red">({{item.result}})</span></van-col>
-          </van-row>
-        </li>
-      </ul>
+      
+      <rank  :ishome="1" @get_notices="get_notices"/>
+      
     </van-pull-refresh>
   </div>
 </template>
 
 <script>
-import {getproperty} from '@/api/home'
-
+import {getproperty,getexprank} from '@/api/home'
+import { Dialog } from 'vant'
 export default {
   data () {
     return {
@@ -103,6 +54,7 @@ export default {
       images:[
         require('../../assets/banner.png'),
       ],
+      notice_img:require('../../assets/gonggao.png'),
       list:[
         {src:require('../../assets/open.png'),title:'开奖大厅',link:''},
         {src:require('../../assets/group.png'),title:'大奖组合',link:'/home/awardSpredict'},
@@ -113,13 +65,7 @@ export default {
         {src:require('../../assets/notice.png'),title:'公告'},
         {src:require('../../assets/skill.png'),title:'选号技巧'},
       ],
-      rank_list:[
-        {id:0,name:'海一样的男人',attention:'2人关注',desc:'5千次查看 最大连中7期',last:'15 16 21 27',result:'全对'},
-        {id:1,name:'海一样的男人',attention:'2人关注',desc:'5千次查看 最大连中7期',last:'15 16 21 27',result:'全对'},
-        {id:2,name:'海一样的男人',attention:'2人关注',desc:'5千次查看 最大连中7期',last:'15 16 21 27',result:'全对'},
-      ],
-      tabs_active: 0,
-      num_active: 0,
+      notice:'',
     }
   },
   methods: {
@@ -133,21 +79,17 @@ export default {
       }, 500);
     },
     jumpTo(path){
-      console.log(path)
       this.$router.push(path)
     },
-    async getproperty () {
-        let { res }    = await getproperty();
-        console.log(res.data)
-        return res.data
+    get_notices (data) {
+        this.notice = data;
     },
   },
   created(){
-    let now = new Date();
-    console.log(now.getTime());
-    console.log(this.$md5('token='+now.getTime()+'&key=lldu98382'))
-    this.getproperty()
-    // this.getproperty({token:now.getTime(),data:this.$md5('token='+now.getTime()+'&key=lldu98382')});
+    
+  },
+  computed:{
+      
   }
 }
 </script>
@@ -155,11 +97,6 @@ export default {
 <style scoped>
   .btn_group button{
     margin-top:10px;
-  }
-  .no_border_btn{
-    border: none;
-    color: #438CEB;
-    text-decoration: underline;
   }
   .btn_group{
     padding-bottom:10px;
@@ -192,6 +129,16 @@ export default {
     background:#F5F5F5;
     padding:4px;
     margin: 4px 0;
+    display:flex;
+    align-items:center;
+    height:30px;
+  }
+  .gonggao_box .grow_1{
+    flex-grow:1;
+  }
+  .grow_1 .van-notice-bar{
+    padding:0;
+    background:none !important;
   }
   .gonggao_img{
     width:20px;

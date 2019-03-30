@@ -8,8 +8,17 @@
 </template>
 
 <script>
-
+import {getproperty} from '@/api/home'
 export default {
+  methods:{
+    async getproperty () {
+        const { data }    = await getproperty();
+        this.$store.dispatch('set_lottypes',data.lottypes)
+    },
+  },
+  created(){
+    this.getproperty();
+  },
   computed: {
     loading () {
       return this.$store.state.loading
@@ -47,4 +56,9 @@ export default {
     max-width:100%;
 .van-ellipsis
   overflow:visible;
+.no_border_btn
+    border: none;
+    color: #438CEB;
+    text-decoration: underline;
+  
 </style>
