@@ -15,7 +15,7 @@
 
       <div class="space_bar"></div>
       <div class="clear text_box">
-        <span class="fl">019期开：15 16 21 27 20 33#04</span>
+        <span class="fl">{{kjdes}}</span>
         <select class="no_border fr" v-model="issuenum" @change="changeIssuenum">
           <option value="0">近三期排名</option>
           <option value="1">近七期排名</option>
@@ -72,6 +72,7 @@ export default {
             num_active: 0,
             yc_active: 0,
             issuenum: 0,
+            kjdes:''
         }
     },
     methods:{
@@ -112,6 +113,7 @@ export default {
               issuenum : this.issuenum
           });
           this.rank_list = data.list;
+          this.kjdes = data.kjdes;
           if(this.ishome == 1){
             this.$emit('get_notices', data.notices);
           }
