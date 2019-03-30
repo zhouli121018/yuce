@@ -25,21 +25,21 @@ export default {
         mask: true,
         message: '加载中...'
       });
-      this.getSign('http://www.yeev.vip').then(sdk => {
-        this.$wx.config({
-          debug,
-          ...sdk,
-          jsApiList
-        })
-        this.$wx.ready(() => {
-          this.$toast.clear()
-          ready && ready()
-        })
-        this.$wx.error(err => {
-          this.$toast.clear()
-          error && error(err)
-        })
-      })
+      // this.getSign('http://www.yeev.vip').then(sdk => {
+      //   this.$wx.config({
+      //     debug,
+      //     ...sdk,
+      //     jsApiList
+      //   })
+      //   this.$wx.ready(() => {
+      //     this.$toast.clear()
+      //     ready && ready()
+      //   })
+      //   this.$wx.error(err => {
+      //     this.$toast.clear()
+      //     error && error(err)
+      //   })
+      // })
     }
   }
 }

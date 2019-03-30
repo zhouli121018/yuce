@@ -1,9 +1,12 @@
 import request from '@/utils/request'
 
-export const goodsApi = (data = {}) => {
+export function getvcode(data) {
   return request({
-    url: '/Wxsite/Goods/api',
+    url: '/getvcode.php',
     method: 'post',
-    data
+    data:{
+      token: new Date().getTime(),
+      ...data
+    }
   })
-}
+} 

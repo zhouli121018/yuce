@@ -19,6 +19,10 @@ export function getproperty (data) {
   return request({
     url: '/api/h/getproperty.php',
     method: 'post',
-    data:data
+    data:{
+      token:new Date().getTime(),
+      key:'lldu98382',
+      ...data
+    }
   })
 }

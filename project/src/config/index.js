@@ -5,8 +5,9 @@ export default {
   },
   request: {
     // www.yeev.vip
-    apiURL: 'http://www.yeev.vip', // 项目线上域名
-    timeout: 100000                                // 请求超时时间
+    apiURL: ' http://freessq.com/h', // 项目线上域名
+    timeout: 100000        
+    // http://freessq.com/h/                        // 请求超时时间
   }
 }
 //http://qitengcdz.app.xiaozhuschool.com/Wxsite/Base/getCode?resultUrl=http://qitengcdz.app.xiaozhuschool.com/wx/home/index

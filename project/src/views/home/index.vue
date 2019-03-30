@@ -136,8 +136,8 @@ export default {
       console.log(path)
       this.$router.push(path)
     },
-    async getproperty (data) {
-        let { res }    = await getproperty(data);
+    async getproperty () {
+        let { res }    = await getproperty();
         console.log(res.data)
         return res.data
     },
@@ -146,7 +146,8 @@ export default {
     let now = new Date();
     console.log(now.getTime());
     console.log(this.$md5('token='+now.getTime()+'&key=lldu98382'))
-    this.getproperty({token:now.getTime(),data:this.$md5('token='+now.getTime()+'&key=lldu98382')});
+    this.getproperty()
+    // this.getproperty({token:now.getTime(),data:this.$md5('token='+now.getTime()+'&key=lldu98382')});
   }
 }
 </script>

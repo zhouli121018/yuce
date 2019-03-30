@@ -1,14 +1,14 @@
 <template>
     <div class="container">
         <div class="van_box">
-            <van-field label="手机号" maxlength="11" clearable v-model="mobile" placeholder="请输入手机号" />
+            <van-field label="手机号" maxlength="11" clearable v-model="phone" placeholder="请输入手机号" />
         </div>
         <div class="van_box">
             <van-field label="密码" type="password" maxlength="11" clearable v-model="password" placeholder="请输入密码" />
         </div>
         <div class="van_box">
             <van-field label="验证码" maxlength="11" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
-            <CutDown @click="codeVerify" :disabled="disabled" :mobile="mobile"></CutDown>
+            <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone"></CutDown>
         </div>
         <div class="van_box">
             <van-field label="邀请码" maxlength="11" class="van_field_code" clearable v-model="password" placeholder="输入邀请码双方可得10金币" />
@@ -20,34 +20,41 @@
 <script>
 import { validatePhone } from '@/utils/validate'
 import CutDown from '@/components/CutDown'
+import { getvcode } from '@/api'
 export default {
     components: {
         CutDown
     },
     data() {
         return {
-            mobile: '',
+            phone: '',
             code: '',
             password: ''
         }
     },
     methods: {
-        codeVerify() {
-
+        async codeVerify() {
+            console.log('---------')
+            const { data } = await getvcode({
+                phone: this.phone
+            })
+            if(data.code == 1) {
+                console.log('--------验证码------')
+            }
         }
     },
     computed: {
         disabled() {
-            return !validatePhone(this.mobile)
+            return !validatePhone(this.phone)
         },
         submitValidate() {
-            if(!this.mobile || !this.code) {
+            if(!this.phone || !this.code) {
                 return {
                     ok: false,
                     msg: '请填写完整信息'
                 }
             }
-            if(!validatePhone(this.mobile)) {
+            if(!validatePhone(this.phone)) {
                 return {
                     ok: false,
                     msg: '请输入正确手机号'

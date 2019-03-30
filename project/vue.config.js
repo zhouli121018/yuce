@@ -43,7 +43,7 @@ module.exports = {
     // proxy: 'http://localhost:4000'
     proxy: {
         '/api': {
-            target: 'http://freessq.com',
+            target: ' http://freessq.com/h',
             ws: true,
             changeOrigin: true,
             pathRewrite:{
