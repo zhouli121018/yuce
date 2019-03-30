@@ -1,11 +1,12 @@
 <template>
     <div class="container">
+        <title-bar title_name="登录" />
         <div class="van_box">
             <van-field label="手机号" maxlength="11" clearable v-model="mobile" placeholder="请输入手机号" />
         </div>
         <div class="van_box">
             <van-field label="密码" maxlength="11" class="van_field" clearable v-model="code" placeholder="请输入密码" />
-            <CutDown @click="codeVerify" :disabled="disabled" :moble="mobile"></CutDown>
+            <!-- <CutDown @click="codeVerify" :disabled="disabled" :moble="mobile"></CutDown> -->
         </div>
         <router-link tag="div" to="/login/verification" class="red van_box_right">验证码登录</router-link>
         <van-button type="danger">登录</van-button>

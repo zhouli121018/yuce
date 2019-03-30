@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <title-bar title_name="登录" />
         <div class="van_box">
             <van-field label="手机号" maxlength="11" clearable v-model="mobile" placeholder="请输入手机号" />
         </div>
