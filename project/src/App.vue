@@ -43,5 +43,8 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-
+.max_width_100
+    max-width:100%;
+.van-ellipsis
+  overflow:visible;
 </style>

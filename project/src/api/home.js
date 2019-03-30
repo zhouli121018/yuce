@@ -13,3 +13,12 @@ export function deviceList (data) {
     }
   })
 }
+
+//彩票属性协议
+export function getproperty (data) {
+  return request({
+    url: '/api/h/getproperty.php',
+    method: 'post',
+    data:data
+  })
+}

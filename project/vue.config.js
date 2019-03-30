@@ -43,7 +43,7 @@ module.exports = {
     // proxy: 'http://localhost:4000'
     proxy: {
         '/api': {
-            target: 'http://www.yeev.vip',
+            target: 'http://freessq.com',
             ws: true,
             changeOrigin: true,
             pathRewrite:{

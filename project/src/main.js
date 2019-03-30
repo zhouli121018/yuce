@@ -34,6 +34,13 @@ import * as filters from './filters'  // 全局过滤器
 import './styles/index.styl'
 import VueAMap from 'vue-amap'
 
+//注册全局title组件
+import TitleBar from '@/components/Title/index'
+Vue.component('title-bar',TitleBar)
+
+import md5 from 'js-md5';
+Vue.prototype.$md5 = md5;
+
 
 Vue.use(VueAMap);
 VueAMap.initAMapApiLoader({

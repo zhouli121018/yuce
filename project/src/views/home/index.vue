@@ -16,13 +16,13 @@
       
       <div class="gonggao_box">
         <van-button plain type="danger" size="mini">公告</van-button>
-        <img src="./img/gonggao.png" alt="" class="gonggao_img">
+        <img src="~@/assets/gonggao.png" alt="" class="gonggao_img">
         <span>【活动】充值彩币最高领取1000元京东E卡</span>
       </div>
 
       <van-row :gutter="30" class="list_box text_center">
-        <van-col span="6" v-for="(l,index) in list" :key="index" >
-          <div class="item_box">
+        <van-col span="6" v-for="(l,index) in list" :key="index">
+          <div class="item_box"  @click="jumpTo(l.link)">
             <img :src="l.src" alt="" class="max_width_100">
             <span>{{l.title}}</span>
           </div>
@@ -72,7 +72,7 @@
             <van-col span="18">
               <van-row :gutter="10">
                 <van-col span="5">
-                  <img src="./img/skill.png" alt="" class="max_width_100">
+                  <img src="~@/assets/skill.png" alt="" class="max_width_100">
                 </van-col>
                 <van-col span="19" class="desc">
                   <h3>{{item.name}} <van-tag color="#6B5BFF">{{item.attention}}</van-tag></h3>
@@ -94,22 +94,24 @@
 </template>
 
 <script>
+import {getproperty} from '@/api/home'
+
 export default {
   data () {
     return {
       isLoading:false,
       images:[
-        require('./img/banner.png'),
+        require('../../assets/banner.png'),
       ],
       list:[
-        {src:require('./img/open.png'),title:'开奖大厅'},
-        {src:require('./img/group.png'),title:'大奖组合'},
-        {src:require('./img/rank.png'),title:'预测排名'},
-        {src:require('./img/chart.png'),title:'走势图'},
-        {src:require('./img/simulated.png'),title:'模拟奖励'},
-        {src:require('./img/goldcoin.png'),title:'领金币'},
-        {src:require('./img/open.png'),title:'公告'},
-        {src:require('./img/skill.png'),title:'选号技巧'},
+        {src:require('../../assets/open.png'),title:'开奖大厅',link:''},
+        {src:require('../../assets/group.png'),title:'大奖组合',link:'/home/awardSpredict'},
+        {src:require('../../assets/rank.png'),title:'预测排名',link:'/personal/perdictRank'},
+        {src:require('../../assets/chart.png'),title:'走势图'},
+        {src:require('../../assets/simulated.png'),title:'模拟奖励'},
+        {src:require('../../assets/goldcoin.png'),title:'领金币'},
+        {src:require('../../assets/notice.png'),title:'公告'},
+        {src:require('../../assets/skill.png'),title:'选号技巧'},
       ],
       rank_list:[
         {id:0,name:'海一样的男人',attention:'2人关注',desc:'5千次查看 最大连中7期',last:'15 16 21 27',result:'全对'},
@@ -129,7 +131,22 @@ export default {
         this.$toast('刷新成功');
         this.isLoading = false;
       }, 500);
-    }
+    },
+    jumpTo(path){
+      console.log(path)
+      this.$router.push(path)
+    },
+    async getproperty (data) {
+        let { res }    = await getproperty(data);
+        console.log(res.data)
+        return res.data
+    },
+  },
+  created(){
+    let now = new Date();
+    console.log(now.getTime());
+    console.log(this.$md5('token='+now.getTime()+'&key=lldu98382'))
+    this.getproperty({token:now.getTime(),data:this.$md5('token='+now.getTime()+'&key=lldu98382')});
   }
 }
 </script>
@@ -157,9 +174,6 @@ export default {
   }
   .text_box{
     padding:20px 4px;
-  }
-  .max_width_100{
-    max-width:100%;
   }
   .text_center{
     text-align:center;
