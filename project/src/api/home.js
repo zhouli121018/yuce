@@ -90,3 +90,14 @@ export function notice (data) {
     }
   })
 }
+
+//11、获取开奖大厅协议 getlothall.php
+export function getlothall (data) {
+  return request({
+    url: '/getlothall.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

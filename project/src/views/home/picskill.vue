@@ -31,13 +31,24 @@ export default {
             this.tabs_active = index;
             this.getjiqiaolist();
         },
+        setLottype(){
+            if(this.$route.query.lottype){
+                for(var i=0;i<this.$store.getters.lottypes.length;i++){
+                    if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
+                        this.tabs_active = i;
+                    }
+                }
+            }
+        }
     },
     created(){
         if(this.$store.getters.lottypes){
+            this.setLottype();
             this.getjiqiaolist();
             }else{
             getproperty().then(res=>{
                 this.$store.dispatch('set_lottypes',res.data.lottypes)
+                this.setLottype();
                 this.getjiqiaolist();
             })
         }

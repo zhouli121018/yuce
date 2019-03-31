@@ -21,3 +21,14 @@ export function msg (data) {
     }
   })
 }
+
+//12、获取历史开奖协议 gethiskj.php
+export function gethiskj (data) {
+  return request({
+    url: '/gethiskj.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

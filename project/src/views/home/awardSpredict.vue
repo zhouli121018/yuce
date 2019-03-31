@@ -32,14 +32,25 @@ export default {
         },
         tabClick(index, title) {
             this.getpredzuhe(this.lottypes[index].lottype)
+        },
+        setLottype(){
+            if(this.$route.query.lottype){
+                for(var i=0;i<this.$store.getters.lottypes.length;i++){
+                    if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
+                        this.tabs_active = i;
+                    }
+                }
+            }
         }
     },
     created(){
         if(this.$store.getters.lottypes){
+            this.setLottype();
             this.getpredzuhe(this.$store.getters.lottypes[this.tabs_active].lottype)
         }else{
             getproperty().then(res=>{
                 this.$store.dispatch('set_lottypes',res.data.lottypes)
+                this.setLottype();
                 this.getpredzuhe(this.$store.getters.lottypes[this.tabs_active].lottype)
             })
         }

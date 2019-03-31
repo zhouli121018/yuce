@@ -118,14 +118,25 @@ export default {
             this.$emit('get_notices', data.notices);
           }
       },
+      setLottype(){
+          if(this.$route.query.lottype){
+              for(var i=0;i<this.$store.getters.lottypes.length;i++){
+                  if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
+                      this.tabs_active = i;
+                  }
+              }
+          }
+      }
     },
 
     created(){
     if(this.$store.getters.lottypes){
+      this.setLottype();
       this.getexprank();
     }else{
       getproperty().then(res=>{
         this.$store.dispatch('set_lottypes',res.data.lottypes)
+        this.setLottype();
         this.getexprank();
       })
     }

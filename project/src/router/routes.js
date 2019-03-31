@@ -90,6 +90,15 @@ export default [
                     cache: true
                 }
             },
+            {//开奖大厅
+                path: 'openlot',
+                name:'openlot',
+                component: _import('home/openLot'),
+                meta:{
+                    title:'开奖大厅',
+                    cache: true
+                }
+            },
             {//公告
                 path: 'announcement',
                 component: layout,
