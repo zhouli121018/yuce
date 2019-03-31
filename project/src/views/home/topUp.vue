@@ -8,7 +8,7 @@
         <div class="xian"></div>
         <div class="member_content">
             <p>充值套餐</p>
-            <div class="content_box" :class="index == active?'active':''" @click="onclick(index)" v-for="(item,index) in list" :key="index">
+            <div class="content_box" :class="index == active?'active':''" @click="onclick(index,item.money)" v-for="(item,index) in list" :key="index">
                 <p class="">¥ {{item.money}}元</p>
                 <p>{{item.des}}</p>
             </div>
@@ -33,7 +33,7 @@
                 <img :src="payType == 2?chooseImg:normalImg" alt="">
             </div>
         </div>
-        <van-button size="large" type="danger">前往充值</van-button>
+        <van-button size="large" type="danger" @click="toPay">前往充值</van-button>
         <p class="pay_faild">充值失败联系微信:999999</p>
     </div>
 </template>
@@ -44,7 +44,10 @@ export default {
         return {
             list: [
                 {money: '10',des: '10金币'},
-                {money: '20',des: '20金币'}
+                {money: '30',des: '30金币;送1金币;会员+送3金币'},
+                {money: '50',des: '50金币;送3金币;会员+送5金币'},
+                {money: '100',des: '100金币;送9金币;会员+送10金币'},
+                {money: '200',des: '200金币;送28金币;会员+送20金币'}
             ],
             active: 0,
             payType: 1,
@@ -53,8 +56,15 @@ export default {
         }
     },
     methods: {
-        onclick(index) {
+        onclick(index,money) {
             this.active = index
+            this.money = money
+        },
+        //去微信支付页面
+        toPay() {
+            if(this.payType == 2) {
+                this.$router.push('/personal/pay?type=0&money='+this.money)
+            }
         },
         choosePay(e) {
             console.log(e)

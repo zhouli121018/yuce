@@ -1,20 +1,21 @@
 <template>
     <div class="container">
         <title-bar title_name="用户中心" />
-        <div class="my_title">
-            <img class="my_title_photo" src="~@/assets/skill.png" alt="">
+        <div class="my_title" v-if="info != null">
+            <img class="my_title_photo" :src="$https+info.img" alt="">
             <div class="my_title_center">
                 <div>
-                    <span>8888888</span>
-                    <img class="my_title_center_img" src="~@/assets/vip.png" alt="">
-                    <span class="red">(22天)</span>
+                    <span>{{info.uname}}</span>
+                    <!-- $isvip='1';//是否VIP 1是vip，0不是vip -->
+                    <img v-if="info.isvip == 1" class="my_title_center_img" src="~@/assets/vip.png" alt="">
+                    <span v-if="info.isvip == 1" class="red">({{info.vipdate}}天)</span>
                 </div>
                 <div class="goldcoins_fans">
-                    <p><span>金币: </span><span class="red">50000</span></p>
-                    <p><span>粉丝: </span><span class="red">50000</span></p>
+                    <p><span>金币: </span><span class="red">{{info.coin}}</span></p>
+                    <p><span>粉丝: </span><span class="red">{{info.fans}}</span></p>
                 </div>
             </div>
-            <van-button class="orange_btn" round @click="jumpTo('/home/openingMember')">开通特权会员</van-button>
+            <van-button v-if="info.isvip == 0" class="orange_btn" round @click="jumpTo('/home/openingMember')">开通特权会员</van-button>
         </div>
         <div class="my_title">
             <img class="my_title_photo title_photo" src="~@/assets/icon.png" alt="">
@@ -60,7 +61,9 @@ export default {
                 sid: localStorage.getItem('sid'),
                 uid: localStorage.getItem('uid')
             })
+            console.log(data)
             this.info = data
+            console.log(this.info)
         }
     },
     created() {
@@ -111,7 +114,7 @@ export default {
     align-items center
     border-bottom 1px solid #eeeeee
     .my_title_center
-        width 70%
+        width 53%
         span 
             line-height .5rem
             padding-right .1rem

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="info != null">
         <div class="pay_title">
             <img src="~@/assets/wechat@2x.png" alt="">
             <div>
@@ -7,12 +7,14 @@
                 <p>微信安全支付</p>
             </div>
         </div>
-        <h4>付款备注: 34444</h4>
+        <h4 style="text-align:center">付款备注: {{info.beizu}}</h4>
         <div class="red pay_prompt">
             重要: 微信二维码支付只能从这里进入支付,不能使用已有保存的二维码支付。每次进来备注会变换!
         </div>
         <div class="pay_code">
-            <div class="qrcode"></div>
+            <div class="qrcode">
+                <img :src="$https+info.barcodeurl" alt="">
+            </div>
             <p>充值失败联系微信:73737737737</p>
         </div>
         <div class="xian"></div>
@@ -27,8 +29,31 @@
 </template>
 
 <script>
+import { getwechatcode } from '@/api'
 export default {
-
+    data() {
+        return {
+            money: 0,
+            type: '',
+            info: null
+        }
+    },
+    methods: {
+        async getwechatcode() {
+            const { data } = await getwechatcode({
+                sid: localStorage.getItem('sid'),
+                uid: localStorage.getItem('uid'),
+                money: this.money,
+                type: this.type//0购买金币，1开通会员
+            })
+            this.info = data
+        }
+    },
+    created() {
+        this.type = this.$route.query.type
+        this.money = this.$route.query.money
+        this.getwechatcode()
+    }
 }
 </script>
 
@@ -49,8 +74,11 @@ export default {
     .qrcode
         width 4rem
         height 4rem
-        background red
+        // background red
         margin .3rem auto
+    img 
+        width 4rem
+        height 4rem
     p
         font-size .32rem
         color #666

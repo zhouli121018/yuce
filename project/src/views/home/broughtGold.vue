@@ -1,19 +1,20 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="info != null">
         <div class="my_title">
-            <img class="my_title_photo" src="~@/assets/skill.png" alt="">
+            <img class="my_title_photo" :src="$https+info.img" alt="">
             <div class="my_title_center">
-                <span>8888888</span>
+                <span>{{info.uname}}</span>
             </div>
-            <van-button class="orange_btn" round @click="jumpTo('/home/openingMember')">已签到</van-button>
+            <!-- 今天是否签过，1签到过，0未签到 -->
+            <van-button class="orange_btn" round @click="info.ischeck==0?signIn():''" :disabled="info.ischeck==1?true:false">{{info.ischeck==1?'已签到':'签到'}}</van-button>
         </div>
         <div class="broughtGold_gold">
             <div>
-                <p class="red">109</p>
+                <p class="red">{{info.coin}}</p>
                 <p>我的金币</p>
             </div>
             <div>
-                <p class="red">1天</p>
+                <p class="red">{{info.days}}天</p>
                 <p>连续签到</p>
             </div>
         </div>
@@ -21,12 +22,21 @@
         <div class="broughtGold_box">
             <p class="red">领金币方式一</p>
             <div class="gold_content">
-                <p class="gold_top"><span>1天</span><span>2天</span></p>
+                <p class="gold_top"><span>1天</span><span>2天</span>
+                <span>3天</span>
+                <span>4天</span>
+                <span>5天</span>
+                <span>6天</span>
+                <span>7天</span></p>
                 <div class="gold_center">
                     金币
                     <span>+1</span>
-                    <span>+1</span>
-                    <span>+1</span>
+                    <span>+2</span>
+                    <span>+3</span>
+                    <span>+4</span>
+                    <span>+5</span>
+                    <span>+6</span>
+                    <span>+7</span>
                 </div>
                 <p class="gary">备注: 签到间断金币从第一天开始</p>
             </div>
@@ -35,9 +45,9 @@
         <div class="broughtGold_box">
             <p class="red">领金币方式二</p>
             <div class="gold_content">
-                <p>分享要吗好友注册送10金币</p>
+                <p>分享邀请码好友注册各送10金币</p>
                 <div class="gold_center">
-                    <p>这是的开机速度很快会收到甲方后开始接受的还是看哈萨克</p>
+                    <p>{{info.share}}</p>
                     <span class="gold_span">复制分享</span>
                 </div>
             </div>
@@ -50,10 +60,10 @@
                 <div class="gold_center">
                     <div style="width:78%">
                         <p class="red">中4个送10金币</p>
-                        <p class="red">中4个送10金币</p>
-                        <p class="red">中4个送10金币</p>
+                        <p class="red">中5个送100金币</p>
+                        <p class="red">中6个送1000金币</p>
                     </div>
-                    <span class="gold_span">模拟投注</span>
+                    <router-link tag="span" to="/personal/simulateBetting" class="gold_span">模拟投注</router-link>
                 </div>
             </div>
             <div class="xian"></div>
@@ -63,7 +73,7 @@
             <div class="gold_content">
                 <div class="gold_center">
                     <p class="red">支付购买获取金币</p>
-                    <span class="gold_span">前往支付</span>
+                    <span class="gold_span" @click="totopUp">前往支付</span>
                 </div>
             </div>
             <div class="xian"></div>
@@ -72,8 +82,39 @@
 </template>
 
 <script>
+import { getcoindesc, checkin } from '@/api'
 export default {
-
+    data() {
+        return {
+            info: null,
+        }
+    },
+    methods: {
+        async getcoindesc() {
+            const { data } = await getcoindesc({
+                sid: localStorage.getItem('sid'),
+                uid: localStorage.getItem('uid')
+            })
+            this.info = data
+        },
+        //签到
+        async signIn() {
+            const { data } = await checkin({
+                uid: localStorage.getItem('uid'),
+                sid: localStorage.getItem('sid')
+            })
+            this.$toast(data.message)
+            if(data.errorcode == 0) {
+                this.getcoindesc()
+            }
+        },
+        totopUp() {
+            this.$router.push('/home/topUp')
+        }
+    },
+    created() {
+        this.getcoindesc()
+    }
 }
 </script>
 

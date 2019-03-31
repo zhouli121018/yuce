@@ -57,3 +57,35 @@ export function getaccount(data) {
     data
   })
 } 
+// 获取微信二维码（金币和会员） 
+export function getwechatcode(data) {
+  return request({
+    url: '/getwechatcode.php',
+    method: 'post',
+    data
+  })
+} 
+// 获取领金币页数据
+export function getcoindesc(data) {
+  return request({
+    url: '/getcoindesc.php',
+    method: 'post',
+    data
+  })
+} 
+// 签到
+export function checkin(data) {
+  return request({
+    url: '/checkin.php',
+    method: 'post',
+    data
+  })
+} 
+//获取指标说明
+export function getzhibiaodesc(data) {
+  return request({
+    url: '/getzhibiaodesc.php',
+    method: 'post',
+    data
+  })
+} 

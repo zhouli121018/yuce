@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <title-bar title_name="开通会员" />
-        <div class="openingMember_box" @click="onClick(index)" :class="active == index?'active':''" v-for="(item,index) in list" :key="index">
+        <div class="openingMember_box" @click="onClick(index,item.money)" :class="active == index?'active':''" v-for="(item,index) in list" :key="index">
             <p class="red">开通{{item.count}}天</p>
             <div>
                 <p class="red"><img src="~@/assets/huo@2x.png" alt=""> 限时特惠: ¥{{item.money}}元</p>
@@ -34,7 +34,7 @@
                 <img :src="payType == 2?chooseImg:normalImg" alt="">
             </div>
         </div>
-        <van-button size="large" type="danger">前往充值</van-button>
+        <van-button size="large" type="danger" @click="toPay">前往充值</van-button>
     </div>
 </template>
 
@@ -43,23 +43,30 @@ export default {
     data() {
         return {
             list: [
-                {count:'30',money:30,oldMoney:69.9},
-                {count:'40',money:30,oldMoney:69.9},
-                {count:'50',money:30,oldMoney:69.9},
+                {count:'30',money:39.9,oldMoney:69.9},
+                {count:'60',money:69.9,oldMoney:139.9},
+                {count:'90',money:109.9,oldMoney:219.9},
             ],
             active: 0,
             payType: 1,
             chooseImg: require('../../assets/choose_checked.png'),
-            normalImg: require('../../assets/choose_normal.png')
+            normalImg: require('../../assets/choose_normal.png'),
+            money: 0
         }
     },
     methods: {
-        onClick(index) {
+        onClick(index,money) {
             this.active = index
+            this.money = money
         },
         choosePay(e) {
             console.log(e)
             this.payType = e
+        },
+        toPay() {
+            if(this.payType == 2) {
+                this.$router.push('/personal/pay?type=1&money='+this.money)
+            }
         }
     }
 }

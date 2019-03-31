@@ -47,7 +47,6 @@ export default {
                     this.$toast('最多选择八个数字')
                 }
             }
-            console.log(this.arr)
             if(this.arr.length == 8) {
                 this.disabled = false
             }else {

@@ -132,6 +132,13 @@ export default [
                     }
                 ]
             },
+            {//指标说明
+                path: 'indicators',
+                component: _import('home/indicators'),
+                meta: {
+                    title: '指标说明'
+                }
+            },
         ]
     },
     {
@@ -267,7 +274,7 @@ export default [
                 meta: {
                     title: '请在浏览器中打开'
                 }
-            }
+            },
         ]
     },
     {//登录
