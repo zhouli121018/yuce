@@ -47,6 +47,17 @@ export function getpredzuhe (data) {
   })
 }
 
+//8、大奖预测组合内容协议 getpredzuhe_detail.php
+export function getpredzuhe_detail (data) {
+  return request({
+    url: '/getpredzuhe_detail.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
+
 //获取走势图列表协议 gettrendlist.php
 export function gettrendlist (data) {
   return request({

@@ -5,7 +5,7 @@
             <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" ></van-tab>
         </van-tabs>
         <div class="xian"></div>
-        <div class="message_box" v-for="(l,index) in list" :key="index">
+        <div class="message_box" v-for="(l,index) in list" :key="index" @click="getpredzuhe_detail(l.tid)">
             <p> {{l.issue}} 期</p>
             <van-cell :title="l.subtitle" is-link />
         </div>
@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import {getpredzuhe,getproperty} from '@/api/home'
+import {getpredzuhe, getproperty, getpredzuhe_detail} from '@/api/home'
+import { Dialog } from 'vant'
 export default {
     data() {
         return {
@@ -40,6 +41,20 @@ export default {
                         this.tabs_active = i;
                     }
                 }
+            }
+        },
+        async getpredzuhe_detail (tid) {
+            const { data }    = await getpredzuhe_detail({
+                lottype: this.lottypes[this.tabs_active].lottype,
+                tid: tid
+            });
+            if(data.errorcode==0){
+                Dialog.alert({
+                    title: data.title,
+                    message: data.content
+                }).then(() => {
+                    // on close
+                });
             }
         }
     },
