@@ -6,7 +6,7 @@
             <span v-for="(item,index) in list" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
         </div>
         <div class="simulate_div">
-        <van-button type="danger" class="simulate_btn" size="large">模拟投注</van-button>
+        <van-button type="danger" class="simulate_btn" @click="submittouzu" :disabled="disabled" size="large">模拟投注</van-button>
         </div>
         <div class="xian"></div>
         <div class="simulate_rules">
@@ -20,21 +20,22 @@
 </template>
 
 <script>
+import { submittouzu } from '@/api'
 export default {
     data() {
         return {
             list: [],
-            arr: []
+            arr: [],
+            disabled: true
         }
     },
     methods: {
         lists() {
             let obj = {}
-            for(let i = 0; i < 35; i++) {
-                obj = {a:i}
+            for(let i = 1; i < 35; i++) {
+                obj = {a:i < 10?'0'+i:i}
                 this.list.push(obj)
             }
-            console.log('---',this.list)
         },
         onclick(n,value) {
             if(this.arr.indexOf(value) != -1) {
@@ -47,6 +48,27 @@ export default {
                 }
             }
             console.log(this.arr)
+            if(this.arr.length == 8) {
+                this.disabled = false
+            }else {
+                this.disabled = true
+            }
+            
+        },
+        //提交
+        async submittouzu() {
+            this.disabled = true
+            const { data } = await submittouzu({
+                uid: localStorage.getItem('uid'),
+                sid: localStorage.getItem('sid'),
+                nums: this.arr.join(',')
+            })
+            if(data.errorcode == 0) {
+                this.$toast('投注成功!')
+                this.disabled = false
+            }else {
+                this.$toast(data.message)
+            }
         }
     },
     created() {

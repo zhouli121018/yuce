@@ -27,6 +27,15 @@ export default [
                     cache: true
                 }
             },
+            {
+                path: 'broughtGold',
+                name: 'broughtGold',
+                component: _import('home/broughtGold'),
+                meta: {
+                    title: '领金币',
+                    cache: true
+                }
+            },
             {//充值
                 path: 'topUp',
                 name: 'topUp',

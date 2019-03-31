@@ -32,3 +32,28 @@ export function loginbypass(data) {
     }
   })
 } 
+//提交反馈
+export function submitfeedback(data) {
+  return request({
+    url: '/submitfeedback.php',
+    method: 'post',
+    data
+  })
+} 
+//模拟投注
+
+export function submittouzu(data) {
+  return request({
+    url: '/submittouzu.php',
+    method: 'post',
+    data
+  })
+} 
+//获取用户中心数据
+export function getaccount(data) {
+  return request({
+    url: '/getaccount.php',
+    method: 'post',
+    data
+  })
+} 

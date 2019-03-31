@@ -33,7 +33,11 @@ export default {
                 phone: this.mobile,
                 pass: this.code
             });
-            console.log(data)
+            if(data.errorcode == 0) {
+                window.localStorage['uid'] = data.uid
+                window.localStorage['sid'] = data.sid
+            }
+            
         },
     },
     computed: {

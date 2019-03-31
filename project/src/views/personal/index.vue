@@ -44,11 +44,27 @@
 </template>
 
 <script>
+import { getaccount } from '@/api'
 export default {
+    data() {
+        return {
+            info: null
+        }
+    },
     methods:{
         jumpTo(path){
             this.$router.push(path);
+        },
+        async getaccount() {
+            const { data } = await getaccount({
+                sid: localStorage.getItem('sid'),
+                uid: localStorage.getItem('uid')
+            })
+            this.info = data
         }
+    },
+    created() {
+        this.getaccount()
     }
 }
 </script>
