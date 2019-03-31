@@ -5,7 +5,7 @@
             <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" ></van-tab>
         </van-tabs>
         <div class="xian"></div>
-        <div class="message_box" v-for="l in list" :key="l.tid">
+        <div class="message_box" v-for="(l,index) in list" :key="index">
             <p> {{l.issue}} 期</p>
             <van-cell :title="l.subtitle" is-link />
         </div>
