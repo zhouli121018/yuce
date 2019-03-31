@@ -6,15 +6,16 @@
         </div>
         <div class="van_box">
             <van-field label="验证码" maxlength="11" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
-            <CutDown @click="codeVerify" :disabled="disabled" :mobile="mobile"></CutDown>
+            <CutDown @click="getvcode" :disabled="disabled" :mobile="mobile"></CutDown>
         </div>
-        <van-button type="danger">登录</van-button>
+        <van-button type="danger" @click="loginbypass">登录</van-button>
     </div>
 </template>
 
 <script>
 import { validatePhone } from '@/utils/validate'
 import CutDown from '@/components/CutDown'
+import { getvcode, loginbypass } from '@/api/index'
 export default {
     components: {
         CutDown
@@ -26,9 +27,19 @@ export default {
         }
     },
     methods: {
-        codeVerify() {
-
-        }
+        async getvcode() {
+            const { data } = await getvcode({
+                noLoading: false,
+                phone: this.mobile
+            })
+        },
+        async loginbypass () {
+            const { data }    = await loginbypass({
+                phone: this.mobile,
+                pass: this.code
+            });
+            console.log(data)
+        },
     },
     computed: {
         disabled() {

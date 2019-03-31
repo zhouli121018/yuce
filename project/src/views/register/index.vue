@@ -14,14 +14,14 @@
         <div class="van_box">
             <van-field label="邀请码" maxlength="11" class="van_field_code" clearable v-model="vcode" placeholder="输入邀请码双方可得10金币" />
         </div>
-        <van-button type="danger">注册</van-button>
+        <van-button type="danger" @click="regist">注册</van-button>
     </div>
 </template>
 
 <script>
 import { validatePhone } from '@/utils/validate'
 import CutDown from '@/components/CutDown'
-import { getvcode } from '@/api'
+import { getvcode, regist } from '@/api'
 export default {
     components: {
         CutDown
@@ -37,7 +37,6 @@ export default {
     },
     methods: {
         async codeVerify() {
-            console.log('---------')
             const { data } = await getvcode({
                 phone: this.phone,
                 // pass: this.password,
@@ -46,7 +45,19 @@ export default {
                 // device: this.device
             })
             if(data.code == 1) {
-                console.log('--------验证码------')
+                
+            }
+        },
+        async regist() {
+            const { data } = await regist({
+                phone: this.phone,
+                pass: this.password,
+                vcode: this.vcode,
+                icode: this.code,
+                device: this.device
+            })
+            if(data.code == 1) {
+                
             }
         }
     },

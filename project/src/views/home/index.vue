@@ -3,7 +3,7 @@
     <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
       <van-nav-bar
         title="彩票预测大师"
-        left-text="登录"
+        :left-text="left_text"
         @click-left="onClickLeft"
       >
       <!-- <h3 slot="title">彩票预测大师</h3> -->
@@ -66,6 +66,7 @@ export default {
         {src:require('../../assets/skill.png'),title:'选号技巧',link:'/home/picskill'},
       ],
       notice:'',
+      left_text:'登录'
     }
   },
   methods: {

@@ -9,13 +9,14 @@
             <!-- <CutDown @click="codeVerify" :disabled="disabled" :moble="mobile"></CutDown> -->
         </div>
         <router-link tag="div" to="/login/verification" class="red van_box_right">验证码登录</router-link>
-        <van-button type="danger">登录</van-button>
+        <van-button type="danger" @click="loginbypass">登录</van-button>
     </div>
 </template>
 
 <script>
 import { validatePhone } from '@/utils/validate'
 import CutDown from '@/components/CutDown'
+import { loginbypass } from '@/api/index'
 export default {
     components: {
         CutDown
@@ -27,12 +28,13 @@ export default {
         }
     },
     methods: {
-        async codeVerify() {
-            const { data } = await login({
-                noLoading: false,
-                mobile: this.mobile
-            })
-        }
+        async loginbypass () {
+            const { data }    = await loginbypass({
+                phone: this.mobile,
+                pass: this.code
+            });
+            console.log(data)
+        },
     },
     computed: {
         disabled() {
