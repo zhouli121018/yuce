@@ -133,13 +133,6 @@ ul
     padding:10px 0;
     font-size:16px;
   }
-  .flex_box{
-      display:flex;
-      align-items:center;
-  }
-  .flex_grow_1{
-      flex-grow:1
-  }
   .flex_box_space{
       padding:10px 4px;
       justify-content : space-between;

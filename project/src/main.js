@@ -40,6 +40,8 @@ import TitleBar from '@/components/Title/index'
 Vue.component('title-bar',TitleBar)
 import Rank from '@/components/Rank/index'
 Vue.component('rank',Rank)
+import Lottypes from '@/components/Lottypes/index'
+Vue.component('lottypes',Lottypes)
 
 import md5 from 'js-md5';
 Vue.prototype.$md5 = md5;

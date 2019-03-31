@@ -32,3 +32,25 @@ export function gethiskj (data) {
     }
   })
 }
+
+//19、获取我的关注数据 getmyfollow.php
+export function getmyfollow (data) {
+  return request({
+    url: '/getmyfollow.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
+
+//20、获取我的查看历史数据 getviews.php
+export function getviews (data) {
+  return request({
+    url: '/getviews.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

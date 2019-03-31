@@ -1,17 +1,6 @@
 <template>
     <div>
-      <van-tabs v-model="tabs_active" :swipe-threshold="5" class="tabs_type" @click="change_lottype">
-        <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" ></van-tab>
-      </van-tabs>
-      <van-tabs v-model="num_active" :swipe-threshold="7" v-if="poslist && poslist.length>0" @click="change_pos">
-        <van-tab v-for="p in poslist" :key="p.type" :title="p.name"></van-tab>
-      </van-tabs>
-      <van-row class="text_center btn_group">
-        <van-col span="6" v-for="(y,index) in ycplaytypes" :key="index">
-          <van-button :type="index==yc_active?'danger':'default'" size="small" @click="change_yc(index)">{{y.ycplayname}}</van-button>
-        </van-col>
-        <van-col span="6"><van-button size="small" class="no_border_btn">指标说明</van-button></van-col>
-      </van-row>
+      <lottypes @change_lottypes="getexprank" ref="rankChild"/>
 
       <div class="space_bar"></div>
       <div class="clear text_box">
@@ -48,7 +37,6 @@
           </van-row>
         </li>
       </ul>
-
     </div>
 </template>
 
@@ -68,29 +56,12 @@ export default {
             rank_list:[
                 
             ],
-            tabs_active: 0,
-            num_active: 0,
-            yc_active: 0,
             issuenum: 0,
             kjdes:''
         }
     },
     methods:{
-      change_lottype(index){
-        this.tabs_active = index;
-        this.num_active = 0;
-        this.yc_active = 0;
-        this.getexprank();
-      },
-      change_pos(index){
-        this.num_active = index;
-        this.yc_active = 0;
-        this.getexprank();
-      },
-      change_yc(index){
-        this.yc_active = index;
-        this.getexprank();
-      },
+      
       changeIssuenum(){
         this.getexprank();
       },
@@ -100,6 +71,9 @@ export default {
           message: '查看该预测需花费你'+cost+'金币，专家不保证100%准确，确定查看吗？'
         }).then(() => {
           // on confirm
+          this.$router.push({
+            path:'/personal/perdictRanking'
+          })
         }).catch(() => {
           // on cancel
         });
@@ -107,9 +81,9 @@ export default {
       async getexprank () {
           const { data }    = await getexprank({
               ishome :this.ishome,
-              lottype : this.lottypes[this.tabs_active].lottype,
-              postype : this.poslist[this.num_active].type,
-              ycplaytype : this.ycplaytypes[this.yc_active].ycplaytype,
+              lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+              postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+              ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
               issuenum : this.issuenum
           });
           this.rank_list = data.list;
@@ -118,47 +92,14 @@ export default {
             this.$emit('get_notices', data.notices);
           }
       },
-      setLottype(){
-          if(this.$route.query.lottype){
-              for(var i=0;i<this.$store.getters.lottypes.length;i++){
-                  if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
-                      this.tabs_active = i;
-                  }
-              }
-          }
-      }
+      
     },
 
     created(){
-    if(this.$store.getters.lottypes){
-      this.setLottype();
-      this.getexprank();
-    }else{
-      getproperty().then(res=>{
-        this.$store.dispatch('set_lottypes',res.data.lottypes)
-        this.setLottype();
-        this.getexprank();
-      })
-    }
+    
   },
-  computed:{
-      lottypes(){
-          return this.$store.getters.lottypes;
-      },
-      poslist(){
-        if(this.$store.getters.lottypes){
-          return this.$store.getters.lottypes[this.tabs_active].poslist
-        }else {
-          return [];
-        }
-      },
-      ycplaytypes(){
-        if(this.$store.getters.lottypes){
-          return this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].ycplaytypes
-        }else {
-          return [];
-        }
-      }
+  mounted(){
+      
   }
 }
 </script>

@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <title-bar title_name="专家预测"></title-bar>
         <div class="perdict_title">
             <div class="title_content">
                 <img class="title_photo" src="~@/assets/skill.png" alt="">

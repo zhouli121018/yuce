@@ -74,4 +74,11 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  .flex_box{
+      display:flex;
+      align-items:center;
+  }
+  .flex_grow_1{
+      flex-grow:1
+  }
 </style>

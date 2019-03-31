@@ -1,71 +1,99 @@
 <template>
     <div class="container">
       <title-bar title_name="我的关注" />
-        <van-tabs v-model="tabs_active" :swipe-threshold="7" class="tabs_type">
-        <van-tab title="福彩3D"></van-tab>
-        <van-tab title="双色球"></van-tab>
-        <van-tab title="大乐透"></van-tab>
-        <van-tab title="七乐彩"></van-tab>
-        <van-tab title="排列三"></van-tab>
-        <van-tab title="排列五"></van-tab>
-        <van-tab title="七星彩"></van-tab>
-      </van-tabs>
-      <van-tabs v-model="num_active" :swipe-threshold="7">
-        <van-tab title="杀码"></van-tab>
-        <van-tab title="胆码"></van-tab>
-        <van-tab title="百位"></van-tab>
-        <van-tab title="十位"></van-tab>
-        <van-tab title="个位"></van-tab>
-      </van-tabs>
-      <van-row class="text_center btn_group">
-        <van-col span="6"><van-button type="danger" size="small">杀一码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀二码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀三码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀四码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀一码</van-button></van-col>
-        <van-col span="6"><van-button size="small">杀二码</van-button></van-col>
-        <van-col span="6"><van-button size="small" class="no_border_btn">指标说明</van-button></van-col>
-      </van-row>
+        
+      <lottypes  @change_lottypes="getmyfollow" ref="rankChild"/>
+
       <ul>
-        <li class="rank_item" v-for="item in rank_list" :key="item.id">
+        <li class="rank_item" v-for="(l,index) in list" :key="index">
           <van-row type="flex" align="center">
             <van-col span="18">
               <van-row :gutter="10">
                 <van-col span="5">
-                  <img src="~@/assets/skill.png" alt="" class="max_width_100">
+                  <img :src="'http://http://freessq.com/'+l.img" alt="" class="max_width_100">
                 </van-col>
                 <van-col span="19" class="desc">
-                  <h3>{{item.name}} <van-tag color="#6B5BFF">{{item.attention}}</van-tag></h3>
-                  <div class="gary">{{item.desc}}</div>
+                  <h3 class="flex_box"><span class="name_s">{{l.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{l.fans}}人关注</van-tag></h3>
+                  <div class="gary">{{ l.viewtimes+'次查看 '}}{{l.status}}</div>
                 </van-col>
               </van-row>
             </van-col>
             <van-col span="6" class="text_center">
-              <van-button type="danger" size="small" >查看</van-button>
+              <van-button type="danger" size="small" v-if="l.cid>0" @click="showTost(l.uid)">查看预测</van-button>
             </van-col>
           </van-row>
-          <van-row class="rank_item_bottom">
-            <!-- <van-col >上期杀{{item.last}} <span class="red">({{item.result}})</span></van-col> -->
-            <van-col ><span class="red red_round">3</span><span class="red red_round">3</span><span class="red red_round">3</span><span class="red red_round">3</span></van-col>
-          </van-row>
+          <div class="flex_box" style="padding:10px 8px;">
+              <span class="nowrap" style="padding-right:4px;" v-if="l.cid==0">{{l.issue}}期:</span>
+              <div class="flex_grow_1" v-if="l.cid==0">
+                  <span class="red red_round"  v-for="(red,i) in l.red_num_arr" :key="i">{{red}}</span>
+                  <span class="red blue_round"  v-for="(blue,i) in l.blue_num_arr" :key="123+i">{{blue}}</span>
+              </div>
+              <div class="flex_grow_1" v-if="l.cid>0">
+                  <span style="padding:10px 0;color:#EC493C;font-size:16px;">还未查看该预测</span>
+              </div>
+          </div>
         </li>
       </ul>
     </div>
 </template>
 
 <script>
+import { getmyfollow } from '@/api/personal'
+import { Dialog, Toast } from 'vant'
 export default {
     data() {
-        return {
-            tabs_active: 0,
-            num_active: 0,
-            rank_list:[
-                {id:0,name:'海一样的男人',attention:'2人关注',desc:'5千次查看 最大连中7期',last:'15 16 21 27',result:'全对'},
-                {id:1,name:'海一样的男人',attention:'2人关注',desc:'5千次查看 最大连中7期',last:'15 16 21 27',result:'全对'},
-                {id:2,name:'海一样的男人',attention:'2人关注',desc:'5千次查看 最大连中7期',last:'15 16 21 27',result:'全对'},
-            ],
-        }
-    }
+      return {
+        list:[],
+        costcoin:0,
+      }
+  },
+  methods:{
+    async getmyfollow (resObj) {
+      const { data }    = await getmyfollow({
+          lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+          postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+          ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
+          sid: '"4b3eb3d62a674d2ac8fc1eb10aab3562', //localStorage['sid']
+          uid: '921717',  //localStorage['uid']
+      });
+      this.costcoin = data.costcoin;
+      this.list = data.list;
+      this.list.forEach(val => {
+          if(val.cid == 0){
+            let index_blue = val.pred.indexOf('#');
+            if(index_blue>-1){
+                let blue_num = val.pred.slice(index_blue+1);
+                val.blue_num_arr = blue_num.split(',')
+                let red_arr = val.pred.slice(0,index_blue);
+                val.red_num_arr = red_arr.split(',')
+            }else{
+                val.red_num_arr = val.pred.split(',')
+            }
+          }
+      });
+    },
+
+    showTost(uid){
+      Dialog.confirm({
+        title: '',
+        message: '查看该预测需花费你'+this.costcoin+'金币，专家不保证100%准确，确定查看吗？'
+      }).then(() => {
+        // on confirm
+        // Toast(uid)
+        this.$router.push({
+          path:'/personal/perdictRanking'
+        })
+      }).catch(() => {
+        // on cancel
+      });
+    },
+
+
+  },
+  created(){
+    
+  }
+
 }
 </script>
 
@@ -122,4 +150,13 @@ ul
     padding:10px 0;
     font-size:16px;
   }
+  .nowrap
+    white-space nowrap
+  .flex_box
+   .name_s
+      width:98px
+      display:inline-block
+      overflow:hidden
+      white-space: nowrap;
+      text-overflow: ellipsis;
 </style>
