@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <title-bar title_name="新用户注册" />
         <div class="van_box">
             <van-field label="手机号" maxlength="11" clearable v-model="phone" placeholder="请输入手机号" />
         </div>
@@ -11,7 +12,7 @@
             <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone"></CutDown>
         </div>
         <div class="van_box">
-            <van-field label="邀请码" maxlength="11" class="van_field_code" clearable v-model="password" placeholder="输入邀请码双方可得10金币" />
+            <van-field label="邀请码" maxlength="11" class="van_field_code" clearable v-model="vcode" placeholder="输入邀请码双方可得10金币" />
         </div>
         <van-button type="danger">注册</van-button>
     </div>
@@ -28,15 +29,21 @@ export default {
     data() {
         return {
             phone: '',
-            code: '',
-            password: ''
+            code: '', //验证码
+            password: '',
+            vcode: '', //邀请码
+            device: 0  //手机类型
         }
     },
     methods: {
         async codeVerify() {
             console.log('---------')
             const { data } = await getvcode({
-                phone: this.phone
+                phone: this.phone,
+                // pass: this.password,
+                // vcode: this.vcode,
+                // icode: this.code,
+                // device: this.device
             })
             if(data.code == 1) {
                 console.log('--------验证码------')
@@ -63,6 +70,17 @@ export default {
             return {
                 ok: true,msg: 'ok'
             }
+        }
+    },
+    created(){
+        let u = navigator.userAgent, app = navigator.appVersion;
+        let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+        let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+        if (isAndroid) {
+            this.device = 0
+        }
+        if (isIOS) {
+            this.device = 1
         }
     }
 }

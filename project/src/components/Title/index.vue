@@ -3,10 +3,11 @@
       <van-nav-bar
           :title="title_name"
           left-text=""
-          right-text=""
+          :right-text="right_text"
           left-arrow
           class="title_box"
           @click-left="goBack"
+          @click-right="onClickRight"
           />
   </div>
       
@@ -18,8 +19,16 @@
     props: {
       title_name: {
         type: String,
-        default: 'red'
+        default: ''
       },
+      right_text:{
+        type: String,
+        default: ''
+      },
+      right_url:{
+        type: String,
+        default: ''
+      }
     },
     data() {
       return {
@@ -30,6 +39,11 @@
       // 返回
       goBack(){
           this.$router.go(-1)
+      },
+      onClickRight(){
+        if(this.right_url){
+          this.$router.push(this.right_url);
+        }
       }
     },
   }
@@ -43,7 +57,7 @@
   .title_box .van-ellipsis.van-nav-bar__title{
     font-size:24px;
   }
-  .title_box.van-nav-bar .van-icon{
+  .title_box.van-nav-bar .van-icon, .title_box .van-nav-bar__text{
     color:#fff;
   }
 </style>

@@ -17,6 +17,16 @@ export default {
     },
   },
   created(){
+    //判断 手机系统类型
+    let u = navigator.userAgent, app = navigator.appVersion;
+    let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+    let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    if (isAndroid) {
+        
+    }
+    if (isIOS) {
+        
+    }
     this.getproperty();
   },
   computed: {

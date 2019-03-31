@@ -49,10 +49,8 @@ service.interceptors.response.use(
       switch (response.status) {
         case 200:
         {let { errorcode, message } = response.data
-          if (errorcode == 1) {
-            if(message){
-              Toast(message)
-            }
+          if(message){
+            Toast(message)
           }
         }
           break;
