@@ -101,3 +101,14 @@ export function getlothall (data) {
     }
   })
 }
+
+//29、获取指标说明 getzhibiaodesc.php
+export function getzhibiaodesc (data) {
+  return request({
+    url: '/getzhibiaodesc.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

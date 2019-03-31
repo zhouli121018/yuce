@@ -10,7 +10,7 @@
         <van-col span="6" v-for="(y,index) in ycplaytypes" :key="index">
           <van-button :type="index==yc_active?'danger':'default'" size="small" @click="change_yc(index)">{{y.ycplayname}}</van-button>
         </van-col>
-        <van-col span="6"><van-button size="small" class="no_border_btn">指标说明</van-button></van-col>
+        <van-col span="6" v-if="show_zhibiao"><van-button size="small" class="no_border_btn" @click="getzhibiaodesc">指标说明</van-button></van-col>
       </van-row>
 
       <div class="space_bar"></div>
@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import {getproperty,getexprank} from '@/api/home'
+import {getproperty, getzhibiaodesc} from '@/api/home'
+import { Dialog } from 'vant'
 export default {
     props: {
       // 是否禁用
@@ -28,6 +29,10 @@ export default {
         type: Number,
         default: 1
       },
+      show_zhibiao:{
+        type: Number,
+        default: 0
+      }
     },
     data() {
         return {
@@ -61,7 +66,21 @@ export default {
                 }
             }
         }
+      },
+      async getzhibiaodesc () {
+        const { data }    = await getzhibiaodesc({
+            lottype : this.lottypes[this.tabs_active].lottype,
+        });
+        if(data.errorcode==0){
+          Dialog.alert({
+            title: data.title,
+            message: data.content
+          }).then(() => {
+            // on close
+          });
+        }
       }
+
     },
 
     mounted(){

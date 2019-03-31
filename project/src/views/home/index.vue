@@ -1,13 +1,15 @@
 <template>
   <div class="container" id="home_page">
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+    <div class="fixed_title">
       <van-nav-bar
         title="彩票预测大师"
         :left-text="left_text"
         @click-left="onClickLeft"
-      >
-      <!-- <h3 slot="title">彩票预测大师</h3> -->
-      </van-nav-bar>
+      />
+    </div>
+    
+      
+      
       <van-swipe :autoplay="3000">
         <van-swipe-item v-for="(image, index) in images" :key="index">
           <img v-lazy="image" />
@@ -38,9 +40,9 @@
       </van-row>
       <div class="space_bar"></div>
       
-      <rank  :ishome="1" @get_notices="get_notices"/>
+      <rank  :ishome="1" @get_notices="get_notices" />
       
-    </van-pull-refresh>
+    
   </div>
 </template>
 
@@ -50,7 +52,6 @@ import { Dialog } from 'vant'
 export default {
   data () {
     return {
-      isLoading:false,
       images:[
         require('../../assets/banner.png'),
       ],
@@ -61,23 +62,18 @@ export default {
         {src:require('../../assets/rank.png'),title:'预测排名',link:'/personal/perdictRank'},
         {src:require('../../assets/chart.png'),title:'走势图',link:'/home/charts'},
         {src:require('../../assets/simulated.png'),title:'模拟奖励',link:'/personal/simulateBetting'},
-        {src:require('../../assets/goldcoin.png'),title:'领金币',link:''},
+        {src:require('../../assets/goldcoin.png'),title:'领金币',link:'/home/broughtGold'},
         {src:require('../../assets/notice.png'),title:'公告',link:'/home/announcement/index'},
         {src:require('../../assets/skill.png'),title:'选号技巧',link:'/home/picskill'},
       ],
       notice:'',
-      left_text:'登录'
+      left_text:'登录',
+      left_path:'/login/index',
     }
   },
   methods: {
     onClickLeft() {
-      this.$router.push('/login/index')
-    },
-    onRefresh() {
-      setTimeout(() => {
-        this.$toast('刷新成功');
-        this.isLoading = false;
-      }, 500);
+      this.$router.push(this.left_path)
     },
     jumpTo(path){
       this.$router.push(path)
@@ -87,7 +83,10 @@ export default {
     },
   },
   created(){
-    
+    if(localStorage['uid'] && localStorage['uid']!=''){
+      this.left_text = '会员中心';
+      this.left_path = '/personal/index'
+    }
   },
   computed:{
       
@@ -183,4 +182,13 @@ export default {
   #home_page .tabs_type .van-tab--active,#home_page .van-tab--active{
     color:#E55546;
   }
+  .fixed_title{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    top: 0;
+  }
+  
 </style>

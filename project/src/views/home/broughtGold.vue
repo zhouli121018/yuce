@@ -1,7 +1,8 @@
 <template>
     <div class="container" v-if="info != null">
+        <title-bar title_name="领金币" />
         <div class="my_title">
-            <img class="my_title_photo" :src="$https+info.img" alt="">
+            <img class="my_title_photo" :src="$https_img+info.img" alt="">
             <div class="my_title_center">
                 <span>{{info.uname}}</span>
             </div>

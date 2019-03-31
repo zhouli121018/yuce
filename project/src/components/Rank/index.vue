@@ -1,6 +1,6 @@
 <template>
     <div>
-      <lottypes @change_lottypes="getexprank" ref="rankChild"/>
+      <lottypes @change_lottypes="getexprank" ref="rankChild" :show_zhibiao="1"/>
 
       <div class="space_bar"></div>
       <div class="clear text_box">
@@ -18,7 +18,7 @@
             <van-col span="18">
               <van-row :gutter="10">
                 <van-col span="5">
-                  <img :src="'http://freessq.com/'+item.uicon" alt="" class="max_width_100">
+                  <img :src="$https_img+item.uicon" alt="" class="max_width_100">
                 </van-col>
                 <van-col span="19" class="desc">
                   <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{item.fans}}人关注</van-tag></h3>
@@ -28,7 +28,7 @@
             </van-col>
             <van-col span="6" class="text_center">
               <van-button type="info" size="small" disabled v-if="item.curstatus==0">未 发 布</van-button>
-              <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin)">本期预测</van-button>
+              <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.uid)">本期预测</van-button>
               <van-button type="primary" size="small" v-if="item.curstatus==2">已 查 看</van-button>
             </van-col>
           </van-row>
@@ -65,14 +65,17 @@ export default {
       changeIssuenum(){
         this.getexprank();
       },
-      showTost(cost){
+      showTost(cost,uid){
         Dialog.confirm({
           title: '',
           message: '查看该预测需花费你'+cost+'金币，专家不保证100%准确，确定查看吗？'
         }).then(() => {
           // on confirm
           this.$router.push({
-            path:'/personal/perdictRanking'
+            path:'/personal/perdictRanking',
+            query:{
+              expid:uid
+            }
           })
         }).catch(() => {
           // on cancel

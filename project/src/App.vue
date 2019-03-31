@@ -1,6 +1,8 @@
 <template>
   <div id="app">
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
     <router-view />
+    </van-pull-refresh>
     <div class='full_sc' v-show="loading">
       <rise-loader class="custom-class" color="#8adff4" :loading="loading" :size="15" sizeUnit="px"></rise-loader>
     </div>
@@ -10,10 +12,19 @@
 <script>
 import {getproperty} from '@/api/home'
 export default {
+  data(){
+    return{
+      isLoading:false,
+    }
+  },
   methods:{
-    async getproperty () {
-        const { data }    = await getproperty();
-        this.$store.dispatch('set_lottypes',data.lottypes)
+    
+    onRefresh() {
+      this.$router.go(0);
+      // setTimeout(() => {
+      //   this.$toast('刷新成功');
+      //   this.isLoading = false;
+      // }, 500);
     },
   },
   created(){
@@ -27,7 +38,6 @@ export default {
     if (isIOS) {
         
     }
-    this.getproperty();
   },
   computed: {
     loading () {
@@ -80,5 +90,11 @@ export default {
   }
   .flex_grow_1{
       flex-grow:1
+  }
+  .van-tab--active{
+    color:#e4393c;
+  }
+  .container{
+    padding-top:50px !important;
   }
 </style>

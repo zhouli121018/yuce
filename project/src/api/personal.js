@@ -54,3 +54,25 @@ export function getviews (data) {
     }
   })
 }
+
+//18、获取专家预测数据 getexpert.php
+export function getexpert (data) {
+  return request({
+    url: '/getexpert.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
+
+//28、查看预测协议 viewpred.php
+export function viewpred (data) {
+  return request({
+    url: '/viewpred.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

@@ -46,6 +46,7 @@ Vue.component('lottypes',Lottypes)
 import md5 from 'js-md5';
 Vue.prototype.$md5 = md5;
 Vue.prototype.$https = 'http://freessq.com/h/'
+Vue.prototype.$https_img = 'http://freessq.com/'
 
 Vue.use(VueAMap);
 VueAMap.initAMapApiLoader({

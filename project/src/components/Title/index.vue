@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="fixed_title">
       <van-nav-bar
           :title="title_name"
           left-text=""
@@ -53,11 +53,21 @@
   .title_box{
     background:red;
     color:#fff;
+    background:url(../../assets/title.png);
+    background-size: 100%;
   }
   .title_box .van-ellipsis.van-nav-bar__title{
     font-size:24px;
   }
   .title_box.van-nav-bar .van-icon, .title_box .van-nav-bar__text{
     color:#fff;
+  }
+  .fixed_title{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    top: 0;
   }
 </style>

@@ -36,6 +36,7 @@ export default {
             if(data.errorcode == 0) {
                 window.localStorage['uid'] = data.uid
                 window.localStorage['sid'] = data.sid
+                this.$router.push('/home/index')
             }
             
         },

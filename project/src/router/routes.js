@@ -27,7 +27,7 @@ export default [
                     cache: true
                 }
             },
-            {
+            {//领金币
                 path: 'broughtGold',
                 name: 'broughtGold',
                 component: _import('home/broughtGold'),
