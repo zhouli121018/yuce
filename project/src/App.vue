@@ -96,5 +96,6 @@ export default {
   }
   .container{
     padding-top:50px !important;
+    box-sizing: border-box;
   }
 </style>
