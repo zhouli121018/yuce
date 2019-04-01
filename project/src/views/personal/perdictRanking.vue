@@ -13,7 +13,7 @@
                     <p>粉丝: <span class="red">{{fans}}</span></p>
                 </div>
             </div>
-            <van-button type="danger" size="small" v-if="isfollow==0">关注</van-button>
+            <van-button type="danger" size="small" v-if="isfollow==0" @click="follow">关注</van-button>
             <van-button type="primary" size="small" v-if="isfollow==1">已关注</van-button>
         </div>
         <textarea placeholder="个人简介" id="textarea" v-model="jianjie" style="line-height:1.4" disabled></textarea>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { getexpert, viewpred } from '@/api/personal'
+import { getexpert, viewpred, follow } from '@/api/personal'
 import { Dialog } from 'vant'
 export default {
     data(){
@@ -100,6 +100,16 @@ export default {
             this.jianjie = data.jianjie;
             this.costcoin = data.costcoin;
             this.list = data.list;
+        },
+        async follow () {
+            const { data }    = await follow({
+                    sid: '"4b3eb3d62a674d2ac8fc1eb10aab3562', //localStorage['sid']
+                    uid: '921717',  //localStorage['uid']
+                    expid: this.$route.query.expid ,//专家id
+            });
+            if(data.errorcode == 0){
+                this.isfollow = 1;
+            }
         },
     }
 }

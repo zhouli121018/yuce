@@ -76,3 +76,15 @@ export function viewpred (data) {
     }
   })
 }
+
+//30、关注接口 follow.php
+export function follow (data) {
+  return request({
+    url: '/follow.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
+

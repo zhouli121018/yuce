@@ -89,3 +89,14 @@ export function getzhibiaodesc(data) {
     data
   })
 } 
+
+//31、获取关于接口 getabout.php
+export function getabout (data) {
+  return request({
+    url: '/getabout.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
