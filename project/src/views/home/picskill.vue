@@ -6,13 +6,14 @@
         </van-tabs>
         <div class="xian"></div>
         <div class="message_box" v-for="(l,index) in list" :key="index">
-            <van-cell :title="l.title" is-link />
+            <van-cell :title="l.title" is-link @click="getjiqiao"/>
         </div>
     </div>
 </template>
 
 <script>
-import {getproperty,getjiqiaolist } from '@/api/home'
+import {getproperty, getjiqiaolist, getjiqiao } from '@/api/home'
+import { Dialog } from 'vant'
 export default {
     data() {
         return {
@@ -26,6 +27,18 @@ export default {
               lottype : this.lottypes[this.tabs_active].lottype,
           });
           this.list = data.list;
+        },
+        async getjiqiao () {
+          const { data }    = await getjiqiao();
+          if(data.errorcode == 0 && data.content) {
+            Dialog.alert({
+                title: data.title,
+                message: data.content
+            }).then(() => {
+                // on close
+            });
+          }
+        
         },
         change_lottype(index){
             this.tabs_active = index;

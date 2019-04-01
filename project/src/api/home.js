@@ -123,3 +123,14 @@ export function getzhibiaodesc (data) {
     }
   })
 }
+
+//24、获取技巧协议 getjiqiao.php
+export function getjiqiao (data) {
+  return request({
+    url: '/getjiqiao.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}
