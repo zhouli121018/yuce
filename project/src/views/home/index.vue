@@ -18,7 +18,7 @@
       
      
       <div class="gonggao_box" v-if="notice && notice.length>0">
-          <van-button plain type="danger" size="mini">公告</van-button>
+          <van-button plain type="danger" @click="jumpTo('/home/announcement/index')" size="mini">公告</van-button>
           <img src="~@/assets/gonggao.png" alt="" class="gonggao_img">
           <div class="grow_1">
             <van-notice-bar>
@@ -32,7 +32,7 @@
       
       <van-row :gutter="30" class="list_box text_center">
         <van-col span="6" v-for="(l,index) in list" :key="index">
-          <div class="item_box"  @click="jumpTo(l.link)">
+          <div class="item_box"  @click="jumpTo(l.link,l.islink)">
             <img :src="l.src" alt="" class="max_width_100">
             <span>{{l.title}}</span>
           </div>
@@ -57,14 +57,14 @@ export default {
       ],
       notice_img:require('../../assets/gonggao.png'),
       list:[
-        {src:require('../../assets/open.png'),title:'开奖大厅',link:'/home/openlot'},
-        {src:require('../../assets/group.png'),title:'大奖组合',link:'/home/awardSpredict'},
-        {src:require('../../assets/rank.png'),title:'预测排名',link:'/personal/perdictRank'},
-        {src:require('../../assets/chart.png'),title:'走势图',link:'/home/charts'},
-        {src:require('../../assets/simulated.png'),title:'模拟奖励',link:'/personal/simulateBetting'},
-        {src:require('../../assets/goldcoin.png'),title:'领金币',link:'/home/broughtGold'},
-        {src:require('../../assets/notice.png'),title:'公告',link:'/home/announcement/index'},
-        {src:require('../../assets/skill.png'),title:'选号技巧',link:'/home/picskill'},
+        {src:require('../../assets/open.png'),title:'开奖大厅',link:'/home/openlot',islink: false},
+        {src:require('../../assets/group.png'),title:'大奖组合',link:'/home/awardSpredict',islink: false},
+        {src:require('../../assets/rank.png'),title:'预测排名',link:'/personal/perdictRank',islink: true},
+        {src:require('../../assets/chart.png'),title:'走势图',link:'/home/charts',islink: false},
+        {src:require('../../assets/simulated.png'),title:'模拟奖励',link:'/personal/simulateBetting',islink: true},
+        {src:require('../../assets/goldcoin.png'),title:'领金币',link:'/home/broughtGold',islink: true},
+        {src:require('../../assets/notice.png'),title:'公告',link:'/home/announcement/index',islink: false},
+        {src:require('../../assets/skill.png'),title:'选号技巧',link:'/home/picskill',islink: false},
       ],
       notice:'',
       left_text:'登录',
@@ -75,8 +75,14 @@ export default {
     onClickLeft() {
       this.$router.push(this.left_path)
     },
-    jumpTo(path){
-      this.$router.push(path)
+    jumpTo( path, islink ){
+      if(islink && islink == true) {
+        if(!localStorage.getItem('uid') || !localStorage.getItem('sid')) {
+          this.$router.push('/login/index')
+        }
+      }else {
+          this.$router.push(path)
+        }
     },
     get_notices (data) {
         this.notice = data;
@@ -95,6 +101,9 @@ export default {
 </script>
 
 <style scoped>
+.max_width_100{
+  margin-bottom: .15rem
+}
   .btn_group button{
     margin-top:10px;
   }

@@ -29,7 +29,7 @@
             <van-col span="6" class="text_center">
               <van-button type="info" size="small" disabled v-if="item.curstatus==0">未 发 布</van-button>
               <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.uid)">本期预测</van-button>
-              <van-button type="primary" size="small" v-if="item.curstatus==2">已 查 看</van-button>
+              <van-button type="primary" size="small" disabled  v-if="item.curstatus==2">已 查 看</van-button>
             </van-col>
           </van-row>
           <van-row class="rank_item_bottom">
@@ -108,6 +108,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+/deep/ .van-button--primary
+  background #999
+  border 1px solid #999
 .text_center
     margin-top .2rem
     text-align center

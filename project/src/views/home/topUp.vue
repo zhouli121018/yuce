@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { getalipayorderinfor } from '@/api'
 export default {
     data() {
         return {
@@ -63,7 +64,21 @@ export default {
         //去微信支付页面
         toPay() {
             if(this.payType == 2) {
-                this.$router.push('/personal/pay?type=0&money='+this.money)
+                this.$router.push('/personal/pay?type=0&money=' + this.money)
+            }else {
+                this.getalipayorderinfor()
+            }
+        },
+        //支付宝支付
+        async getalipayorderinfor() {
+            const { data } = await getalipayorderinfor({
+                sid: localStorage.getItem('sid'),
+                uid: localStorage.getItem('uid'),
+                money: this.money,
+                type: 1
+            })
+            if(data.errorcode == 0) {
+                window.location.href= data.url
             }
         },
         choosePay(e) {

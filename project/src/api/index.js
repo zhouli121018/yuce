@@ -100,3 +100,13 @@ export function getabout (data) {
     }
   })
 }
+//支付宝支付
+export function getalipayorderinfor (data) {
+  return request({
+    url: '/getalipayorderinfor.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

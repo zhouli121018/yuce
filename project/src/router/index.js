@@ -35,11 +35,6 @@ router.beforeEach((to, from, next) => {
     if (title) {
         document.title = title
     }
-    const {login_token} = urlParse(document.URL)
-    if (login_token && !token) {
-        store.commit('SET_TOKEN', login_token)
-    }
-    let token = store.state.user.token
     // if (!token && to.name !== HASLOGIN_PAGE_NAME) {
     //     console.log('没有登录且跳转的不是首页', to)
     //     window.localStorage.setItem('resultUrl', JSON.stringify(to))
