@@ -49,7 +49,7 @@ service.interceptors.response.use(
       switch (response.status) {
         case 200:
         {let { errorcode, message } = response.data
-          if(message){
+          if(message && message != ' '){
             Toast(message)
           }
         }
