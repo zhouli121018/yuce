@@ -6,7 +6,7 @@ function resolve(dir) {
     return path.join(__dirname, './', dir)
 }
 module.exports = {
-  baseUrl: '/wx/',
+  baseUrl: '/h/',
   outputDir: 'dist',
   lintOnSave: false,
   css: {
