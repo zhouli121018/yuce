@@ -87,4 +87,7 @@ export default {
   .no_bottom_border .van-tabs__line{
     background:none;
   }
+  .van-tab span{
+        white-space: nowrap;
+  }
 </style>

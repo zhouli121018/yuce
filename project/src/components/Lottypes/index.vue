@@ -1,10 +1,10 @@
 <template>
     <div>
-      <van-tabs v-model="tabs_active" :swipe-threshold="5" class="tabs_type" @click="change_lottype">
+      <van-tabs v-model="tabs_active" :swipe-threshold="7" class="tabs_type" @click="change_lottype">
         <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" >
           <div slot="title">
-            <img v-if="l.lottype==1004 || l.lottype==1006" src="../../assets/hainan.png" alt="" style="position:absolute;width:30px;right:4px;">
-            <span style="padding-top:6px;font-size:15px;">{{l.lotname}}</span>
+            <img v-if="l.lottype==1004 || l.lottype==1006" src="../../assets/hainan.png" alt="" style="position:absolute;width:30px;right:1px;">
+            <span style="padding-top:6px;font-size:0.4rem;">{{l.lotname}}</span>
           </div>
         </van-tab>
 
@@ -13,7 +13,7 @@
         <van-tab v-for="(p,index) in poslist" :key="index" :title="p.name">
           <div slot="title">
             <img v-if="num_active==index" src="../../assets/an.png" alt="" style="position:absolute;width:14px;left:50%;bottom:0;margin-left:-7px;">
-            <span style="padding-bottom:6px;">{{p.name}}</span>
+            <span style="padding-bottom:6px;font-size:0.3rem">{{p.name}}</span>
           </div>
         </van-tab>
       </van-tabs>
