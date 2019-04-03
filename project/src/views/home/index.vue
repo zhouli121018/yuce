@@ -26,7 +26,7 @@
           </div>
       </div>
       <van-row :gutter="30" class="list_box text_center">
-        <van-col span="6" v-for="(l,index) in list" :key="index">
+        <van-col span="6" style="width:23%;padding-left:0;padding-right:0" v-for="(l,index) in list" :key="index">
           <div class="item_box"  @click="jumpTo(l.link,l.islink)">
             <img :src="l.src" alt="" class="max_width_100">
             <span>{{l.title}}</span>
@@ -108,13 +108,15 @@ export default {
 
 <style scoped>
 .max_width_100{
-  margin-bottom: .15rem
+  margin-bottom: .15rem;
+  width:1.2rem;
+  height: 1.2rem;
 }
   .btn_group button{
-    margin-top:10px;
+    margin-top:.1rem;
   }
   .btn_group{
-    padding-bottom:10px;
+    padding-bottom:.1rem;
   }
   select{
     outline: none;
@@ -169,9 +171,19 @@ export default {
   }
   .list_box{
     padding:10px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
   }
   .item_box{
-    padding:8px 0;
+    padding:.2rem 0;
+    width:100%;
+  }
+  .item_box span{
+    display: block;
+    color: #666;
+    font-size:.38rem
   }
   .space_bar{
     height:10px;
