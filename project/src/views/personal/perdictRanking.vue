@@ -35,7 +35,7 @@
             <span class="red">{{l.status}}</span>
         </div>
     </div>
-</template>
+</template> 
 
 <script>
 import { getexpert, viewpred, follow } from '@/api/personal'
@@ -68,8 +68,8 @@ export default {
         },
         async viewpred (cid) {
           const { data }    = await viewpred({
-                sid: '"4b3eb3d62a674d2ac8fc1eb10aab3562', //localStorage['sid']
-                uid: '921717',  //localStorage['uid']
+                sid: localStorage['sid'], //localStorage['sid']
+                uid: localStorage['uid'],  //localStorage['uid']
                 cid: cid,
           });
           if(data.content){
