@@ -10,9 +10,9 @@
         <van-col span="6" v-for="(y,index) in ycplaytypes" :key="index">
           <van-button :type="index==yc_active?'danger':'default'" size="small" @click="change_yc(index)">{{y.ycplayname}}</van-button>
         </van-col>
-        <van-col span="6" v-if="show_zhibiao"><van-button size="small" class="no_border_btn" @click="getzhibiaodesc">指标说明</van-button></van-col>
+        <van-col span="6" v-if="show_zhibiao"><van-button size="small" class="no_border_btn" @click="jumpTo">指标说明</van-button></van-col>
       </van-row>
-
+      <div class="xian"></div>
       <div class="space_bar"></div>
       
 
@@ -43,6 +43,10 @@ export default {
         }
     },
     methods:{
+      //跳转到指标说明
+      jumpTo() {
+        this.$router.push('/home/indicators')
+      },
       change_lottype(index){
         this.tabs_active = index;
         this.num_active = 0;
@@ -67,19 +71,19 @@ export default {
             }
         }
       },
-      async getzhibiaodesc () {
-        const { data }    = await getzhibiaodesc({
-            lottype : this.lottypes[this.tabs_active].lottype,
-        });
-        if(data.errorcode==0){
-          Dialog.alert({
-            title: data.title,
-            message: data.content
-          }).then(() => {
-            // on close
-          });
-        }
-      }
+      // async getzhibiaodesc () {
+      //   const { data }    = await getzhibiaodesc({
+      //       lottype : this.lottypes[this.tabs_active].lottype,
+      //   });
+      //   if(data.errorcode==0){
+      //     Dialog.alert({
+      //       title: data.title,
+      //       message: data.content
+      //     }).then(() => {
+      //       // on close
+      //     });
+      //   }
+      // }
 
     },
 

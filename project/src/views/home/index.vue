@@ -7,16 +7,11 @@
         @click-left="onClickLeft"
       />
     </div>
-    
-      
-      
-      <van-swipe :autoplay="3000">
-        <van-swipe-item v-for="(image, index) in images" :key="index">
+      <van-swipe :autoplay="3000" indicator-color="#007BC2">
+        <van-swipe-item  style="width:94%;margin:.2rem auto;text-align:center" v-for="(image, index) in images" :key="index">
           <img v-lazy="image" />
         </van-swipe-item>
       </van-swipe>
-      
-     
       <div class="gonggao_box" v-if="notice && notice.length>0">
           <van-button plain type="danger" @click="jumpTo('/home/announcement/index')" size="mini">公告</van-button>
           <img src="~@/assets/gonggao.png" alt="" class="gonggao_img">
@@ -28,8 +23,6 @@
             </van-notice-bar>
           </div>
       </div>
-      
-      
       <van-row :gutter="30" class="list_box text_center">
         <van-col span="6" v-for="(l,index) in list" :key="index">
           <div class="item_box"  @click="jumpTo(l.link,l.islink)">
@@ -59,10 +52,10 @@ export default {
       list:[
         {src:require('../../assets/open.png'),title:'开奖大厅',link:'/home/openlot',islink: false},
         {src:require('../../assets/group.png'),title:'大奖组合',link:'/home/awardSpredict',islink: false},
-        {src:require('../../assets/rank.png'),title:'预测排名',link:'/personal/perdictRank',islink: true},
+        {src:require('../../assets/rank.png'),title:'预测排名',link:'/personal/perdictRank',islink: localStorage.getItem('uid')?false:true},
         {src:require('../../assets/chart.png'),title:'走势图',link:'/home/charts',islink: false},
-        {src:require('../../assets/simulated.png'),title:'模拟奖励',link:'/personal/simulateBetting',islink: true},
-        {src:require('../../assets/goldcoin.png'),title:'领金币',link:'/home/broughtGold',islink: true},
+        {src:require('../../assets/simulated.png'),title:'模拟奖励',link:'/personal/simulateBetting',islink: localStorage.getItem('uid')?false:true},
+        {src:require('../../assets/goldcoin.png'),title:'领金币',link:'/home/broughtGold',islink: localStorage.getItem('uid')?false:true},
         {src:require('../../assets/notice.png'),title:'公告',link:'/home/announcement/index',islink: false},
         {src:require('../../assets/skill.png'),title:'选号技巧',link:'/home/picskill',islink: false},
       ],

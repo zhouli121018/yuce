@@ -22,7 +22,7 @@
                 </van-col>
                 <van-col span="19" class="desc">
                   <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{item.fans}}人关注</van-tag></h3>
-                  <div>{{item.viewtimes}}次查看</div>
+                  <div style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.viewtimes}}次查看</div>
                 </van-col>
               </van-row>
             </van-col>
@@ -33,7 +33,7 @@
             </van-col>
           </van-row>
           <van-row class="rank_item_bottom">
-            <van-col >{{item.prepred}} <span class="red">{{item.prestatus}}</span></van-col>
+            <van-col  style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.prepred}} <span class="red">{{item.prestatus}}</span></van-col>
           </van-row>
         </li>
       </ul>
@@ -108,6 +108,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.max_width_100
+  border-radius 50%
 /deep/ .van-button--primary
   background #999
   border 1px solid #999
