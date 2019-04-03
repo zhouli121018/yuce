@@ -57,7 +57,7 @@
     background-size: 100%;
   }
   .title_box .van-ellipsis.van-nav-bar__title{
-    font-size:24px;
+    font-size:18px;
   }
   .title_box.van-nav-bar .van-icon, .title_box .van-nav-bar__text{
     color:#fff;

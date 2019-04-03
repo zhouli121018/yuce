@@ -6,7 +6,7 @@
         </van-tabs>
         <div class="xian"></div>
         <div class="message_box" v-for="(l,index) in list" :key="index">
-            <van-cell :title="l.title" is-link @click="getjiqiao"/>
+            <van-cell :title="l.title" is-link @click="getjiqiao(l.id)"/>
         </div>
     </div>
 </template>
@@ -28,17 +28,13 @@ export default {
           });
           this.list = data.list;
         },
-        async getjiqiao () {
-          const { data }    = await getjiqiao();
-          if(data.errorcode == 0 && data.content) {
-            Dialog.alert({
-                title: data.title,
-                message: data.content
-            }).then(() => {
-                // on close
-            });
-          }
-        
+        getjiqiao(id){
+            this.$router.push({
+                path:'/home/skillDetail',
+                query:{
+                    id:id
+                }
+            })
         },
         change_lottype(index){
             this.tabs_active = index;

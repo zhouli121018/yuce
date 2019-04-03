@@ -15,7 +15,7 @@ import {notice } from '@/api/home'
 export default {
     data(){
         return {
-            title_name: 'jkdsaof',
+            title_name: '详情',
             notice_details:{
                 title:'',
                 content:''

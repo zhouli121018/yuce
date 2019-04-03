@@ -8,18 +8,20 @@
       />
     </div>
       <van-swipe :autoplay="3000" indicator-color="#007BC2">
-        <van-swipe-item  style="width:94%;margin:.2rem auto;text-align:center" v-for="(image, index) in images" :key="index">
-          <img v-lazy="image" />
+        <van-swipe-item  v-for="(image, index) in advs" :key="index">
+          <div class="swipe_img_box">
+            <img :src="$https+image.pic" />
+          </div>
         </van-swipe-item>
       </van-swipe>
       <div class="gonggao_box" v-if="notice && notice.length>0">
-          <van-button plain type="danger" @click="jumpTo('/home/announcement/index')" size="mini">公告</van-button>
+          <van-button plain type="danger" @click="jumpTo('/home/announcement/index')" size="mini" class="no_radius_btn">公告</van-button>
           <img src="~@/assets/gonggao.png" alt="" class="gonggao_img">
           <div class="grow_1">
             <van-notice-bar>
-              <a :href="n.url" v-for="(n,index) in notice" :key="index" style="margin-right:50px;">
+              <span v-for="(n,index) in notice" :key="index" style="margin-right:50px;color:#000;" @click="goAnnounceDetail(n)">
                 {{n.text}}
-              </a>
+              </span>
             </van-notice-bar>
           </div>
       </div>
@@ -45,9 +47,6 @@ import { Dialog } from 'vant'
 export default {
   data () {
     return {
-      images:[
-        require('../../assets/banner.png'),
-      ],
       notice_img:require('../../assets/gonggao.png'),
       list:[
         {src:require('../../assets/open.png'),title:'开奖大厅',link:'/home/openlot',islink: false},
@@ -60,6 +59,7 @@ export default {
         {src:require('../../assets/skill.png'),title:'选号技巧',link:'/home/picskill',islink: false},
       ],
       notice:'',
+      advs:[],
       left_text:'登录',
       left_path:'/login/index',
     }
@@ -78,8 +78,21 @@ export default {
         }
     },
     get_notices (data) {
-        this.notice = data;
+        this.notice = data.notices;
+        this.advs = data.advs;
     },
+    goAnnounceDetail(param){
+      let url = param.url;
+      let index = url.indexOf('=');
+      let noticeId = url.slice(index+1);
+      this.$router.push({
+        path:'/home/announcement/detail',
+        query:{
+          title: param.text, 
+          noticeId: noticeId
+        }
+      })
+    }
   },
   created(){
     if(localStorage['uid'] && localStorage['uid']!=''){
@@ -124,6 +137,11 @@ export default {
   #home_page .van-nav-bar__text{
     color:#000;
   }
+  .swipe_img_box{
+    width:100%;
+    padding:0 12px;
+    box-sizing: border-box;
+  }
   #home_page .van-swipe-item img{
     width:100%;
   }
@@ -134,6 +152,7 @@ export default {
     display:flex;
     align-items:center;
     height:30px;
+    padding-left:12px;
   }
   .gonggao_box .grow_1{
     flex-grow:1;
@@ -191,6 +210,11 @@ export default {
     right: 0;
     z-index: 1000;
     top: 0;
+  }
+  .no_radius_btn{
+    border-radius:0.1rem;
+    line-height:1;
+    width:1.1rem;
   }
   
 </style>

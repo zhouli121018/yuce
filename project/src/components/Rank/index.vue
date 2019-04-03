@@ -6,28 +6,32 @@
       <div class="clear text_box">
         <span class="fl">{{kjdes}}</span>
         <select class="no_border fr" v-model="issuenum" @change="changeIssuenum">
-          <option value="0">近三期排名</option>
-          <option value="1">近七期排名</option>
-          <option value="2">近十期排名</option>
-          <option value="3">近三十期排名</option>
+          <option :value="3">近三期排名</option>
+          <option :value="7">近七期排名</option>
+          <option :value="10">近十期排名</option>
+          <option :value="30">近三十期排名</option>
         </select>
       </div>
       <ul>
         <li class="rank_item" v-for="(item,index) in rank_list" :key="index">
           <van-row type="flex" align="center">
             <van-col span="18">
-              <van-row :gutter="10">
-                <van-col span="5">
-                  <img :src="$https_img+item.uicon" alt="" class="max_width_100">
-                </van-col>
-                <van-col span="19" class="desc">
-                  <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{item.fans}}人关注</van-tag></h3>
-                  <div style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.viewtimes}}次查看</div>
-                </van-col>
-              </van-row>
+              <div  @click="goPerRank(item.uid)">
+                <van-row :gutter="10">
+                  <van-col span="5">
+                    <img :src="$https_img+item.uicon" alt="" class="max_width_100">
+                  </van-col>
+                  <van-col span="19" class="desc">
+                    <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{item.fans}}人关注</van-tag></h3>
+                    <!-- <div style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.viewtimes}}次查看</div> -->
+                    <div style="margin-top:8px;color:#666;">{{item.viewtimes}}次查看   <span>{{ '测'+issuenum+'期对'+item.hittimes+'期' }}</span></div>
+                  </van-col>
+                </van-row>
+              </div>
+              
             </van-col>
             <van-col span="6" class="text_center">
-              <van-button type="info" size="small" disabled v-if="item.curstatus==0">未 发 布</van-button>
+              <van-button type="info" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)">未 发 布</van-button>
               <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.uid)">本期预测</van-button>
               <van-button type="primary" size="small" disabled  v-if="item.curstatus==2">已 查 看</van-button>
             </van-col>
@@ -56,7 +60,7 @@ export default {
             rank_list:[
                 
             ],
-            issuenum: 0,
+            issuenum: 3,
             kjdes:''
         }
     },
@@ -81,6 +85,14 @@ export default {
           // on cancel
         });
       },
+      goPerRank(expid){
+        this.$router.push({
+          path:'/personal/perdictRanking',
+          query:{
+            expid:expid
+          }
+        })
+      },
       async getexprank () {
           const { data }    = await getexprank({
               ishome :this.ishome,
@@ -92,7 +104,7 @@ export default {
           this.rank_list = data.list;
           this.kjdes = data.kjdes;
           if(this.ishome == 1){
-            this.$emit('get_notices', data.notices);
+            this.$emit('get_notices', {notices:data.notices,advs:data.advs});
           }
       },
       
@@ -134,6 +146,7 @@ export default {
     font-size .36rem
 .rank_item_bottom
     padding .1rem 0
+    color #666
 .flex_box
    .name_s
       width:98px
@@ -141,5 +154,6 @@ export default {
       overflow:hidden
       white-space: nowrap;
       text-overflow: ellipsis;
+      font-weight:bold;
 
 </style>

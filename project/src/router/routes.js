@@ -72,12 +72,30 @@ export default [
                     cache: true
                 }
             },
+            {//选号技巧详情
+                path: 'skilldetail',
+                name: 'skilldetail',
+                component: _import('home/skillDetail'),
+                meta: {
+                    title: '选号技巧详情',
+                    cache: true
+                }
+            },
             {//大奖预测组合
                 path: 'awardSpredict',
                 name: "awardSpredict",
                 component: _import ('home/awardSpredict'),
                 meta: {
                     title: '大奖预测组合',
+                    cache: true
+                }
+            },
+            {//大奖预测组合详情
+                path: 'awardSpredictDetail',
+                name: "awardSpredictDetail",
+                component: _import ('home/awardSpredictDetail'),
+                meta: {
+                    title: '大奖预测组合详情',
                     cache: true
                 }
             },

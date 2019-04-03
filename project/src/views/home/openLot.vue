@@ -2,7 +2,7 @@
     <div class="container">
         <title-bar title_name="开奖大厅"></title-bar>
         <ul>
-            <li class="rank_item" v-for="(l,index) in list" :key="index">
+            <li class="rank_item" v-for="(l,index) in list" :key="index" :class="{fu:l.type==0,ti:l.type==1}">
                 <div style="font-size:14px;padding:10px 2px;">
                     <b style="font-size:16px;">{{l.title}}</b>
                     <span style="padding:0 10px;">{{l.kjissue}}</span>
@@ -20,7 +20,7 @@
                     <van-button round type="info" size="small" @click="jump('/home/charts',{lottype:l.lottype})">走势图<i class="van-icon van-icon-arrow"></i></van-button>
                     <van-button round type="info" size="small" @click="jump('/personal/perdictRank',{lottype:l.lottype})">专家排名<i class="van-icon van-icon-arrow"></i></van-button>
                     <van-button round type="info" size="small" @click="jump('/home/awardSpredict',{lottype:l.lottype})">大奖组合<i class="van-icon van-icon-arrow"></i></van-button>
-                    <van-button round type="info" size="small" @click="jump('/home/picskill',{lottype:l.lottype})">经验分享<i class="van-icon van-icon-arrow"></i></van-button>
+                    <van-button round type="info" size="small" @click="jump('/home/picskill',{lottype:l.lottype})">选号技巧<i class="van-icon van-icon-arrow"></i></van-button>
                 </div>
             </li>
         </ul>
@@ -120,6 +120,14 @@ ul
     border-top:1px solid #F0F0F0;
     margin:8px 0;
     background:#fff;
+    background-repeat :no-repeat;
+    background-size:30px;
+  }
+  .rank_item.fu{
+      background-image:url(../../assets/fu.png);
+  }
+  .rank_item.ti{
+      background-image:url(../../assets/ti.png);
   }
   .rank_item .desc>h3{
     font-weight:bold;

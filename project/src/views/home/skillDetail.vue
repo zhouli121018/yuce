@@ -3,27 +3,26 @@
 </template>
 
 <script>
-import {notice } from '@/api/home'
+import { getjiqiao } from '@/api/home'
 export default {
     data(){
         return {
-            title_name: '消息详情',
+            title_name: '技巧详情',
             title:'',
             content:''
         }
     },
     methods:{
-        async notice () {
-          const { data }    = await notice({
+        async getjiqiao () {
+          const { data }    = await getjiqiao({
               id:this.$route.query.id
           });
           this.title = data.title;
           this.content = data.content;
-        },
+        }
     },
     created(){
-        this.title_name = this.$route.query.title
-        this.notice();
+        this.getjiqiao();
     }
 }
 </script>

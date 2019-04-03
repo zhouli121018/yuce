@@ -43,20 +43,16 @@ export default {
                 }
             }
         },
-        async getpredzuhe_detail (tid) {
-            const { data }    = await getpredzuhe_detail({
-                lottype: this.lottypes[this.tabs_active].lottype,
-                tid: tid
-            });
-            if(data.errorcode==0){
-                Dialog.alert({
-                    title: data.title,
-                    message: data.content
-                }).then(() => {
-                    // on close
-                });
-            }
-        }
+        getpredzuhe_detail(tid){
+            this.$router.push({
+                path:'/home/awardSpredictDetail',
+                query:{
+                    lottype:this.lottypes[this.tabs_active].lottype,
+                    tid:tid
+                }
+            })
+        },
+        
     },
     created(){
         if(this.$store.getters.lottypes){

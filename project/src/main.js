@@ -42,6 +42,8 @@ import Rank from '@/components/Rank/index'
 Vue.component('rank',Rank)
 import Lottypes from '@/components/Lottypes/index'
 Vue.component('lottypes',Lottypes)
+import Detail from '@/components/Detail/index'
+Vue.component('detail',Detail)
 
 import md5 from 'js-md5';
 Vue.prototype.$md5 = md5;

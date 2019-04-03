@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
     <router-view />
-    </van-pull-refresh>
     <div class='full_sc' v-show="loading">
       <rise-loader class="custom-class" color="#8adff4" :loading="loading" :size="15" sizeUnit="px"></rise-loader>
     </div>
@@ -12,21 +10,6 @@
 <script>
 import {getproperty} from '@/api/home'
 export default {
-  data(){
-    return{
-      isLoading:false,
-    }
-  },
-  methods:{
-    
-    onRefresh() {
-      this.$router.go(0);
-      // setTimeout(() => {
-      //   this.$toast('刷新成功');
-      //   this.isLoading = false;
-      // }, 500);
-    },
-  },
   created(){
     //判断 手机系统类型
     let u = navigator.userAgent, app = navigator.appVersion;
@@ -97,5 +80,11 @@ export default {
   .container{
     padding-top:50px !important;
     box-sizing: border-box;
+  }
+  .title_box.van-nav-bar .van-icon, .title_box .van-nav-bar__text:active ,.fixed_title .van-nav-bar__text:active{
+    background:none;
+  }
+  .no_bottom_border .van-tabs__line{
+    background:none;
   }
 </style>
