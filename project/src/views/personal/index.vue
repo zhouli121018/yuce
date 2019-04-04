@@ -5,10 +5,10 @@
             <img class="my_title_photo" :src="$https_img+info.img" alt="">
             <div class="my_title_center">
                 <div>
-                    <span>{{info.uname}}</span>
+                    <span style="font-weight:bold;font-size:0.45rem;color:#4D4D4C;">{{info.uname}}</span>
                     <!-- $isvip='1';//是否VIP 1是vip，0不是vip -->
                     <img v-if="info.isvip == 1" class="my_title_center_img" src="~@/assets/vip.png" alt="">
-                    <span v-if="info.isvip == 1" class="red">({{info.vipdate}}天)</span>
+                    <span v-if="info.isvip == 1" class="red">(剩余{{info.vipdate}}天)</span>
                 </div>
                 <div class="goldcoins_fans">
                     <p><span>金币: </span><span class="red">{{info.coin}}</span></p>
@@ -130,7 +130,7 @@ export default {
         width 1.5rem
         height 1.5rem
         border-radius 50%
-        margin-right .3rem
+        margin-right .5rem
     .goldcoins_fans
         display flex
         padding-top .2rem
