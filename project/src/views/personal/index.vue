@@ -39,7 +39,7 @@
         <div class="xian"></div>
         <div>
             <van-cell title="意见反馈" is-link icon="feedback" url="/home/feedback"/>
-            <van-cell title="关于彩票预测大师" is-link icon="feedback" @click="goAbout"/>
+            <van-cell title="关于彩票预测大师" is-link  icon="about" @click="getabout"/>
         </div>
     </div>
 </template>
@@ -85,7 +85,7 @@ export default {
             color #666
 /deep/ .van-cell
     line-height .88rem
-    border-bottom 1px solid #eee
+    border-bottom 1px solid #cccccc
 /deep/ .van-icon-shop::before
     content ''
     width .88rem
@@ -110,13 +110,19 @@ export default {
     height .88rem
     background url('~@/assets/feedback.png') no-repeat
     background-size contain
+/deep/ .van-icon-about::before
+    content ''
+    width .88rem
+    height .88rem
+    background url('~@/assets/about.png') no-repeat
+    background-size contain
 .my_title
     width: 100%
     padding .2rem 
     box-sizing border-box 
     display flex
     align-items center
-    border-bottom 1px solid #eeeeee
+    border-bottom 1px solid #cccccc
     .my_title_center
         width 53%
         span 
@@ -129,12 +135,13 @@ export default {
         margin-right .3rem
     .goldcoins_fans
         display flex
+        padding-top .2rem
         p
             padding-right .3rem
     .my_title_center_img
-        width .5rem
+        width .6rem
         height .5rem
-        margin 0 .2rem
+        margin 0 .4rem
 .orange_btn
     border-radius .6rem
     background orange

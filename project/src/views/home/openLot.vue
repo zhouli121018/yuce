@@ -75,7 +75,7 @@ export default {
 <style scoped lang="stylus">
 .message_box
     margin .2rem 
-    border-bottom 1px solid #eee
+    border-bottom 1px solid #cccccc
 .gary
     color #666
     padding .1rem 0

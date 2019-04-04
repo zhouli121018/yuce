@@ -59,7 +59,7 @@
             <div class="gold_content">
                 <p>模拟投注双色球，选8个号码</p>
                 <div class="gold_center">
-                    <div style="width:78%">
+                    <div style="width:76%">
                         <p class="red">中4个送10金币</p>
                         <p class="red">中5个送100金币</p>
                         <p class="red">中6个送1000金币</p>
@@ -133,7 +133,7 @@ export default {
         width 100%
         padding .2rem .3rem 
         box-sizing border-box
-        border-top 1px solid #eeeeee
+        border-top 1px solid #cccccc
         .gold_top
             padding-left .8rem
             span 
@@ -155,7 +155,7 @@ export default {
                     margin-left 0
             p 
                 line-height .6rem
-                width 78%
+                width 76%
         .gary
             color #666
             font-size .34rem
@@ -170,7 +170,7 @@ export default {
         width 49%
         text-align center
         &:first-child
-            border-right 1px solid #eee
+            border-right 1px solid #cccccc
         p 
             line-height .6rem
 .my_title
@@ -179,7 +179,7 @@ export default {
     box-sizing border-box 
     display flex
     align-items center
-    border-bottom 1px solid #eeeeee
+    border-bottom 1px solid #cccccc
     .my_title_center
         width 60%
         span 

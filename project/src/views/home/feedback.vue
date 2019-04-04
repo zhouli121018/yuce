@@ -58,7 +58,7 @@ export default {
 
 <style lang="stylus" scoped>
 input 
-    border 1px solid #eeeeee
+    border 1px solid #cccccc
     margin-top .4rem 
     background #ffffff
     height 1rem
@@ -87,7 +87,7 @@ input
     height 3rem
     margin .5rem auto 
     background #ffffff
-    border-color #eee
+    border-color #cccccc
     padding .2rem
     box-sizing border-box
     border-radius .2rem

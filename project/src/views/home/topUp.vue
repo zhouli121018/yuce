@@ -103,7 +103,7 @@ button
     box-sizing border-box
     display flex
     align-items center
-    border-top 1px solid #eeeeee
+    border-top 1px solid #cccccc
     >div
         width 80%
         padding-left .2rem
@@ -129,7 +129,7 @@ button
         padding-bottom .2rem
     .content_box
         width 94%
-        border 1px solid #eeeeee
+        border 1px solid #cccccc
         text-align center
         margin .2rem auto
         padding .1rem 0

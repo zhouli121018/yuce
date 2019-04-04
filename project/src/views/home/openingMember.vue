@@ -97,7 +97,7 @@ export default {
         padding-bottom .2rem
     .content_box
         width 94%
-        border 1px solid #eeeeee
+        border 1px solid #cccccc
         text-align center
         margin .2rem auto
         padding .1rem 0
@@ -123,7 +123,7 @@ button
     box-sizing border-box
     display flex
     align-items center
-    border-top 1px solid #eeeeee
+    border-top 1px solid #cccccc
     >div
         width 80%
         padding-left .2rem
@@ -151,7 +151,7 @@ h4
 .openingMember_box
     width 94%
     margin .2rem auto 
-    border 1px solid #eeeeee
+    border 1px solid #cccccc
     display flex
     justify-content space-around
     align-items center

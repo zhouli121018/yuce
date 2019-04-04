@@ -38,5 +38,5 @@ export default {
 
 <style scoped lang="stylus">
 .message_box
-    border-bottom 1px solid #eee
+    border-bottom 1px solid #cccccc
 </style>

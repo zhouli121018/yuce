@@ -126,7 +126,7 @@ export default {
     span 
         width 22%
         text-align center
-        border-right 1px solid #eeeeee
+        border-right 1px solid #cccccc
         color #666
         padding .2rem 0
         &:nth-child(1)
@@ -153,7 +153,7 @@ export default {
     margin .2rem auto 
     display block
     font-size .38rem
-    border 1px solid #eee
+    border 1px solid #cccccc
     padding .2rem 
     box-sizing border-box
 .perdict_title
@@ -163,7 +163,7 @@ export default {
     display flex
     justify-content space-between
     align-items center
-    border-bottom 1px solid #eee
+    border-bottom 1px solid #cccccc
     button 
         border-radius .2rem
 .title_photo
