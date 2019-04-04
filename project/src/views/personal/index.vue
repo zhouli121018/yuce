@@ -15,7 +15,7 @@
                     <p><span>粉丝: </span><span class="red">{{info.fans}}</span></p>
                 </div>
             </div>
-            <van-button v-if="info.isvip == 0" class="orange_btn" round @click="jumpTo('/home/openingMember')">开通特权会员</van-button>
+            <van-button v-if="info.isvip == 0" class="orange_btn" round @click="jumpTo('/home/openingMember')" style="white-space:nowrap;">开通特权会员</van-button>
         </div>
         <div class="my_title">
             <img class="my_title_photo title_photo" src="~@/assets/icon.png" alt="">

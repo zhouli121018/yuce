@@ -34,7 +34,7 @@
                 <img :src="payType == 2?chooseImg:normalImg" alt="">
             </div>
         </div>
-        <van-button size="large" type="danger" @click="toPay">前往充值</van-button>
+        <van-button size="large" type="danger" @click="toPay">开通会员</van-button>
     </div>
 </template>
 
