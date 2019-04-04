@@ -65,8 +65,8 @@ export default {
     box-sizing border-box
     text-align left 
     p
-        line-height .6rem
-        font-size .34rem
+        line-height .45rem
+        font-size .3rem
         color #666
 .pay_code 
     width 100%

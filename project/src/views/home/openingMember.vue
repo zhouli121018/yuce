@@ -2,7 +2,7 @@
     <div class="container">
         <title-bar title_name="开通会员" />
         <div class="openingMember_box" @click="onClick(index,item.money)" :class="active == index?'active':''" v-for="(item,index) in list" :key="index">
-            <p class="red">开通{{item.count}}天</p>
+            <p style="color:#333;">开通{{item.count}}天</p>
             <div>
                 <p class="red"><img src="~@/assets/huo@2x.png" alt=""> 限时特惠: ¥{{item.money}}元</p>
                 <p>原价:{{item.oldMoney}}</p>
@@ -137,8 +137,8 @@ button
             width .68rem
             height .68rem
         &:last-child
-            width .64rem
-            height .64rem
+            width .54rem
+            height .54rem
 h4
     width 100%
     text-align center
