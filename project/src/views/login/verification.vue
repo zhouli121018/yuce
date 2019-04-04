@@ -38,7 +38,6 @@ export default {
                 phone: this.mobile,
                 pass: this.code
             });
-            console.log(data)
         },
     },
     computed: {
