@@ -57,7 +57,7 @@ export default {
     methods:{
         showTost(cid){
             Dialog.confirm({
-                title: '',
+                title: '提示',
                 message: '查看该预测需花费你'+this.costcoin+'金币，专家不保证100%准确，确定查看吗？'
             }).then(() => {
                 // on confirm
@@ -74,6 +74,7 @@ export default {
           });
           if(data.content){
             Dialog.alert({
+                title:'提示',
                 message: data.content
             }).then(() => {
             // on close

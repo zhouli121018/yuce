@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
     if (title) {
         document.title = title
     }
-    if(to.name == 'perdictRank' || to.name == 'simulateBetting' || to.name == 'broughtGold'){
+    if(to.name == 'perdictRank' || to.name == 'simulateBetting' || to.name == 'broughtGold' || to.name == 'perdictRanking'){
         if(!localStorage.getItem('uid') || !localStorage.getItem('sid')) {
             next({
                 path:'/login/index'

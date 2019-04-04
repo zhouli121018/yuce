@@ -90,7 +90,7 @@ export default {
       showTost(cost,uid){
         if(!localStorage.getItem('uid') || !localStorage.getItem('sid')){
           Dialog.confirm({
-            title: '',
+            title: '提示',
             confirmButtonText:'前往登录',
             message: '请登录后查看该预测~'
           }).then(() => {
@@ -101,7 +101,7 @@ export default {
           });
         }else{
           Dialog.confirm({
-            title: '',
+            title: '提示',
             message: '查看该预测需花费你'+cost+'金币，专家不保证100%准确，确定查看吗？'
           }).then(() => {
             // on confirm
@@ -119,6 +119,7 @@ export default {
         });
         if(data.errorcode == 0 && data.content){
           Dialog.alert({
+            title:'提示',
               message: data.content
           }).then(() => {
           // on close

@@ -13,7 +13,7 @@
         <van-tab v-for="(p,index) in poslist" :key="index" :title="p.name">
           <div slot="title">
             <img v-if="num_active==index" src="../../assets/an.png" alt="" style="position:absolute;width:14px;left:50%;bottom:0;margin-left:-7px;">
-            <span style="padding-bottom:6px;font-size:0.3rem">{{p.name}}</span>
+            <span style="padding-bottom:6px;font-size:0.35rem">{{p.name}}</span>
           </div>
         </van-tab>
       </van-tabs>
