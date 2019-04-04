@@ -10,7 +10,7 @@
             <van-col span="18">
               <van-row :gutter="10">
                 <van-col span="5">
-                  <img :src="$https_img+l.img" alt="" class="max_width_100">
+                  <img :src="$https_img+l.img" alt="" class="max_width_100" style="border-radius:50%;">
                 </van-col>
                 <van-col span="19" class="desc">
                   <h3 class="flex_box"><span class="name_s">{{l.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{l.fans}}人关注</van-tag></h3>

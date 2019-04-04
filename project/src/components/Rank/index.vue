@@ -50,6 +50,7 @@
 
 <script>
 import {getproperty,getexprank} from '@/api/home'
+import { viewpred } from '@/api/personal'
 import { Dialog } from 'vant'
 export default {
     props: {
@@ -93,15 +94,25 @@ export default {
           className: 'dialog_content'
         }).then(() => {
           // on confirm
-          this.$router.push({
-            path:'/personal/perdictRanking',
-            query:{
-              expid:uid
-            }
-          })
+          this.viewpred(uid)
         }).catch(() => {
           // on cancel
         });
+      },
+      async viewpred (cid) {
+        const { data }    = await viewpred({
+              sid: localStorage['sid'], //localStorage['sid']
+              uid: localStorage['uid'],  //localStorage['uid']
+              cid: cid,
+        });
+        if(data.errorcode == 0 && data.content){
+          Dialog.alert({
+              message: data.content
+          }).then(() => {
+          // on close
+          });
+        }
+          
       },
       goPerRank(expid){
         this.$router.push({

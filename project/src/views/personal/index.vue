@@ -39,13 +39,13 @@
         <div class="xian"></div>
         <div>
             <van-cell title="意见反馈" is-link icon="feedback" url="/home/feedback"/>
-            <van-cell title="关于彩票预测大师"  icon="about" @click="getabout"/>
+            <van-cell title="关于彩票预测大师" is-link  icon="about" @click="getabout"/>
         </div>
     </div>
 </template>
 
 <script>
-import { getaccount, getabout } from '@/api'
+import { getaccount } from '@/api'
 import { Dialog } from 'vant'
 export default {
     data() {
@@ -66,15 +66,8 @@ export default {
             this.info = data
             console.log(this.info)
         },
-        async getabout() {
-            const { data } = await getabout();
-            if(data.errorcode == 0 && data.content){
-                Dialog.alert({
-                    message: data.content
-                }).then(() => {
-                // on close
-                });
-            }
+        goAbout(){
+            this.$router.push('/personal/about');
         }
     },
     created() {
