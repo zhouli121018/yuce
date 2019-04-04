@@ -71,15 +71,29 @@ export default {
         this.getexprank();
       },
       showTost(cost,uid){
-        Dialog.confirm({
-          title: '',
-          message: '查看该预测需花费你'+cost+'金币，专家不保证100%准确，确定查看吗？'
-        }).then(() => {
-          // on confirm
-          this.viewpred(uid)
-        }).catch(() => {
-          // on cancel
-        });
+        if(!localStorage.getItem('uid') || !localStorage.getItem('sid')){
+          Dialog.confirm({
+            title: '',
+            confirmButtonText:'前往登录',
+            message: '请登录后查看该预测~'
+          }).then(() => {
+            // on confirm
+            this.$router.push('/login/index')
+          }).catch(() => {
+            // on cancel
+          });
+        }else{
+          Dialog.confirm({
+            title: '',
+            message: '查看该预测需花费你'+cost+'金币，专家不保证100%准确，确定查看吗？'
+          }).then(() => {
+            // on confirm
+            this.viewpred(uid)
+          }).catch(() => {
+            // on cancel
+          });
+        }
+        
       },
       async viewpred (cid) {
         const { data }    = await viewpred({

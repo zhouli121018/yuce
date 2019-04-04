@@ -69,13 +69,7 @@ export default {
       this.$router.push(this.left_path)
     },
     jumpTo( path, islink ){
-      if(islink && islink == true) {
-        if(!localStorage.getItem('uid') || !localStorage.getItem('sid')) {
-          this.$router.push('/login/index')
-        }
-      }else {
-          this.$router.push(path)
-        }
+      this.$router.push(path)
     },
     get_notices (data) {
         this.notice = data.notices;

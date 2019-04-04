@@ -35,6 +35,14 @@ router.beforeEach((to, from, next) => {
     if (title) {
         document.title = title
     }
+    if(to.name == 'perdictRank' || to.name == 'simulateBetting' || to.name == 'broughtGold'){
+        if(!localStorage.getItem('uid') || !localStorage.getItem('sid')) {
+            next({
+                path:'/login/index'
+            })
+            return;
+        }
+    }
     // if (!token && to.name !== HASLOGIN_PAGE_NAME) {
     //     console.log('没有登录且跳转的不是首页', to)
     //     window.localStorage.setItem('resultUrl', JSON.stringify(to))
