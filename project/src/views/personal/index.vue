@@ -31,14 +31,14 @@
         </div>
         <div class="xian"></div>        
         <div>
-            <van-cell title="我的关注" is-link icon="shop" url="/personal/myFocus"/>
-            <van-cell title="我的查看" is-link icon="look"  url="/personal/myLook"/>
-            <van-cell title="我的消息" is-link icon="message" url="/personal/message/index"/>
+            <van-cell title="我的关注" is-link icon="shop" @click="jumpTo('/personal/myFocus')"/>
+            <van-cell title="我的查看" is-link icon="look"  @click="jumpTo('/personal/myLook')"/>
+            <van-cell title="我的消息" is-link icon="message" @click="jumpTo('/personal/message/index')"/>
             
         </div>
         <div class="xian"></div>
         <div>
-            <van-cell title="意见反馈" is-link icon="feedback" url="/home/feedback"/>
+            <van-cell title="意见反馈" is-link icon="feedback" @click="jumpTo('/home/feedback')"/>
             <van-cell title="关于彩票预测大师" is-link  icon="about" @click="goAbout"/>
         </div>
     </div>

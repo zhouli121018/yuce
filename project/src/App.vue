@@ -90,4 +90,7 @@ export default {
   .van-tab span{
         white-space: nowrap;
   }
+  body{
+    font-family:PingFang-SC-Medium;
+  }
 </style>

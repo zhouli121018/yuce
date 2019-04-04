@@ -5,10 +5,10 @@
             <img src="~@/assets/wechat@2x.png" alt="">
             <div>
                 <p>微信二维码支付</p>
-                <p>微信安全支付</p>
+                <p style="padding-top:0.1rem">微信安全支付</p>
             </div>
         </div>
-        <h4 style="text-align:center">付款备注: {{info.beizu}}</h4>
+        <h4 style="text-align:center;font-weight:bold;font-size:0.5rem;">付款备注: {{info.beizu}}</h4>
         <div class="red pay_prompt">
             重要: 微信二维码支付只能从这里进入支付,不能使用已有保存的二维码支付。每次进来备注会变换!
         </div>
@@ -101,8 +101,8 @@ h4
     display flex
     align-items center
     img 
-        width .47rem 
-        height .47rem
+        width .8rem 
+        height .8rem
         margin-right .4rem
         display inline-block
     p

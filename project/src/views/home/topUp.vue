@@ -2,7 +2,7 @@
     <div class="container">
         <title-bar title_name="充值" />
         <div class="member_title">
-            <p>金币说明</p>
+            <p style="color:#111;font-weight:580;padding-bottom:0.2rem;">金币说明</p>
             <p>金币仅用于查看预测数据,购买后不能提现和退款。平台不保证100%准确,但平台100%保证公平公正。</p>
         </div>
         <div class="xian"></div>

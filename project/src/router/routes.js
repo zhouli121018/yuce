@@ -164,10 +164,7 @@ export default [
         name: '404',
         path: '/404'
     },
-    {
-        path: '*', redirect: '/404'
-
-    },
+    
     {//个人中心
         path: '/personal',
         component:layout,
@@ -333,5 +330,9 @@ export default [
                 }
             }
         ]
+    },
+    {
+        path: '*', redirect: '/404'
+
     },
 ]
