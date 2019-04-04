@@ -45,8 +45,8 @@ export default {
           lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
           postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
           ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
-          sid: '"4b3eb3d62a674d2ac8fc1eb10aab3562', //localStorage['sid']
-          uid: '921717',  //localStorage['uid']
+          sid: localStorage['sid'], //localStorage['sid']
+          uid: localStorage['uid'],  //localStorage['uid']
       });
       this.list = data.list;
       this.list.forEach(val => {

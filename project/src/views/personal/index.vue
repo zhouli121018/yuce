@@ -62,9 +62,7 @@ export default {
                 sid: localStorage.getItem('sid'),
                 uid: localStorage.getItem('uid')
             })
-            console.log(data)
             this.info = data
-            console.log(this.info)
         },
         goAbout(){
             this.$router.push('/personal/about');

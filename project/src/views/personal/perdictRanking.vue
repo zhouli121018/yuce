@@ -84,8 +84,8 @@ export default {
         },
         async getexpert () {
             const { data }    = await getexpert({
-                    sid: '"4b3eb3d62a674d2ac8fc1eb10aab3562', //localStorage['sid']
-                    uid: '921717',  //localStorage['uid']
+                    sid: localStorage['sid'], //localStorage['sid']
+                    uid: localStorage['uid'],  //localStorage['uid']
                     expid: this.$route.query.expid ,//专家id
                     ishead: 1,
                     lottype: this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
@@ -104,8 +104,8 @@ export default {
         },
         async follow () {
             const { data }    = await follow({
-                    sid: '"4b3eb3d62a674d2ac8fc1eb10aab3562', //localStorage['sid']
-                    uid: '921717',  //localStorage['uid']
+                    sid: localStorage['sid'], //localStorage['sid']
+                    uid: localStorage['uid'],  //localStorage['uid']
                     expid: this.$route.query.expid ,//专家id
             });
             if(data.errorcode == 0){
