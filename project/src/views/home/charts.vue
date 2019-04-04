@@ -1,8 +1,13 @@
 <template>
     <div class="container">
         <title-bar title_name="走势图"></title-bar>
-        <van-tabs v-model="tabs_active" :swipe-threshold="5" class="tabs_type" @click="change_lottype">
-            <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" ></van-tab>
+        <van-tabs v-model="tabs_active" :swipe-threshold="7" class="tabs_type" @click="change_lottype">
+            <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" >
+                <div slot="title">
+                    <img v-if="l.lottype==1004 || l.lottype==1006" src="../../assets/hainan.png" alt="" style="position:absolute;width:30px;right:1px;">
+                    <span style="padding-top:6px;font-size:0.4rem;">{{l.lotname}}</span>
+                </div>
+            </van-tab>
         </van-tabs>
         <div class="xian"></div>
         <div class="message_box">
