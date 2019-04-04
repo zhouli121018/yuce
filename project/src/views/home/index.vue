@@ -217,6 +217,7 @@ export default {
     border-radius:0.1rem;
     line-height:1;
     width:1.1rem;
+    background:#fff;
   }
   
 </style>
