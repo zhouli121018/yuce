@@ -1,25 +1,38 @@
 <template>
   <div id="app">
+    <a href="http://101.37.31.33/biwin/zyjh.apk" download v-show="false" id="download_btn">1</a>
     <router-view />
     <div class='full_sc' v-show="loading">
       <rise-loader class="custom-class" color="#8adff4" :loading="loading" :size="15" sizeUnit="px"></rise-loader>
     </div>
+    
   </div>
 </template>
 
 <script>
 import {getproperty} from '@/api/home'
+import { Dialog } from 'vant'
 export default {
   created(){
-    //判断 手机系统类型
-    let u = navigator.userAgent, app = navigator.appVersion;
-    let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-    let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-    if (isAndroid) {
-        
+    //判断是否微信或qq
+    let ua = navigator.userAgent.toLowerCase();
+    if(ua.match(/MicroMessenger\/[0-9]/i) || ua.match(/QQ\/[0-9]/i)){
+        this.$router.push('/home/qqOrwx');
+        return;
     }
-    if (isIOS) {
-        
+    //判断 浏览器类型
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        this.$router.push('/home/ios')
+    } else if (/(Android)/i.test(navigator.userAgent)) {
+        Dialog.confirm({
+          title: '提示',
+          message: '点击确定即可下载安装，已安装请忽略~'
+        }).then(() => {
+          // on confirm
+          document.getElementById('download_btn').click();
+        }).catch(() => {
+          // on cancel
+        });
     }
   },
   computed: {

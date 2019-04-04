@@ -72,6 +72,24 @@ export default [
                     cache: true
                 }
             },
+            {//qq 或 微信
+                path: 'qqOrwx',
+                name: 'qqOrwx',
+                component: _import('home/qqOrwx'),
+                meta: {
+                    title: '打开',
+                    cache: true
+                }
+            },
+            {//qq 或 微信
+                path: 'ios',
+                name: 'ios',
+                component: _import('home/ios'),
+                meta: {
+                    title: 'ios系统',
+                    cache: true
+                }
+            },
             {//选号技巧详情
                 path: 'skilldetail',
                 name: 'skilldetail',
