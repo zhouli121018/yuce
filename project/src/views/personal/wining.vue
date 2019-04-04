@@ -30,7 +30,7 @@ export default {
     box-sizing border-box
     display flex
     align-items center
-    border-bottom 1px solid #eee
+    border-bottom 1px solid #cccccc
     .wining_photo
         width 1.5rem
         height 1.5rem
@@ -47,7 +47,7 @@ export default {
                 padding .1rem
                 font-size .34rem
                 color #999
-                border 1px solid #eee
+                border 1px solid #cccccc
                 margin-left .2rem
                 border-radius .1rem
 h4

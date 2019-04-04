@@ -96,7 +96,7 @@ h4
     width 100%
     text-align center
     padding .2rem 0
-    border-bottom 1px solid #eeeeee
+    border-bottom 1px solid #cccccc
     font-size .4rem
     &.rules_h
         text-align left
@@ -111,7 +111,7 @@ h4
         width .8rem
         height .8rem
         border-radius 50%
-        border 1px solid #eeeeee
+        border 1px solid #cccccc
         line-height .8rem
         text-align center
         margin .2rem

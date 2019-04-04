@@ -76,7 +76,7 @@ button
     width 90%
     margin-top 1rem
 .van_box
-    border 1px solid #eee
+    border 1px solid #cccccc
     width 94%
     margin .3rem auto
     display flex

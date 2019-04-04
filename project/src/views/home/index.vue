@@ -33,7 +33,7 @@
           </div>
         </van-col>
       </van-row>
-      <div class="space_bar"></div>
+      <div class="xian"></div>
       
       <rank  :ishome="1" @get_notices="get_notices" />
       
@@ -184,10 +184,6 @@ export default {
     display: block;
     color: #666;
     font-size:.38rem
-  }
-  .space_bar{
-    height:10px;
-    background:#F5F5F5;
   }
   .rank_item{
     padding:10px 10px;

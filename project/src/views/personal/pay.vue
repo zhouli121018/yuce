@@ -97,7 +97,7 @@ h4
     width 100%
     padding .2rem .3rem
     box-sizing border-box
-    border-bottom 1px solid #eee
+    border-bottom 1px solid #cccccc
     display flex
     align-items center
     img 

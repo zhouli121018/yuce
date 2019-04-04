@@ -2,15 +2,19 @@
     <div>
       <lottypes @change_lottypes="getexprank" ref="rankChild" :show_zhibiao="1"/>
 
-      <div class="space_bar"></div>
-      <div class="clear text_box">
+      <div class="xian"></div>
+      <div class="clear text_box ranking_box">
         <span class="fl">{{kjdes}}</span>
-        <select class="no_border fr" v-model="issuenum" @change="changeIssuenum">
+        <!-- <select class="no_border fr" v-model="issuenum" @change="changeIssuenum">
           <option :value="3">近三期排名</option>
           <option :value="7">近七期排名</option>
           <option :value="10">近十期排名</option>
           <option :value="30">近三十期排名</option>
-        </select>
+        </select> -->
+        <p @click="isShow">{{rankName}} <img :class="show?'go':'aa'" src="~@/assets/top.png" alt=""></p>
+        <ul class="ranking_ul" v-show="show">
+          <li v-for="(item,index) in rankList" @click="changeIssuenum(item)" :class="rankName == item.name?'active':''" :key="index">{{item.name}}</li>
+        </ul>
       </div>
       <ul>
         <li class="rank_item" v-for="(item,index) in rank_list" :key="index">
@@ -61,18 +65,32 @@ export default {
                 
             ],
             issuenum: 3,
-            kjdes:''
+            kjdes:'',
+            rankList: [
+              {id: 3,name:'近三期排名'},
+              {id: 7,name:'近七期排名'},
+              {id: 10,name:'近十期排名'},
+              {id: 30,name:'近三十期排名'}
+            ],
+            rankName: '近三期排名',
+            show: false,
         }
     },
     methods:{
-      
-      changeIssuenum(){
+      isShow() {
+        this.show = !this.show
+      },
+      changeIssuenum(item){
+        this.rankName = item.name
+        this.issuenum = item.id
+        this.show = false
         this.getexprank();
       },
       showTost(cost,uid){
         Dialog.confirm({
-          title: '',
-          message: '查看该预测需花费你'+cost+'金币，专家不保证100%准确，确定查看吗？'
+          title: '提示',
+          message: '查看该预测需花费你'+cost+'金币，专家不保证100%准确，确定查看吗？',
+          className: 'dialog_content'
         }).then(() => {
           // on confirm
           this.$router.push({
@@ -120,6 +138,42 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+/deep/ .dialog_content .van-dialog__message
+  border-top 1px dashed #ccc
+  margin-top .3rem
+.aa 
+  transform rotate(-180deg)
+.ranking_ul
+  min-width 2rem
+  padding 0 .15rem
+  box-sizing border-box 
+  position absolute
+  right .7rem
+  top 1rem
+  background #fff
+  z-index 999
+  box-shadow .02rem .02rem .02rem .02rem #e9e9e9
+  transition  all 1s
+  li 
+    padding .3rem .2rem
+    font-size .4rem
+    border-bottom 1px solid #e9e9e9
+    &.active 
+      color #EC493C
+.ranking_box
+  width 100%
+  display flex
+  align-items center
+  justify-content space-between
+  position relative
+  p 
+    font-size .38rem
+    padding-left .15rem
+    color #EC493C
+  img
+    width .25rem
+    height .15rem
+    margin-left .2rem
 .max_width_100
   border-radius 50%
 /deep/ .van-button--primary

@@ -55,7 +55,7 @@ export default {
     width 100%
     padding .2rem
     box-sizing border-box
-    border-bottom 2px solid #eee
+    border-bottom 2px solid #cccccc
     .box_top
         min-width 80%
         display flex
