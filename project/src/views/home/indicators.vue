@@ -21,7 +21,7 @@ export default {
     methods:{
         async notice () {
           const { data }    = await getzhibiaodesc({
-              lottype: this.$store.getters.lottype
+              lottype: this.$route.query.lottype
           })
          this.info = data
         },

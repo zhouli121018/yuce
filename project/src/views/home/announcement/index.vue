@@ -24,8 +24,8 @@ export default {
             this.$router.push({
                 path: '/home/announcement/detail', 
                 query: {
-                    title: data.title, 
-                    noticeId: data.id
+                    // title: data.title, 
+                    noticeid: data.id
                 }
             })
         }

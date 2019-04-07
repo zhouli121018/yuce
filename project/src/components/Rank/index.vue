@@ -16,7 +16,7 @@
           <li v-for="(item,index) in rankList" @click="changeIssuenum(item)" :class="rankName == item.name?'active':''" :key="index">{{item.name}}</li>
         </ul>
       </div>
-      <ul>
+      <ul class="rank_ul">
         <li class="rank_item" v-for="(item,index) in rank_list" :key="index">
           <van-row type="flex" align="center">
             <van-col span="18">
@@ -28,16 +28,17 @@
                   <van-col span="19" class="desc">
                     <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{item.fans}}人关注</van-tag></h3>
                     <!-- <div style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.viewtimes}}次查看</div> -->
-                    <div style="margin-top:8px;color:#666;">{{item.viewtimes}}次查看   <span>{{ '测'+issuenum+'期对'+item.hittimes+'期' }}</span></div>
+                    <div style="margin-top:0.2rem;color:#666;font-size:0.34rem">{{item.viewtimes}}次查看   
+                      <span style="font-size:0.34rem">{{ '测'+issuenum+'期对'+item.hittimes+'期' }}</span></div>
                   </van-col>
                 </van-row>
               </div>
               
             </van-col>
-            <van-col span="6" class="text_center">
-              <van-button type="info" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)">未 发 布</van-button>
+            <van-col span="6" class="text_right">
+              <van-button type="primary" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)" disabled>未 发 布</van-button>
               <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.uid)">本期预测</van-button>
-              <van-button type="primary" size="small" disabled  v-if="item.curstatus==2">已 查 看</van-button>
+              <van-button type="danger" size="small" @click="viewpred(item.uid)"  v-if="item.curstatus==2">已 查 看</van-button>
             </van-col>
           </van-row>
           <van-row class="rank_item_bottom">
@@ -233,5 +234,6 @@ export default {
       white-space: nowrap;
       text-overflow: ellipsis;
       font-weight:bold;
-
+.rank_ul
+  padding 0 0.2rem
 </style>

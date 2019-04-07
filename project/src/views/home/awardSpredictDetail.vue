@@ -7,7 +7,7 @@ import { getpredzuhe_detail } from '@/api/home'
 export default {
     data(){
         return {
-            title_name:'详情',
+            title_name:'大奖组合预测详情',
             title:'',
             content:''
         }
@@ -15,8 +15,8 @@ export default {
     methods:{
         async getpredzuhe_detail () {
             const { data }    = await getpredzuhe_detail({
-                lottype: this.$route.lottype,
-                tid: this.$route.tid
+                lottype: this.$route.query.lottype,
+                tid: this.$route.query.tid
             });
             if(data.errorcode==0){
                 this.title = data.title;

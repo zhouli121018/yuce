@@ -15,7 +15,7 @@ import {notice } from '@/api/home'
 export default {
     data(){
         return {
-            title_name: '详情',
+            title_name: '公告详情',
             notice_details:{
                 title:'',
                 content:''
@@ -25,14 +25,14 @@ export default {
     methods:{
         async notice () {
           const { data }    = await notice({
-              noticeid:this.$route.query.noticeId
+              noticeid:this.$route.query.noticeid
           });
           this.notice_details.title = data.title;
           this.notice_details.content = data.content;
         },
     },
     created(){
-        this.title_name = this.$route.query.title
+        // this.title_name = this.$route.query.title
         this.notice();
     }
 }

@@ -78,12 +78,12 @@ export default {
     goAnnounceDetail(param){
       let url = param.url;
       let index = url.indexOf('=');
-      let noticeId = url.slice(index+1);
+      let noticeid = url.slice(index+1);
       this.$router.push({
         path:'/home/announcement/detail',
         query:{
-          title: param.text, 
-          noticeId: noticeId
+          // title: param.text, 
+          noticeid: noticeid
         }
       })
     }
