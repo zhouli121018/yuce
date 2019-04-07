@@ -2,10 +2,10 @@
     <div class="container">
         <title-bar title_name="登录" right_text="注册" right_url="/register/index"/>
         <div class="van_box">
-            <van-field label="手机号" maxlength="11" clearable v-model="mobile" placeholder="请输入手机号" />
+            <van-field label="手机号" maxlength="11" type="number" clearable v-model="mobile" placeholder="请输入手机号" />
         </div>
         <div class="van_box">
-            <van-field label="验证码" maxlength="11" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
+            <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
             <CutDown @click="getvcode" :disabled="disabled" :mobile="mobile"></CutDown>
         </div>
         <van-button type="danger" @click="loginbypass">登录</van-button>
@@ -37,7 +37,12 @@ export default {
             const { data }    = await loginbypass({
                 phone: this.mobile,
                 pass: this.code
-            });
+            })
+            if(data.errorcode == 0) {
+                window.localStorage['uid'] = data.uid
+                window.localStorage['sid'] = data.sid
+                this.$router.replace('/home/index')
+            }
         },
     },
     computed: {

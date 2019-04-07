@@ -13,8 +13,8 @@
             <h4 class="rules_h">模拟投注规则</h4>
             <p>1.人和注册用户可以免费模拟投注</p>
             <p>2.每项只能模拟投注一注</p>
-            <p>1.人和注册用户可以免费模拟投注</p>
-            <p>2.每项只能模拟投注一注</p>
+            <!-- <p>1.人和注册用户可以免费模拟投注</p>
+            <p>2.每项只能模拟投注一注</p> -->
         </div>
     </div>
 </template>
@@ -32,7 +32,7 @@ export default {
     methods: {
         lists() {
             let obj = {}
-            for(let i = 1; i < 35; i++) {
+            for(let i = 1; i < 34; i++) {
                 obj = {a:i < 10?'0'+i:i}
                 this.list.push(obj)
             }
@@ -63,7 +63,7 @@ export default {
                 nums: this.arr.join(',')
             })
             if(data.errorcode == 0) {
-                this.$toast('投注成功!')
+                this.$toast(data.message)
                 this.disabled = false
             }else {
                 this.$toast(data.message)

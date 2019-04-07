@@ -3,7 +3,7 @@
       <title-bar title_name="我的关注" />
         
       <lottypes  @change_lottypes="getmyfollow" ref="rankChild"/>
-
+<div class="xian"></div>
       <ul>
         <li class="rank_item" v-for="(l,index) in list" :key="index">
           <van-row type="flex" align="center">

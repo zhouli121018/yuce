@@ -2,10 +2,10 @@
     <div class="container">
         <title-bar title_name="登录" right_text="注册" right_url="/register/index"/>
         <div class="van_box">
-            <van-field label="手机号" maxlength="11" clearable v-model="mobile" placeholder="请输入手机号" />
+            <van-field label="手机号" maxlength="11" type="number" clearable v-model="mobile" placeholder="请输入手机号" />
         </div>
         <div class="van_box">
-            <van-field label="密码" maxlength="11" class="van_field" clearable v-model="code" placeholder="请输入密码" />
+            <van-field label="密码" maxlength="11" type="number" class="van_field" clearable v-model="code" placeholder="请输入密码" />
             <!-- <CutDown @click="codeVerify" :disabled="disabled" :moble="mobile"></CutDown> -->
         </div>
         <router-link tag="div" to="/login/verification" class="red van_box_right">验证码登录</router-link>
@@ -36,7 +36,7 @@ export default {
             if(data.errorcode == 0) {
                 window.localStorage['uid'] = data.uid
                 window.localStorage['sid'] = data.sid
-                this.$router.push('/home/index')
+                this.$router.replace('/home/index')
             }
             
         },

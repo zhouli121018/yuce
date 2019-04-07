@@ -34,7 +34,7 @@
             </div>
         </div>
         <van-button size="large" type="danger" @click="toPay">前往充值</van-button>
-        <p class="pay_faild" style="padding-bottom:0.8rem;">充值失败联系微信:999999</p>
+        <p class="pay_faild" style="padding-bottom:0.8rem;">充值失败联系微信:SNSN889922</p>
     </div>
 </template>
 
@@ -53,7 +53,8 @@ export default {
             active: 0,
             payType: 1,
             chooseImg: require('../../assets/choose_checked.png'),
-            normalImg: require('../../assets/choose_normal.png')
+            normalImg: require('../../assets/choose_normal.png'),
+            money:10
         }
     },
     methods: {

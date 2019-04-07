@@ -2,17 +2,17 @@
     <div class="container">
         <title-bar title_name="新用户注册" />
         <div class="van_box">
-            <van-field label="手机号" maxlength="11" clearable v-model="phone" placeholder="请输入手机号" />
+            <van-field label="手机号" maxlength="11" type="number" clearable v-model="phone" placeholder="请输入手机号" />
         </div>
         <div class="van_box">
-            <van-field label="密码" type="password" maxlength="11" clearable v-model="password" placeholder="请输入密码" />
+            <van-field label="密码" type="number" maxlength="11" clearable v-model="password" placeholder="请输入密码" />
         </div>
         <div class="van_box">
-            <van-field label="验证码" maxlength="11" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
+            <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
             <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone"></CutDown>
         </div>
         <div class="van_box">
-            <van-field label="邀请码" maxlength="11" class="van_field_code" clearable v-model="vcode" placeholder="输入邀请码双方可得10金币" />
+            <van-field label="邀请码" maxlength="11" type="number" class="van_field_code" clearable v-model="vcode" placeholder="输入邀请码双方可得10金币" />
         </div>
         <van-button type="danger" @click="regist">注册</van-button>
     </div>
@@ -44,9 +44,7 @@ export default {
                 // icode: this.code,
                 // device: this.device
             })
-            if(data.code == 1) {
-                
-            }
+            this.$toast(data.message)
         },
         async regist() {
             const { data } = await regist({
@@ -56,8 +54,10 @@ export default {
                 icode: this.code,
                 device: this.device
             })
-            if(data.code == 1) {
-                
+            if(data.errorcode == 0) {
+                window.localStorage['uid'] = data.uid
+                window.localStorage['sid'] = data.sid
+                this.$router.replace('/home/index')
             }
         }
     },

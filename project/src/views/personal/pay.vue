@@ -16,7 +16,7 @@
             <div class="qrcode">
                 <img :src="$https+info.barcodeurl" alt="">
             </div>
-            <p>充值失败联系微信:73737737737</p>
+            <p>充值失败联系微信:SNSN889922</p>
         </div>
         <div class="xian"></div>
         <div class="simulate_rules">
@@ -61,7 +61,7 @@ export default {
 <style lang="stylus" scoped>
 .simulate_rules
     width 100%
-    padding .2rem
+    padding .2rem .3rem
     box-sizing border-box
     text-align left 
     p
