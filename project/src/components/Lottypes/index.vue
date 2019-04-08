@@ -17,14 +17,14 @@
           </div>
         </van-tab>
       </van-tabs>
-      <van-row class="text_center btn_group">
+      <van-row class="text_center btn_group" style="padding-bottom:0.2rem;">
         <van-col span="6" v-for="(y,index) in ycplaytypes" :key="index">
           <van-button :type="index==yc_active?'danger':'default'" size="small" @click="change_yc(index)">{{y.ycplayname}}</van-button>
         </van-col>
         <van-col span="6" v-if="show_zhibiao"><van-button size="small" class="no_border_btn" @click="jumpTo">指标说明</van-button></van-col>
       </van-row>
       <div class="xian"></div>
-      <div class="space_bar"></div>
+      <!-- <div class="space_bar"></div> -->
       
 
     </div>
@@ -86,6 +86,22 @@ export default {
                 }
             }
         }
+        if(this.$route.query.postype){
+          let active_lottype = this.$store.getters.lottypes[this.tabs_active]
+            for(var i=0;i<active_lottype.poslist.length;i++){
+                if(active_lottype.poslist[i].type == this.$route.query.postype){
+                    this.num_active = i;
+                }
+            }
+        }
+        if(this.$route.query.ycplaytype){
+          let active_pos = this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active]
+            for(var i=0;i<active_pos.ycplaytypes.length;i++){
+                if(active_pos.ycplaytypes[i].ycplaytype == this.$route.query.ycplaytype){
+                    this.yc_active = i;
+                }
+            }
+        }
       },
       // async getzhibiaodesc () {
       //   const { data }    = await getzhibiaodesc({
@@ -139,7 +155,7 @@ export default {
 
 <style scoped lang="stylus">
 .text_center
-    margin-bottom .2rem
+    // margin-bottom .2rem
     text-align center
     background #fff
 .no_border{

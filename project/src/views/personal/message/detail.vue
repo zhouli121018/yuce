@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import {notice } from '@/api/home'
+import { msg } from '@/api/personal'
 export default {
     data(){
         return {
@@ -13,8 +13,8 @@ export default {
         }
     },
     methods:{
-        async notice () {
-          const { data }    = await notice({
+        async msg () {
+          const { data }    = await msg({
               id:this.$route.query.id
           });
           this.title = data.title;
@@ -22,8 +22,8 @@ export default {
         },
     },
     created(){
-        this.title_name = this.$route.query.title
-        this.notice();
+        // this.title_name = this.$route.query.title
+        this.msg();
     }
 }
 </script>

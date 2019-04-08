@@ -1,10 +1,10 @@
 <template>
-    <div class="container">
+    <div class="container" style="background:#fff;">
       <title-bar title_name="我的关注" />
         
       <lottypes  @change_lottypes="getmyfollow" ref="rankChild"/>
-<div class="xian"></div>
-      <ul>
+<!-- <div class="xian"></div> -->
+      <ul style="padding:0 0.2rem;">
         <li class="rank_item" v-for="(l,index) in list" :key="index">
           <van-row type="flex" align="center">
             <van-col span="18">
@@ -18,7 +18,7 @@
                 </van-col>
               </van-row>
             </van-col>
-            <van-col span="6" class="text_center">
+            <van-col span="6" class="text_right">
               <van-button type="danger" size="small" v-if="l.cid>0" @click="showTost(l.uid)">查看预测</van-button>
             </van-col>
           </van-row>
@@ -157,7 +157,8 @@ ul
     white-space nowrap
   .flex_box
    .name_s
-      width:98px
+      width:2.8rem
+      padding-right:0.2rem
       display:inline-block
       overflow:hidden
       white-space: nowrap;

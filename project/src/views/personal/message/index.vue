@@ -24,7 +24,7 @@ export default {
             this.$router.push({
                 path: '/personal/message/detail', 
                 query: {
-                    title: data.title, 
+                    // title: data.title, 
                     id: data.id
                 }
             })

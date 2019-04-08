@@ -2,7 +2,7 @@
     <div>
       <lottypes @change_lottypes="getexprank" ref="rankChild" :show_zhibiao="1"/>
 
-      <div class="xian"></div>
+      <!-- <div class="xian"></div> -->
       <div class="clear text_box ranking_box">
         <span class="fl">{{kjdes}}</span>
         <!-- <select class="no_border fr" v-model="issuenum" @change="changeIssuenum">
@@ -119,11 +119,23 @@ export default {
               cid: cid,
         });
         if(data.errorcode == 0 && data.content){
-          Dialog.alert({
-            title:'提示',
-              message: data.content
+          Dialog.confirm({
+            title: '提示',
+            message: data.content,
+            confirmButtonText: '我的查看',
+            cancelButtonText: '关闭',
           }).then(() => {
-          // on close
+            // on confirm
+            this.$router.push({
+              path:'/personal/myLook',
+              query:{
+                lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+                postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+                ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
+              }
+            })
+          }).catch(() => {
+            // on cancel
           });
         }
           
@@ -228,7 +240,8 @@ export default {
     color #666
 .flex_box
    .name_s
-      width:98px
+      width:2.8rem
+      padding-right:0.2rem
       display:inline-block
       overflow:hidden
       white-space: nowrap;
