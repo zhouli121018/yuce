@@ -60,6 +60,7 @@ export default {
         
     },
     created(){
+        this.tabs_active = this.$store.getters.tabs_active;
         if(this.$store.getters.lottypes){
             this.setLottype();
             this.getpredzuhe(this.$store.getters.lottypes[this.tabs_active].lottype)

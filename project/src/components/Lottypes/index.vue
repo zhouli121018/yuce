@@ -48,9 +48,7 @@ export default {
     data() {
         return {
             
-            tabs_active: 0,
-            num_active: 0,
-            yc_active: 0,
+            
         }
     },
     methods:{
@@ -64,25 +62,25 @@ export default {
         })
       },
       change_lottype(index){
-        this.tabs_active = index;
-        this.num_active = 0;
-        this.yc_active = 0;
+        this.$store.dispatch('set_tabs_active',index)
+        this.$store.dispatch('set_num_active',0)
+        this.$store.dispatch('set_yc_active',0)
         this.$emit('change_lottypes');
       },
       change_pos(index){
-        this.num_active = index;
-        this.yc_active = 0;
+        this.$store.dispatch('set_num_active',index)
+        this.$store.dispatch('set_yc_active',0)
         this.$emit('change_lottypes');
       },
       change_yc(index){
-        this.yc_active = index;
+        this.$store.dispatch('set_yc_active',index)
         this.$emit('change_lottypes');
       },
       setLottype(){
         if(this.$route.query.lottype){
             for(var i=0;i<this.$store.getters.lottypes.length;i++){
                 if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
-                    this.tabs_active = i;
+                    this.$store.dispatch('set_tabs_active',i)
                 }
             }
         }
@@ -90,7 +88,7 @@ export default {
           let active_lottype = this.$store.getters.lottypes[this.tabs_active]
             for(var i=0;i<active_lottype.poslist.length;i++){
                 if(active_lottype.poslist[i].type == this.$route.query.postype){
-                    this.num_active = i;
+                    this.$store.dispatch('set_num_active',i)
                 }
             }
         }
@@ -98,7 +96,7 @@ export default {
           let active_pos = this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active]
             for(var i=0;i<active_pos.ycplaytypes.length;i++){
                 if(active_pos.ycplaytypes[i].ycplaytype == this.$route.query.ycplaytype){
-                    this.yc_active = i;
+                    this.$store.dispatch('set_yc_active',i)
                 }
             }
         }
@@ -135,20 +133,46 @@ export default {
       lottypes(){
           return this.$store.getters.lottypes;
       },
+      tabs_active:{
+        get: function () {
+          return this.$store.getters.tabs_active;//methods里面对这个里面有从新赋值的操作
+        },
+        set: function (newValue) {
+           
+        }
+      },
+      num_active: {
+        get: function () {
+          return this.$store.getters.num_active;
+        },
+        set: function (newValue) {
+           
+        }
+      },
+      yc_active: {
+        get: function () {
+          return this.$store.getters.yc_active;
+        },
+        set: function (newValue) {
+           
+        }
+        
+      },
       poslist(){
         if(this.$store.getters.lottypes){
-          return this.$store.getters.lottypes[this.tabs_active].poslist
+          return this.$store.getters.lottypes[this.$store.getters.tabs_active].poslist
         }else {
           return [];
         }
       },
       ycplaytypes(){
         if(this.$store.getters.lottypes){
-          return this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].ycplaytypes
+          return this.$store.getters.lottypes[this.$store.getters.tabs_active].poslist[this.$store.getters.num_active].ycplaytypes
         }else {
           return [];
         }
-      }
+      },
+      
   }
 }
 </script>

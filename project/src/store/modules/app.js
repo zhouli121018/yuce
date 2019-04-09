@@ -6,7 +6,10 @@ const app = {
     sdkUrl: '',  // 存放获取js-sdk 所需url,安卓每次调用sdk取最新的url, ios取第一次进入公众号的url
     system: systemType(),  // 0 为ios 1 为安卓
     shareUrl: '',
-    lottypes:null
+    lottypes:null,
+    tabs_active: 0,
+    num_active: 0,
+    yc_active: 0
   },
   getters: {
     whiteList (state) {
@@ -26,6 +29,15 @@ const app = {
     SET_LOTTYPES (state,param){
       state.lottypes = null;
       state.lottypes = param
+    },
+    SET_TABS_ACTIVE(state,param){
+      state.tabs_active = param;
+    },
+    SET_NUM_ACTIVE(state,param){
+      state.num_active = param;
+    },
+    SET_YC_ACTIVE(state,param){
+      state.yc_active = param;
     }
   },
   actions: {
@@ -34,7 +46,16 @@ const app = {
     },
     set_lottypes ({commit}, param){
       commit('SET_LOTTYPES', param)
-    }
+    },
+    set_tabs_active ({commit}, param){
+      commit('SET_TABS_ACTIVE', param)
+    },
+    set_num_active ({commit}, param){
+      commit('SET_NUM_ACTIVE', param)
+    },
+    set_yc_active ({commit}, param){
+      commit('SET_YC_ACTIVE', param)
+    },
   }
 }
 
