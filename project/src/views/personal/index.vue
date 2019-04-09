@@ -33,7 +33,13 @@
         <div>
             <van-cell title="我的关注" is-link icon="shop" @click="jumpTo('/personal/myFocus')"/>
             <van-cell title="我的查看" is-link icon="look"  @click="jumpTo('/personal/myLook')"/>
-            <van-cell title="我的消息" is-link icon="message" @click="jumpTo('/personal/message/index')"/>
+            <!-- <van-cell title="我的消息" is-link icon="message" />  -->
+            <van-cell icon="message" is-link @click="jumpTo('/personal/message/index')">
+                <template slot="title">
+                    <span class="custom-text">我的消息</span>
+                    <van-tag type="danger" v-if="info && info.unread" style="margin-left:0.2rem;">{{info.unread}}</van-tag>
+                </template>
+            </van-cell>
             
         </div>
         <div class="xian"></div>
