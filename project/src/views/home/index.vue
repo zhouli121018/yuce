@@ -9,7 +9,7 @@
     </div>
       <van-swipe :autoplay="3000" indicator-color="#007BC2">
         <van-swipe-item  v-for="(image, index) in advs" :key="index">
-          <div class="swipe_img_box">
+          <div class="swipe_img_box" @click="jumpTo(image.url)">
             <img :src="$https+image.pic" />
           </div>
         </van-swipe-item>
@@ -36,7 +36,7 @@
       <div class="xian"></div>
       
       <rank  :ishome="1" @get_notices="get_notices" />
-      
+      <a :href="banner_url" v-show="false" id="banner_a">1</a>
     
   </div>
 </template>
@@ -62,6 +62,7 @@ export default {
       advs:[],
       left_text:'登录',
       left_path:'/login/index',
+      banner_url:'#'
     }
   },
   methods: {
@@ -69,7 +70,13 @@ export default {
       this.$router.push(this.left_path)
     },
     jumpTo( path, islink ){
-      this.$router.push(path)
+      if(path.indexOf('/')==0){
+        this.$router.push(path)
+      }else{
+        this.banner_url = path;
+        document.getElementById('banner_a').click();
+      }
+      
     },
     get_notices (data) {
         this.notice = data.notices;

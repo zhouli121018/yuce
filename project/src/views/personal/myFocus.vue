@@ -117,6 +117,7 @@ export default {
   line-height .6rem
   text-align center
   margin-right .2rem
+  margin-bottom 0.1rem
 ul
   background #fff
 .container
@@ -163,4 +164,8 @@ ul
       overflow:hidden
       white-space: nowrap;
       text-overflow: ellipsis;
+  .flex_grow_1 
+    span
+      &:last-child
+        margin-right 0
 </style>

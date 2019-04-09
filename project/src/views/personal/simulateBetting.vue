@@ -3,16 +3,18 @@
         <title-bar title_name="模拟投注"></title-bar>
         <h4>模拟双色球投注8红球中6奖励1000元</h4>
         <div class="simulate_num">
-            <span v-for="(item,index) in list" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
+            <span v-for="(item,index) in list" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)" :style="{visibility:index==34||index==33?'hidden':'show'}">{{item.a}}</span>
         </div>
         <div class="simulate_div">
         <van-button type="danger" class="simulate_btn" @click="submittouzu" :disabled="disabled" size="large">模拟投注</van-button>
         </div>
         <div class="xian"></div>
         <div class="simulate_rules">
-            <h4 class="rules_h">模拟投注规则</h4>
-            <p>1.人和注册用户可以免费模拟投注</p>
-            <p>2.每项只能模拟投注一注</p>
+            <h4 class="rules_h" style="color:#111;">模拟投注规则</h4>
+            <p>1、任何注册用户可以免费模拟投注</p>
+            <p>2、每期只能模拟投注一注</p>
+            <p>3、开奖结果参考福彩官方。</p>
+            <p>4、中4个送10金币；中5个送100金币；中6个送1000金币，再奖励1000元；</p>
             <!-- <p>1.人和注册用户可以免费模拟投注</p>
             <p>2.每项只能模拟投注一注</p> -->
         </div>
@@ -32,7 +34,7 @@ export default {
     methods: {
         lists() {
             let obj = {}
-            for(let i = 1; i < 34; i++) {
+            for(let i = 1; i < 36; i++) {
                 obj = {a:i < 10?'0'+i:i}
                 this.list.push(obj)
             }
@@ -82,10 +84,11 @@ export default {
     padding .2rem
     box-sizing border-box
     text-align left 
+    color #111
     p
         line-height .6rem
         font-size .34rem
-        color #666
+        color #333
 .simulate_btn
     width 90%!important
 .simulate_div

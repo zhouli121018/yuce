@@ -15,7 +15,9 @@ export default {
     methods:{
         async msg () {
           const { data }    = await msg({
-              id:this.$route.query.id
+              id:this.$route.query.id,
+              sid:localStorage['sid'],
+              uid:localStorage['uid']
           });
           this.title = data.title;
           this.content = data.content;

@@ -22,17 +22,25 @@ export default {
     }
     //判断 浏览器类型
     if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('isadd')){
         this.$router.push('/home/ios')
+      }
     } else if (/(Android)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('isdownload')){
         Dialog.confirm({
-          title: '提示',
-          message: '点击确定即可下载安装，已安装请忽略~'
+          title: '温馨提示',
+          confirmButtonText:'下载',
+          cancelButtonText:'已下载',
+          message: '请务必下载安卓App以便下次访问。点击下载进行安装，点击已下载不再提示。'
         }).then(() => {
           // on confirm
           document.getElementById('download_btn').click();
         }).catch(() => {
+          localStorage['isdownload'] = true;
           // on cancel
         });
+      }
+        
     }
   },
   computed: {

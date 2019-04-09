@@ -66,7 +66,7 @@ export default {
             rank_list:[
                 
             ],
-            issuenum: 3,
+            issuenum: 7,
             kjdes:'',
             rankList: [
               {id: 3,name:'近三期排名'},
@@ -74,7 +74,7 @@ export default {
               {id: 10,name:'近十期排名'},
               {id: 30,name:'近三十期排名'}
             ],
-            rankName: '近三期排名',
+            rankName: '近七期排名',
             show: false,
         }
     },

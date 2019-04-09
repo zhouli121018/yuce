@@ -17,7 +17,10 @@ export default {
     },
     methods:{
         async getmymsgs () {
-          const { data }    = await getmymsgs();
+          const { data }    = await getmymsgs({
+              sid:localStorage['sid'],
+              uid:localStorage['uid']
+          });
           this.list = data.list;
         },
         goDetail(data){

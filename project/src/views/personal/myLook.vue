@@ -85,6 +85,11 @@ export default {
   line-height .6rem
   text-align center
   margin-right .2rem
+  margin-bottom 0.1rem
+.flex_grow_1 
+  span
+    &:last-child
+      margin-right 0
 ul
   background #fff
 .container

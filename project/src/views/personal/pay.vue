@@ -8,7 +8,7 @@
                 <p style="padding-top:0.1rem">微信安全支付</p>
             </div>
         </div>
-        <h4 style="text-align:center;font-weight:bold;font-size:0.5rem;">付款备注: {{info.beizu}}</h4>
+        <h4 style="text-align:center;font-weight:bold;font-size:0.5rem;margin-top:0.2rem;">付款备注: {{info.beizu}}</h4>
         <div class="red pay_prompt">
             重要: 微信二维码支付只能从这里进入支付,不能使用已有保存的二维码支付。每次进来备注会变换!
         </div>
@@ -61,7 +61,7 @@ export default {
 <style lang="stylus" scoped>
 .simulate_rules
     width 100%
-    padding .2rem .3rem
+    padding .2rem .32rem
     box-sizing border-box
     text-align left 
     p
@@ -84,7 +84,7 @@ export default {
         font-size .32rem
         color #666
 .pay_prompt
-    padding .2rem
+    padding .32rem
     box-sizing border-box
     font-size .38rem
     line-height .5rem

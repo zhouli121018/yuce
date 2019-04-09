@@ -10,9 +10,10 @@
             <van-button class="orange_btn" round @click="info.ischeck==0?signIn():''" :disabled="info.ischeck==1?true:false">{{info.ischeck==1?'已签到':'签到'}}</van-button>
         </div>
         <div class="broughtGold_gold">
-            <div>
+            <div style="position:relative;">
                 <p class="red">{{info.coin}}</p>
                 <p>我的金币</p>
+                <div style="width:1px;height:70%;background:#e9e9e9; position: absolute; right: 0;top: 15%;"></div>
             </div>
             <div>
                 <p class="red">{{info.days}}天</p>
@@ -23,12 +24,14 @@
         <div class="broughtGold_box">
             <p class="red">领金币方式一</p>
             <div class="gold_content">
-                <p class="gold_top"><span>1天</span><span>2天</span>
+                <p class="gold_top">
+                    <span>1天</span><span>2天</span>
                 <span>3天</span>
                 <span>4天</span>
                 <span>5天</span>
                 <span>6天</span>
-                <span>7天</span></p>
+                <span>7天</span>
+                </p>
                 <div class="gold_center">
                     金币
                     <span>+1</span>
@@ -109,6 +112,7 @@ export default {
             if(data.errorcode == 0) {
                 this.info.coin = data.coin;
                 this.info.days = data.days;
+                this.info.ischeck = 1
             }
         },
         totopUp() {
@@ -156,7 +160,8 @@ export default {
         .gold_top
             padding-left .8rem
             span 
-                padding 0 .3rem
+                padding 0 .2rem
+                margin-left 0.12rem
         .gold_center
             display flex
             align-items center
@@ -189,7 +194,7 @@ export default {
         width 49%
         text-align center
         &:first-child
-            border-right 1px solid #E9E9E9
+            // border-right 1px solid #E9E9E9
         p 
             line-height .6rem
 .my_title

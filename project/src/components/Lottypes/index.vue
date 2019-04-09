@@ -176,6 +176,7 @@ export default {
     font-size .36rem
 .rank_item_bottom
     padding .1rem 0
-
+.border_color
+  margin-bottom .2rem
 
 </style>
