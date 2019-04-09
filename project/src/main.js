@@ -33,7 +33,7 @@ import 'animate.css';
 import "./registerServiceWorker"
 import * as filters from './filters'  // 全局过滤器
 import './styles/index.styl'
-import VueAMap from 'vue-amap'
+// import VueAMap from 'vue-amap'
 
 //注册全局title组件
 import TitleBar from '@/components/Title/index'
@@ -50,22 +50,22 @@ Vue.prototype.$md5 = md5;
 Vue.prototype.$https = 'http://freessq.com/h/'
 Vue.prototype.$https_img = 'http://freessq.com/'
 
-Vue.use(VueAMap);
-VueAMap.initAMapApiLoader({
-  key: 'b37903093d14da2f8eaf71a24d0d958c',
-  plugin: [
-    'AMap.Autocomplete', 
-    'AMap.PlaceSearch', 
-    'AMap.Scale', 
-    'AMap.OverView', 
-    'AMap.ToolBar', 
-    'AMap.MapType', 
-    'AMap.PolyEditor', 
-    'AMap.CircleEditor',
-    'AMap.Geocoder'
-  ],
-  v: '1.4.4'
-});
+// Vue.use(VueAMap);
+// VueAMap.initAMapApiLoader({
+//   key: 'b37903093d14da2f8eaf71a24d0d958c',
+//   plugin: [
+//     'AMap.Autocomplete', 
+//     'AMap.PlaceSearch', 
+//     'AMap.Scale', 
+//     'AMap.OverView', 
+//     'AMap.ToolBar', 
+//     'AMap.MapType', 
+//     'AMap.PolyEditor', 
+//     'AMap.CircleEditor',
+//     'AMap.Geocoder'
+//   ],
+//   v: '1.4.4'
+// });
 //  注册全局过滤器
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
