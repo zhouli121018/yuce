@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <a href="http://101.37.31.33/biwin/zyjh.apk" download v-show="false" id="download_btn">1</a>
+    <a href="http://freessq.com/h/pred.apk" download v-show="false" id="download_btn">1</a>
     <router-view />
     <div class='full_sc' v-show="loading">
       <rise-loader class="custom-class" color="#8adff4" :loading="loading" :size="15" sizeUnit="px"></rise-loader>
