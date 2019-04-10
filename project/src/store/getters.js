@@ -9,5 +9,8 @@ const getters = {
   tabs_active:state=> state.app.tabs_active,
   num_active:state=> state.app.num_active,
   yc_active:state=> state.app.yc_active,
+  isback:state=> state.app.isback,
+  home_index_data:state=> state.app.home_index_data,
+
 }
 export default getters

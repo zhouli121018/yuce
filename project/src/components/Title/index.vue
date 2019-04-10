@@ -38,6 +38,9 @@
     methods: {
       // 返回
       goBack(){
+          if(this.$store.getters.home_index_data){
+            this.$store.dispatch('set_isback',true)
+          }
           this.$router.go(-1)
       },
       onClickRight(){

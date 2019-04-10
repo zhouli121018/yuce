@@ -52,7 +52,7 @@
                 <p>分享邀请码好友注册各送10金币</p>
                 <div class="gold_center">
                     <p>{{info.share}}</p>
-                    <span class="gold_span" @click="copyAction(info.share)">复制分享</span>
+                    <span class="gold_span" @click="doCopy(info.share)">复制分享</span>
                 </div>
             </div>
             <div class="xian"></div>
@@ -88,6 +88,9 @@
 <script>
 import { getcoindesc, checkin } from '@/api'
 import { Dialog } from 'vant'
+import Vue from 'vue'
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 export default {
     data() {
         return {
@@ -128,12 +131,25 @@ export default {
             document.execCommand("Copy"); // 执行浏览器复制命令
             document.body.removeChild(textEle);
             console.log('复制成功');
-            Dialog.alert({
-                title: '提示',
-                message: '复制成功，请粘贴到微信QQ或其他地方'
-            }).then(() => {
-            // on close
-            });
+            
+        },
+        doCopy (text) {
+            this.$copyText(text).then(function (e) {
+                Dialog.alert({
+                    title: '提示',
+                    message: '复制成功，请粘贴到微信QQ或其他地方'
+                }).then(() => {
+                // on close
+                });
+            }, function (e) {
+                Dialog.alert({
+                    title: '提示',
+                    message: '复制失败，请手动复制！'
+                }).then(() => {
+                // on close
+                });
+                console.log(e)
+            })
         }
     },
     created() {

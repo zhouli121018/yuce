@@ -9,7 +9,9 @@ const app = {
     lottypes:null,
     tabs_active: 0,
     num_active: 0,
-    yc_active: 0
+    yc_active: 0,
+    isback: false,
+    home_index_data:null
   },
   getters: {
     whiteList (state) {
@@ -38,6 +40,12 @@ const app = {
     },
     SET_YC_ACTIVE(state,param){
       state.yc_active = param;
+    },
+    SET_ISBACK(state,param){
+      state.isback = param;
+    },
+    SET_HOME_INDEX_DATA(state,param){
+      state.home_index_data = param;
     }
   },
   actions: {
@@ -56,6 +64,12 @@ const app = {
     set_yc_active ({commit}, param){
       commit('SET_YC_ACTIVE', param)
     },
+    set_isback ({commit}, param){
+      commit('SET_ISBACK',param)
+    },
+    set_home_index_data ({commit}, param){
+      commit('SET_HOME_INDEX_DATA',param)
+    }
   }
 }
 

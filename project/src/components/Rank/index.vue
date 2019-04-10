@@ -149,18 +149,28 @@ export default {
         })
       },
       async getexprank () {
-          const { data }    = await getexprank({
+          if(this.ishome == 1 && this.$store.getters.isback){
+            let data = this.$store.getters.home_index_data;
+            this.rank_list = data.list;
+            this.kjdes = data.kjdes;
+            this.$emit('get_notices', {notices:data.notices,advs:data.advs});
+            this.$store.dispatch('set_isback',false)
+          }else{
+            const { data }    = await getexprank({
               ishome :this.ishome,
               lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
               postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
               ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
               issuenum : this.issuenum
-          });
-          this.rank_list = data.list;
-          this.kjdes = data.kjdes;
-          if(this.ishome == 1){
-            this.$emit('get_notices', {notices:data.notices,advs:data.advs});
+            });
+            this.rank_list = data.list;
+            this.kjdes = data.kjdes;
+            if(this.ishome == 1){
+              this.$store.dispatch('set_home_index_data',data)
+              this.$emit('get_notices', {notices:data.notices,advs:data.advs});
+            }
           }
+          
       },
       
     },
