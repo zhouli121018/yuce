@@ -2,7 +2,7 @@
   <div id="app">
     <a href="http://freessq.com/h/pred.apk" download v-show="false" id="download_btn">1</a>
     <router-view v-if="!is_ios"/>
-    <div class="" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem">
+    <div class="container" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem !important;">
         <!-- <title-bar title_name="添加到主屏幕" /> -->
         <div style="background:#EFEFEF;padding:0.2rem 0.15rem;margin:0 0.3rem 0.2rem;">
             <div style="text-align:center;font-size:0.5rem;color:#DB3030;font-weight:bold;padding:0.2rem 0;">温馨提示</div>
