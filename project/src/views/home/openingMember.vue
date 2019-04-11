@@ -4,7 +4,9 @@
         <div class="openingMember_box" @click="onClick(index,item.money)" :class="active == index?'active':''" v-for="(item,index) in list" :key="index">
             <p style="color:#333;">开通{{item.count}}天</p>
             <div>
-                <p class="red"><img src="~@/assets/huo@2x.png" alt=""> 限时特惠: ¥{{item.money}}元</p>
+                <p class="red">
+                    <img src="~@/assets/huo@2x.png" alt="" :style="{visibility: index==2?'hidden':'show'}"> 
+                    限时特惠: ¥{{item.money}}元</p>
                 <p>原价:{{item.oldMoney}}</p>
             </div>
         </div>
@@ -124,7 +126,7 @@ button
     box-sizing border-box
     display flex
     align-items center
-    border-top 1px solid #cccccc
+    border-top 1px solid #E8E8E8
     >div
         width 80%
         padding-left .2rem

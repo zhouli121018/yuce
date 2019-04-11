@@ -4,15 +4,16 @@
         <div class="my_title">
             <img class="my_title_photo" :src="$https_img+info.img" alt="">
             <div class="my_title_center">
-                <span>{{info.uname}}</span>
+                <span style="color:#666;font-size:0.5rem;">{{info.uname}}</span>
             </div>
             <!-- 今天是否签过，1签到过，0未签到 -->
             <van-button class="orange_btn" round @click="info.ischeck==0?signIn():''" :disabled="info.ischeck==1?true:false">{{info.ischeck==1?'已签到':'签到'}}</van-button>
         </div>
         <div class="broughtGold_gold">
-            <div>
+            <div style="position:relative;">
                 <p class="red">{{info.coin}}</p>
                 <p>我的金币</p>
+                <div style="width:1px;height:70%;background:#e9e9e9; position: absolute; right: 0;top: 15%;"></div>
             </div>
             <div>
                 <p class="red">{{info.days}}天</p>
@@ -23,12 +24,14 @@
         <div class="broughtGold_box">
             <p class="red">领金币方式一</p>
             <div class="gold_content">
-                <p class="gold_top"><span>1天</span><span>2天</span>
+                <p class="gold_top">
+                    <span>1天</span><span>2天</span>
                 <span>3天</span>
                 <span>4天</span>
                 <span>5天</span>
                 <span>6天</span>
-                <span>7天</span></p>
+                <span>7天</span>
+                </p>
                 <div class="gold_center">
                     金币
                     <span>+1</span>
@@ -49,7 +52,7 @@
                 <p>分享邀请码好友注册各送10金币</p>
                 <div class="gold_center">
                     <p>{{info.share}}</p>
-                    <span class="gold_span">复制分享</span>
+                    <span class="gold_span" @click="doCopy(info.share)">复制分享</span>
                 </div>
             </div>
             <div class="xian"></div>
@@ -84,6 +87,10 @@
 
 <script>
 import { getcoindesc, checkin } from '@/api'
+import { Dialog } from 'vant'
+import Vue from 'vue'
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 export default {
     data() {
         return {
@@ -106,11 +113,43 @@ export default {
             })
             this.$toast(data.message)
             if(data.errorcode == 0) {
-                this.getcoindesc()
+                this.info.coin = data.coin;
+                this.info.days = data.days;
+                this.info.ischeck = 1
             }
         },
         totopUp() {
             this.$router.push('/home/topUp')
+        },
+        copyAction(ids){
+            let textEle = document.createElement('textarea');
+            textEle.innerText = ids;
+            textEle.style.width = 0;
+            textEle.style.height = 0;
+            document.body.appendChild(textEle);
+            textEle.select(); // 选择对象
+            document.execCommand("Copy"); // 执行浏览器复制命令
+            document.body.removeChild(textEle);
+            console.log('复制成功');
+            
+        },
+        doCopy (text) {
+            this.$copyText(text).then(function (e) {
+                Dialog.alert({
+                    title: '提示',
+                    message: '复制成功，请粘贴到微信QQ或其他地方'
+                }).then(() => {
+                // on close
+                });
+            }, function (e) {
+                Dialog.alert({
+                    title: '提示',
+                    message: '复制失败，请手动复制！'
+                }).then(() => {
+                // on close
+                });
+                console.log(e)
+            })
         }
     },
     created() {
@@ -133,11 +172,12 @@ export default {
         width 100%
         padding .2rem .3rem 
         box-sizing border-box
-        border-top 1px solid #cccccc
+        border-top 1px solid #E9E9E9
         .gold_top
             padding-left .8rem
             span 
-                padding 0 .3rem
+                padding 0 .2rem
+                margin-left 0.12rem
         .gold_center
             display flex
             align-items center
@@ -150,7 +190,7 @@ export default {
                 &.gold_span
                     padding .2rem
                     border-radius .6rem
-                    background #D93231
+                    background #DA302F
                     color #ffffff
                     margin-left 0
             p 
@@ -170,7 +210,7 @@ export default {
         width 49%
         text-align center
         &:first-child
-            border-right 1px solid #cccccc
+            // border-right 1px solid #E9E9E9
         p 
             line-height .6rem
 .my_title
@@ -179,7 +219,7 @@ export default {
     box-sizing border-box 
     display flex
     align-items center
-    border-bottom 1px solid #cccccc
+    border-bottom 1px solid #E9E9E9
     .my_title_center
         width 60%
         span 
@@ -200,4 +240,7 @@ export default {
 .title_photo
     width .88rem!important
     height .88rem!important
+.red{
+    color:#D93231;
+    }    
 </style>

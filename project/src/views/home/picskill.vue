@@ -56,6 +56,7 @@ export default {
         }
     },
     created(){
+        this.tabs_active = this.$store.getters.tabs_active;
         if(this.$store.getters.lottypes){
             this.setLottype();
             this.getjiqiaolist();
@@ -78,5 +79,5 @@ export default {
 <style lang="stylus" scoped>
 .message_box
     margin .2rem 
-    border-bottom 1px solid #cccccc
+    border-bottom 0.04rem solid #cccccc
 </style>

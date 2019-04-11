@@ -17,14 +17,17 @@ export default {
     },
     methods:{
         async getmymsgs () {
-          const { data }    = await getmymsgs();
+          const { data }    = await getmymsgs({
+              sid:localStorage['sid'],
+              uid:localStorage['uid']
+          });
           this.list = data.list;
         },
         goDetail(data){
             this.$router.push({
                 path: '/personal/message/detail', 
                 query: {
-                    title: data.title, 
+                    // title: data.title, 
                     id: data.id
                 }
             })

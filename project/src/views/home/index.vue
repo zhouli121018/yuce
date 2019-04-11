@@ -1,15 +1,16 @@
 <template>
-  <div class="container" id="home_page">
-    <div class="fixed_title">
-      <van-nav-bar
-        title="彩票预测大师"
-        :left-text="left_text"
-        @click-left="onClickLeft"
-      />
-    </div>
+  <div >
+    <div v-if="!is_ios" class="container" id="home_page">
+      <div class="fixed_title">
+        <van-nav-bar
+          title="彩票预测大师"
+          :left-text="left_text"
+          @click-left="onClickLeft"
+        />
+      </div>
       <van-swipe :autoplay="3000" indicator-color="#007BC2">
         <van-swipe-item  v-for="(image, index) in advs" :key="index">
-          <div class="swipe_img_box">
+          <div class="swipe_img_box" @click="jumpTo(image.url)">
             <img :src="$https+image.pic" />
           </div>
         </van-swipe-item>
@@ -36,7 +37,23 @@
       <div class="xian"></div>
       
       <rank  :ishome="1" @get_notices="get_notices" />
-      
+      <a :href="banner_url" v-show="false" id="banner_a">1</a>
+    </div>
+
+    <div class="container" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem !important;">
+        <!-- <title-bar title_name="添加到主屏幕" /> -->
+        <div style="background:#EFEFEF;padding:0.2rem 0.15rem;margin:0 0.3rem 0.2rem;">
+            <div style="text-align:center;font-size:0.5rem;color:#DB3030;font-weight:bold;padding:0.2rem 0;">温馨提示</div>
+            <div style="line-height:1.6;padding-left:0.2rem;font-size:0.4rem;">
+              请务必添加本页面到主屏幕，以便下次访问，点击“已添加”不再提醒
+            </div>
+            <div style="text-align:center;padding:0.4rem 0;">
+              <van-button style="width:3rem;background-color:#D4D4D4;color:#1A1A1A;font-size:0.45rem;" @click="addfn">已添加</van-button>
+              <van-button style="width:3rem;margin-left:1rem;background-color:#DB3030;color:#fff;font-size:0.45rem;" @click="ignore">关闭</van-button>
+            </div>
+        </div>
+        <img src="../../assets/down_iphone.png" alt="" style="width:100%">
+    </div>
     
   </div>
 </template>
@@ -62,14 +79,29 @@ export default {
       advs:[],
       left_text:'登录',
       left_path:'/login/index',
+      banner_url:'#',
+      is_ios:false
     }
   },
   methods: {
+    addfn(){
+      localStorage['isadd'] = true;
+      this.is_ios = false;
+    },
+    ignore(){
+      this.is_ios = false;
+    },
     onClickLeft() {
       this.$router.push(this.left_path)
     },
     jumpTo( path, islink ){
-      this.$router.push(path)
+      if(path.indexOf('/')==0){
+        this.$router.push(path)
+      }else{
+        this.banner_url = path;
+        document.getElementById('banner_a').click();
+      }
+      
     },
     get_notices (data) {
         this.notice = data.notices;
@@ -78,17 +110,27 @@ export default {
     goAnnounceDetail(param){
       let url = param.url;
       let index = url.indexOf('=');
-      let noticeId = url.slice(index+1);
+      let noticeid = url.slice(index+1);
       this.$router.push({
         path:'/home/announcement/detail',
         query:{
-          title: param.text, 
-          noticeId: noticeId
+          // title: param.text, 
+          noticeid: noticeid
         }
       })
     }
   },
   created(){
+    if(!this.$store.getters.isback){
+      //判断 浏览器类型
+      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        if(!localStorage.getItem('isadd')){
+          // this.$router.push('/home/ios')
+          this.is_ios = true;
+        }
+      }
+    }
+    
     if(localStorage['uid'] && localStorage['uid']!=''){
       this.left_text = '会员中心';
       this.left_path = '/personal/index'

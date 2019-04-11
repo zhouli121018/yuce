@@ -2,6 +2,10 @@
     <div>
       <lottypes @change_lottypes="getexprank" ref="rankChild" :show_zhibiao="1"/>
 
+<<<<<<< HEAD
+=======
+      <!-- <div class="xian"></div> -->
+>>>>>>> 96307983aed136166819c2ea07963179ad6c2e05
       <div class="clear text_box ranking_box">
         <span class="fl">{{kjdes}}</span>
         <!-- <select class="no_border fr" v-model="issuenum" @change="changeIssuenum">
@@ -15,7 +19,7 @@
           <li v-for="(item,index) in rankList" @click="changeIssuenum(item)" :class="rankName == item.name?'active':''" :key="index">{{item.name}}</li>
         </ul>
       </div>
-      <ul>
+      <ul class="rank_ul">
         <li class="rank_item" v-for="(item,index) in rank_list" :key="index">
           <van-row type="flex" align="center">
             <van-col span="18">
@@ -27,16 +31,17 @@
                   <van-col span="19" class="desc">
                     <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{item.fans}}人关注</van-tag></h3>
                     <!-- <div style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.viewtimes}}次查看</div> -->
-                    <div style="margin-top:8px;color:#666;">{{item.viewtimes}}次查看   <span>{{ '测'+issuenum+'期对'+item.hittimes+'期' }}</span></div>
+                    <div style="margin-top:0.2rem;color:#666;font-size:0.34rem">{{item.viewtimes}}次查看   
+                      <span style="font-size:0.34rem">{{ '测'+issuenum+'期对'+item.hittimes+'期' }}</span></div>
                   </van-col>
                 </van-row>
               </div>
               
             </van-col>
-            <van-col span="6" class="text_center">
-              <van-button type="info" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)">未 发 布</van-button>
+            <van-col span="6" class="text_right">
+              <van-button type="primary" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)" disabled>未 发 布</van-button>
               <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.uid)">本期预测</van-button>
-              <van-button type="primary" size="small" disabled  v-if="item.curstatus==2">已 查 看</van-button>
+              <van-button type="danger" size="small" @click="viewpred(item.uid)"  v-if="item.curstatus==2">已 查 看</van-button>
             </van-col>
           </van-row>
           <van-row class="rank_item_bottom">
@@ -64,7 +69,7 @@ export default {
             rank_list:[
                 
             ],
-            issuenum: 3,
+            issuenum: 7,
             kjdes:'',
             rankList: [
               {id: 3,name:'近三期排名'},
@@ -72,7 +77,7 @@ export default {
               {id: 10,name:'近十期排名'},
               {id: 30,name:'近三十期排名'}
             ],
-            rankName: '近三期排名',
+            rankName: '近七期排名',
             show: false,
         }
     },
@@ -117,11 +122,23 @@ export default {
               cid: cid,
         });
         if(data.errorcode == 0 && data.content){
-          Dialog.alert({
-            title:'提示',
-              message: data.content
+          Dialog.confirm({
+            title: '提示',
+            message: data.content,
+            confirmButtonText: '我的查看',
+            cancelButtonText: '关闭',
           }).then(() => {
-          // on close
+            // on confirm
+            this.$router.push({
+              path:'/personal/myLook',
+              query:{
+                lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+                postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+                ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
+              }
+            })
+          }).catch(() => {
+            // on cancel
           });
         }
           
@@ -135,18 +152,28 @@ export default {
         })
       },
       async getexprank () {
-          const { data }    = await getexprank({
+          if(this.ishome == 1 && this.$store.getters.isback){
+            let data = this.$store.getters.home_index_data;
+            this.rank_list = data.list;
+            this.kjdes = data.kjdes;
+            this.$emit('get_notices', {notices:data.notices,advs:data.advs});
+            this.$store.dispatch('set_isback',false)
+          }else{
+            const { data }    = await getexprank({
               ishome :this.ishome,
               lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
               postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
               ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
               issuenum : this.issuenum
-          });
-          this.rank_list = data.list;
-          this.kjdes = data.kjdes;
-          if(this.ishome == 1){
-            this.$emit('get_notices', {notices:data.notices,advs:data.advs});
+            });
+            this.rank_list = data.list;
+            this.kjdes = data.kjdes;
+            if(this.ishome == 1){
+              this.$store.dispatch('set_home_index_data',data)
+              this.$emit('get_notices', {notices:data.notices,advs:data.advs});
+            }
           }
+          
       },
       
     },
@@ -226,11 +253,13 @@ export default {
     color #666
 .flex_box
    .name_s
-      width:98px
+      width:2.8rem
+      padding-right:0.2rem
       display:inline-block
       overflow:hidden
       white-space: nowrap;
       text-overflow: ellipsis;
       font-weight:bold;
-
+.rank_ul
+  padding 0 0.2rem
 </style>

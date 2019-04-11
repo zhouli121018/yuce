@@ -10,7 +10,7 @@
             </van-tab>
         </van-tabs>
         <div class="xian"></div>
-        <div class="message_box" v-for="(l,index) in list" :key="index" @click="getpredzuhe_detail(l.tid)">
+        <div class="message_box align_items_center" v-for="(l,index) in list" :key="index" @click="getpredzuhe_detail(l.tid)">
             <p> {{l.issue}} 期</p>
             <van-cell :title="l.subtitle" is-link />
         </div>
@@ -60,6 +60,7 @@ export default {
         
     },
     created(){
+        this.tabs_active = this.$store.getters.tabs_active;
         if(this.$store.getters.lottypes){
             this.setLottype();
             this.getpredzuhe(this.$store.getters.lottypes[this.tabs_active].lottype)

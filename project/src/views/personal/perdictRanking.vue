@@ -73,12 +73,24 @@ export default {
                 cid: cid,
           });
           if(data.content){
-            Dialog.alert({
-                title:'提示',
-                message: data.content
-            }).then(() => {
-            // on close
-            });
+            Dialog.confirm({
+            title: '提示',
+            message: data.content,
+            confirmButtonText: '我的查看',
+            cancelButtonText: '关闭',
+          }).then(() => {
+            // on confirm
+            this.$router.push({
+              path:'/personal/myLook',
+              query:{
+                lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+                postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+                ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
+              }
+            })
+          }).catch(() => {
+            // on cancel
+          });
           }
             
         },

@@ -1,10 +1,9 @@
 <template>
-    <div class="container">
+    <div class="container" style="background:#fff;">
       <title-bar title_name="我的查看" />
         
       <lottypes  @change_lottypes="getviews" ref="rankChild"/>
-      <div class="xian"></div>
-      <ul>
+      <ul style="padding:0 0.2rem;">
         <li class="rank_item" v-for="(l,index) in list" :key="index">
           <van-row type="flex" align="center">
             <van-col span="24">
@@ -86,6 +85,11 @@ export default {
   line-height .6rem
   text-align center
   margin-right .2rem
+  margin-bottom 0.1rem
+.flex_grow_1 
+  span
+    &:last-child
+      margin-right 0
 ul
   background #fff
 .container
@@ -126,7 +130,8 @@ ul
     white-space nowrap
   .flex_box
    .name_s
-      width:98px
+      width:2.8rem
+      padding-right:0.2rem
       display:inline-block
       overflow:hidden
       white-space: nowrap;

@@ -47,7 +47,7 @@ export default {
         }
     },
     created(){
-        
+        this.tabs_active = this.$store.getters.tabs_active;
         if(this.$store.getters.lottypes){
             this.setLottype()
             this.gettrendlist();

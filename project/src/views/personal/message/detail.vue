@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import {notice } from '@/api/home'
+import { msg } from '@/api/personal'
 export default {
     data(){
         return {
@@ -13,17 +13,19 @@ export default {
         }
     },
     methods:{
-        async notice () {
-          const { data }    = await notice({
-              id:this.$route.query.id
+        async msg () {
+          const { data }    = await msg({
+              id:this.$route.query.id,
+              sid:localStorage['sid'],
+              uid:localStorage['uid']
           });
           this.title = data.title;
           this.content = data.content;
         },
     },
     created(){
-        this.title_name = this.$route.query.title
-        this.notice();
+        // this.title_name = this.$route.query.title
+        this.msg();
     }
 }
 </script>

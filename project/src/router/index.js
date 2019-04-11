@@ -10,7 +10,7 @@ import { urlParse } from '@/utils'
 
 Vue.use(Router)
 const router = new Router({
-    mode: 'history',       // 路由模式 一律采用history
+    // mode: 'history',       // 路由模式 一律采用history
     base: '/h/',     // 应用的根路径。例如，如果整个单页应用服务在 /app/ 下，然后 base 就应该设为 "/app/"
     routes,
     // // 点击浏览器导航返回按钮滚动条滚回跳转之前的位置

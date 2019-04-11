@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <a href="http://101.37.31.33/biwin/zyjh.apk" download v-show="false" id="download_btn">1</a>
-    <router-view />
+    <a href="http://freessq.com/h/pred.apk" download v-show="false" id="download_btn">1</a>
+    <router-view v-if="!is_ios"/>
+    
     <div class='full_sc' v-show="loading">
       <rise-loader class="custom-class" color="#8adff4" :loading="loading" :size="15" sizeUnit="px"></rise-loader>
     </div>
@@ -13,6 +14,14 @@
 import {getproperty} from '@/api/home'
 import { Dialog } from 'vant'
 export default {
+  data(){
+    return {
+      is_ios:false
+    }
+  },
+  methods:{
+    
+  },
   created(){
     //判断是否微信或qq
     let ua = navigator.userAgent.toLowerCase();
@@ -21,18 +30,22 @@ export default {
         return;
     }
     //判断 浏览器类型
-    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-        this.$router.push('/home/ios')
-    } else if (/(Android)/i.test(navigator.userAgent)) {
+     if (/(Android)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('isdownload')){
         Dialog.confirm({
-          title: '提示',
-          message: '点击确定即可下载安装，已安装请忽略~'
+          title: '温馨提示',
+          confirmButtonText:'下载',
+          cancelButtonText:'已下载',
+          message: '请务必下载安卓App以便下次访问。点击下载进行安装，点击已下载不再提示。'
         }).then(() => {
           // on confirm
           document.getElementById('download_btn').click();
         }).catch(() => {
+          localStorage['isdownload'] = true;
           // on cancel
         });
+      }
+        
     }
   },
   computed: {
