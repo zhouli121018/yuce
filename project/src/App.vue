@@ -2,20 +2,7 @@
   <div id="app">
     <a href="http://freessq.com/h/pred.apk" download v-show="false" id="download_btn">1</a>
     <router-view v-if="!is_ios"/>
-    <div class="container" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem !important;">
-        <!-- <title-bar title_name="添加到主屏幕" /> -->
-        <div style="background:#EFEFEF;padding:0.2rem 0.15rem;margin:0 0.3rem 0.2rem;">
-            <div style="text-align:center;font-size:0.5rem;color:#DB3030;font-weight:bold;padding:0.2rem 0;">温馨提示</div>
-            <div style="line-height:1.6;padding-left:0.2rem;font-size:0.4rem;">
-              请务必添加本页面到主屏幕，以便下次访问，点击“已添加”不再提醒
-            </div>
-            <div style="text-align:center;padding:0.4rem 0;">
-              <van-button style="width:3rem;background-color:#D4D4D4;color:#1A1A1A;font-size:0.45rem;" @click="ignore">关闭</van-button>
-              <van-button style="width:3rem;margin-left:1rem;background-color:#DB3030;color:#fff;font-size:0.45rem;" @click="addfn">已添加</van-button>
-            </div>
-        </div>
-        <img src="./assets/down_iphone.png" alt="" style="width:100%">
-    </div>
+    
     <div class='full_sc' v-show="loading">
       <rise-loader class="custom-class" color="#8adff4" :loading="loading" :size="15" sizeUnit="px"></rise-loader>
     </div>
@@ -33,13 +20,7 @@ export default {
     }
   },
   methods:{
-    addfn(){
-      localStorage['isadd'] = true;
-      this.is_ios = false;
-    },
-    ignore(){
-      this.is_ios = false;
-    },
+    
   },
   created(){
     //判断是否微信或qq
@@ -49,12 +30,7 @@ export default {
         return;
     }
     //判断 浏览器类型
-    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-      if(!localStorage.getItem('isadd')){
-        // this.$router.push('/home/ios')
-        this.is_ios = true;
-      }
-    } else if (/(Android)/i.test(navigator.userAgent)) {
+     if (/(Android)/i.test(navigator.userAgent)) {
       if(!localStorage.getItem('isdownload')){
         Dialog.confirm({
           title: '温馨提示',

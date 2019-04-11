@@ -23,7 +23,7 @@ export default [
                 name:'home',
                 component: _import('home/index'),
                 meta:{
-                    title:'首页',
+                    title:'彩票选号助手',
                     cache: true
                 }
             },
@@ -77,7 +77,7 @@ export default [
                 name: 'qqOrwx',
                 component: _import('home/qqOrwx'),
                 meta: {
-                    title: '打开',
+                    title: '彩票选号助手',
                     cache: true
                 }
             },
@@ -86,7 +86,7 @@ export default [
                 name: 'ios',
                 component: _import('home/ios'),
                 meta: {
-                    title: 'ios系统',
+                    title: '彩票选号助手',
                     cache: true
                 }
             },

@@ -2,8 +2,23 @@
     <div class="container">
         <title-bar title_name="模拟投注"></title-bar>
         <h4>模拟双色球投注8红球中6奖励1000元</h4>
+        <div class="simulate_num" style="margin-top:0.3rem;">
+            <span v-for="(item,index) in list" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
+        </div>
         <div class="simulate_num">
-            <span v-for="(item,index) in list" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)" :style="{visibility:index==34||index==33?'hidden':'show'}">{{item.a}}</span>
+            <span v-for="(item,index) in list2" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
+        </div>
+        <div class="simulate_num">
+            <span v-for="(item,index) in list3" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
+        </div>
+        <div class="simulate_num">
+            <span v-for="(item,index) in list4" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
+        </div>
+        <div class="simulate_num">
+            <span v-for="(item,index) in list5" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)">{{item.a}}</span>
+        </div>
+        <div class="simulate_num">
+            <span v-for="(item,index) in list6" :class="{active:arr.indexOf(item.a) != -1}" :key="index" @click="onclick(index,item.a)" :style="{visibility:index==3||index==4||index==5?'hidden':'show'}">{{item.a}}</span>
         </div>
         <div class="simulate_div">
         <van-button type="danger" class="simulate_btn" @click="submittouzu" :disabled="disabled" size="large">模拟投注</van-button>
@@ -27,6 +42,11 @@ export default {
     data() {
         return {
             list: [],
+            list2: [],
+            list3: [],
+            list4: [],
+            list5: [],
+            list6: [],
             arr: [],
             disabled: true
         }
@@ -34,9 +54,44 @@ export default {
     methods: {
         lists() {
             let obj = {}
-            for(let i = 1; i < 36; i++) {
+            for(let i = 1; i < 7; i++) {
                 obj = {a:i < 10?'0'+i:i}
                 this.list.push(obj)
+            }
+        },
+        lists2() {
+            let obj = {}
+            for(let i = 7; i < 13; i++) {
+                obj = {a:i < 10?'0'+i:i}
+                this.list2.push(obj)
+            }
+        },
+        lists3() {
+            let obj = {}
+            for(let i = 13; i < 19; i++) {
+                obj = {a:i < 10?'0'+i:i}
+                this.list3.push(obj)
+            }
+        },
+        lists4() {
+            let obj = {}
+            for(let i = 19; i < 25; i++) {
+                obj = {a:i < 10?'0'+i:i}
+                this.list4.push(obj)
+            }
+        },
+        lists5() {
+            let obj = {}
+            for(let i = 25; i < 31; i++) {
+                obj = {a:i < 10?'0'+i:i}
+                this.list5.push(obj)
+            }
+        },
+        lists6() {
+            let obj = {}
+            for(let i = 31; i < 37; i++) {
+                obj = {a:i < 10?'0'+i:i}
+                this.list6.push(obj)
             }
         },
         onclick(n,value) {
@@ -73,7 +128,12 @@ export default {
         }
     },
     created() {
-        this.lists()
+        this.lists();
+        this.lists2();
+        this.lists3();
+        this.lists4();
+        this.lists5();
+        this.lists6();
     }
 }
 </script>
@@ -111,11 +171,12 @@ h4
     justify-content space-around
     align-items center
     span 
-        width .8rem
-        height .8rem
+        width 1rem
+        height 1rem
         border-radius 50%
         border 1px solid #cccccc
-        line-height .8rem
+        line-height 1rem
+        font-size 0.5rem
         text-align center
         margin .2rem
         &.active

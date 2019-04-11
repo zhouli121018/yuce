@@ -37,7 +37,7 @@
             <van-cell icon="message" is-link @click="jumpTo('/personal/message/index')">
                 <template slot="title">
                     <span class="custom-text">我的消息</span>
-                    <van-tag type="danger" v-if="info && info.unread" style="margin-left:0.2rem;">{{info.unread}}</van-tag>
+                    <van-tag type="danger" v-if="info && info.unread" style="margin-left:0.1rem;top:-0.2rem;position:relative;border-radius:0.6rem">{{info.unread}}</van-tag>
                 </template>
             </van-cell>
             
