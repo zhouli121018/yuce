@@ -35,6 +35,7 @@
         </div>
         <van-button size="large" type="danger" @click="toPay">前往充值</van-button>
         <p class="pay_faild" style="padding-bottom:0.8rem;">充值失败联系微信:SNSN889922</p>
+        <div>{{zhifubao}}</div>
     </div>
 </template>
 
@@ -54,7 +55,8 @@ export default {
             payType: 1,
             chooseImg: require('../../assets/choose_checked.png'),
             normalImg: require('../../assets/choose_normal.png'),
-            money:10
+            money:10,
+            zhifubao: ''
         }
     },
     methods: {
@@ -78,9 +80,10 @@ export default {
                 money: this.money,
                 type: 1
             })
-            if(data.errorcode == 0) {
-                window.location.href= data.url
-            }
+            const div = document.createElement('div');
+            div.innerHTML = data
+            document.body.appendChild(div);
+            document.forms.alipaysubmit.submit(); 
         },
         choosePay(e) {
             console.log(e)

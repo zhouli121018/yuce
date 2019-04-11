@@ -78,9 +78,10 @@ export default {
                 money: this.money,
                 type: 1
             })
-            if(data.errorcode == 0) {
-                window.location.href= data.url
-            }
+            const div = document.createElement('div');
+            div.innerHTML = data
+            document.body.appendChild(div);
+            document.forms.alipaysubmit.submit(); 
         }
     }
 }

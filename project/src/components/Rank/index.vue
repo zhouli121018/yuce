@@ -2,7 +2,6 @@
     <div>
       <lottypes @change_lottypes="getexprank" ref="rankChild" :show_zhibiao="1"/>
 
-      <div class="xian"></div>
       <div class="clear text_box ranking_box">
         <span class="fl">{{kjdes}}</span>
         <!-- <select class="no_border fr" v-model="issuenum" @change="changeIssuenum">
