@@ -32,9 +32,8 @@ import {getproperty,getlothall } from '@/api/home'
 export default {
     data() {
         return {
-            list:[
-                
-            ],
+            list:[],
+            isFirstEnter:false
         }
     },
     methods:{
@@ -64,11 +63,16 @@ export default {
         
     },
     created(){
-        this.getlothall();
+        this.isFirstEnter=true;
+        
     },
-    computed:{
-      
-    }
+    activated(){
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            this.getlothall();
+        }
+        this.isFirstEnter=false;
+        this.$store.dispatch('set_isback',false)
+    },
 }
 </script>
 

@@ -47,8 +47,7 @@ export default {
     },
     data() {
         return {
-            
-            
+            isFirstEnter:false
         }
     },
     methods:{
@@ -117,17 +116,26 @@ export default {
 
     },
 
-    mounted(){
-        if(this.$store.getters.lottypes){
-            this.setLottype();
-            this.$emit('change_lottypes')
-        }else{
-            getproperty().then(res=>{
-                this.$store.dispatch('set_lottypes',res.data.lottypes)
+    created(){
+        this.isFirstEnter=true;
+        
+    },
+    activated(){
+      console.log(this.$store.getters.isback || this.isFirstEnter)
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            if(this.$store.getters.lottypes){
                 this.setLottype();
-                this.$emit('change_lottypes')
-            })
+                // this.$emit('change_lottypes')
+            }else{
+                getproperty().then(res=>{
+                    this.$store.dispatch('set_lottypes',res.data.lottypes)
+                    this.setLottype();
+                    // this.$emit('change_lottypes')
+                })
+            }
         }
+        this.isFirstEnter=false;
+        // this.$store.dispatch('set_isback',false)
     },
   computed:{
       lottypes(){

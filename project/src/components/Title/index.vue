@@ -40,6 +40,9 @@
       goBack(){
           if(this.$store.getters.home_index_data){
             this.$store.dispatch('set_isback',true)
+            setTimeout(() => {
+              this.$store.dispatch('set_isback',false)
+            }, 500);
           }
           this.$router.go(-1)
       },

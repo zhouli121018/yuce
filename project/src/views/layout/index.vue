@@ -1,9 +1,13 @@
 <template>
     <div class="app_main">
         <transition>
-            <!-- <keep-alive :include="cachViews"> -->
-            <router-view></router-view>
-            <!-- </keep-alive> -->
+            <div>
+                <!-- <keep-alive> -->
+                    <router-view v-if="$route.meta.cache"></router-view>
+                <!-- </keep-alive> -->
+                <!-- <router-view v-if="!$route.meta.cache"></router-view> -->
+            </div>
+            
         </transition>
     </div>
 </template>
@@ -11,6 +15,7 @@
 export default {
     computed: {
         cachViews ()  {
+            console.log(this.$store.state.app.cachViews)
             return this.$store.state.app.cachViews 
         }
     },

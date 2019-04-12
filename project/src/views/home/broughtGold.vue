@@ -95,6 +95,7 @@ export default {
     data() {
         return {
             info: null,
+            isFirstEnter:false
         }
     },
     methods: {
@@ -153,8 +154,15 @@ export default {
         }
     },
     created() {
-        this.getcoindesc()
-    }
+        this.isFirstEnter=true;
+    },
+    activated(){
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            this.getcoindesc()
+        }
+        this.isFirstEnter=false;
+        this.$store.dispatch('set_isback',false)
+    },
 }
 </script>
 

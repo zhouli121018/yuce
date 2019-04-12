@@ -78,7 +78,7 @@ export default {
                 sid: localStorage.getItem('sid'),
                 uid: localStorage.getItem('uid'),
                 money: this.money,
-                type: 1
+                type: 0
             })
             const div = document.createElement('div');
             div.innerHTML = data

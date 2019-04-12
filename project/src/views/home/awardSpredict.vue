@@ -22,11 +22,10 @@ import {getpredzuhe, getproperty, getpredzuhe_detail} from '@/api/home'
 import { Dialog } from 'vant'
 export default {
     data() {
-        return {
+        return { 
             tabs_active: 0,
-            list:[
-                
-            ]
+            list:[],
+            isFirstEnter:false
         }
     },
     methods:{
@@ -38,6 +37,12 @@ export default {
         },
         tabClick(index, title) {
             this.getpredzuhe(this.lottypes[index].lottype)
+            this.$router.replace({
+                path:'/home/awardSpredict',
+                query:{
+                    lottype:this.lottypes[index].lottype
+                }
+            })
         },
         setLottype(){
             if(this.$route.query.lottype){
@@ -60,17 +65,25 @@ export default {
         
     },
     created(){
-        this.tabs_active = this.$store.getters.tabs_active;
-        if(this.$store.getters.lottypes){
-            this.setLottype();
-            this.getpredzuhe(this.$store.getters.lottypes[this.tabs_active].lottype)
-        }else{
-            getproperty().then(res=>{
-                this.$store.dispatch('set_lottypes',res.data.lottypes)
+        this.isFirstEnter=true;
+        
+    },
+    activated(){
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            this.tabs_active = this.$store.getters.tabs_active;
+            if(this.$store.getters.lottypes){
                 this.setLottype();
                 this.getpredzuhe(this.$store.getters.lottypes[this.tabs_active].lottype)
-            })
+            }else{
+                getproperty().then(res=>{
+                    this.$store.dispatch('set_lottypes',res.data.lottypes)
+                    this.setLottype();
+                    this.getpredzuhe(this.$store.getters.lottypes[this.tabs_active].lottype)
+                })
+            }
         }
+        this.isFirstEnter=false;
+        this.$store.dispatch('set_isback',false)
     },
     computed:{
         lottypes(){

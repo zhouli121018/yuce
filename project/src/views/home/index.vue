@@ -3,7 +3,7 @@
     <div v-if="!is_ios" class="container" id="home_page">
       <div class="fixed_title">
         <van-nav-bar
-          title="彩票预测大师"
+          title="彩票选号助手"
           :left-text="left_text"
           @click-left="onClickLeft"
         />

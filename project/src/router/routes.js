@@ -60,7 +60,7 @@ export default [
                 component: _import('home/charts'),
                 meta: {
                     title: '走势图',
-                    cache: true
+                    cache: false
                 }
             },
             {//选号技巧
@@ -78,16 +78,7 @@ export default [
                 component: _import('home/qqOrwx'),
                 meta: {
                     title: '彩票选号助手',
-                    cache: true
-                }
-            },
-            {//qq 或 微信
-                path: 'ios',
-                name: 'ios',
-                component: _import('home/ios'),
-                meta: {
-                    title: '彩票选号助手',
-                    cache: true
+                    cache: false
                 }
             },
             {//选号技巧详情
@@ -96,7 +87,7 @@ export default [
                 component: _import('home/skillDetail'),
                 meta: {
                     title: '选号技巧详情',
-                    cache: true
+                    cache: false
                 }
             },
             {//大奖预测组合
@@ -114,16 +105,7 @@ export default [
                 component: _import ('home/awardSpredictDetail'),
                 meta: {
                     title: '大奖预测组合详情',
-                    cache: true
-                }
-            },
-            {//大奖预测组合  记录
-                path: 'award',
-                name: 'award',
-                component: _import('home/award'),
-                meta: {
-                    title: '大奖预测组合',
-                    cache: true
+                    cache: false
                 }
             },
             {//反馈
@@ -132,7 +114,7 @@ export default [
                 component: _import('home/feedback'),
                 meta:{
                     title:'反馈',
-                    cache: true
+                    cache: false
                 }
             },
             {//开奖大厅
@@ -162,8 +144,8 @@ export default [
                         name: 'announcementDetail',
                         component: _import('home/announcement/detail'),
                         meta: {
-                            title: '公告',
-                            cache: true
+                            title: '公告详情',
+                            cache: false
                         }
                     }
                 ]
@@ -172,7 +154,8 @@ export default [
                 path: 'indicators',
                 component: _import('home/indicators'),
                 meta: {
-                    title: '指标说明'
+                    title: '指标说明',
+                    cache: false
                 }
             },
         ]
@@ -180,7 +163,10 @@ export default [
     {
         component: _import('404/index'),
         name: '404',
-        path: '/404'
+        path: '/404',
+        meta: {
+            cache: true 
+        }
     },
     
     {//个人中心
@@ -256,7 +242,7 @@ export default [
                 component: _import('personal/historyRecord'),
                 meta:{
                     title:'福彩3D历史记录',
-                    cache: true
+                    cache: false
                 }
             },
             {//微信支付页面
@@ -287,7 +273,7 @@ export default [
                         component: _import('personal/message/detail'),
                         meta: {
                             title: '我的消息',
-                            cache: true
+                            cache: false
                         }
                     }
                 ]
@@ -297,15 +283,8 @@ export default [
                 name: 'about',
                 component: _import('personal/about'),
                 meta: {
-                    title: '关于'
-                }
-            },
-            {
-                path: 'jumpBrowser',
-                name: 'jumpBrowser',
-                component: _import('personal/jumpBrowser'),
-                meta: {
-                    title: '请在浏览器中打开'
+                    title: '关于',
+                    cache: false
                 }
             },
         ]

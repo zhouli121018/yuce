@@ -56,7 +56,8 @@ import { Dialog } from 'vant'
 export default {
     data() {
         return {
-            info: null
+            info: null,
+            isFirstEnter:false
         }
     },
     methods:{
@@ -75,8 +76,16 @@ export default {
         }
     },
     created() {
-        this.getaccount()
-    }
+        this.isFirstEnter=true;
+        
+    },
+    activated(){
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            this.getaccount()
+        }
+        this.isFirstEnter=false;
+        this.$store.dispatch('set_isback',false)
+    },
 }
 </script>
 

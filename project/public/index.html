@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title>预测彩票</title>
+    <title>彩票选号助手</title>
   </head>
   <body>
     <noscript>
@@ -14,8 +14,10 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script>
-      document.head.innerHTML += '<meta name="apple-mobile-web-app-capable" content="yes">';
-      document.head.innerHTML += '<meta name="apple-mobile-web-app-title" content="彩票选号助手">';
+      document.querySelector('[name="apple-mobile-web-app-capable"]').setAttribute('content','yes')
+      document.querySelector('[name="apple-mobile-web-app-title"]').setAttribute('content','彩票选号助手')
+      // document.head.innerHTML += '<meta name="apple-mobile-web-app-capable" content="yes">';
+      // document.head.innerHTML += '<meta name="apple-mobile-web-app-title" content="彩票选号助手">';
       document.head.innerHTML += '<link rel="apple-touch-startup-image" href="7501334launch.png">';
       document.head.innerHTML += '<link rel="apple-touch-icon" href="touch-icon-iphone120.png">';
       document.head.innerHTML += '<link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone180.png">';

@@ -36,7 +36,8 @@ export default {
         return {
             money: 0,
             type: '',
-            info: null
+            info: null,
+            isFirstEnter:false
         }
     },
     methods: {
@@ -51,10 +52,17 @@ export default {
         }
     },
     created() {
-        this.type = this.$route.query.type
-        this.money = this.$route.query.money
-        this.getwechatcode()
-    }
+        this.isFirstEnter=true;
+    },
+    activated(){
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            this.type = this.$route.query.type
+            this.money = this.$route.query.money
+            this.getwechatcode()
+        }
+        this.isFirstEnter=false;
+        this.$store.dispatch('set_isback',false)
+    },
 }
 </script>
 

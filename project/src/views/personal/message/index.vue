@@ -12,7 +12,8 @@ import {getmymsgs } from '@/api/personal'
 export default {
     data(){
         return {
-            list:[]
+            list:[],
+            isFirstEnter:false
         }
     },
     methods:{
@@ -34,8 +35,15 @@ export default {
         }
     },
     created(){
-        this.getmymsgs()
-    }
+        this.isFirstEnter=true;
+    },
+    activated(){
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            this.getmymsgs()
+        }
+        this.isFirstEnter=false;
+        this.$store.dispatch('set_isback',false)
+    },
 }
 </script>
 

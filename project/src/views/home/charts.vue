@@ -35,6 +35,12 @@ export default {
         change_lottype(index){
             this.tabs_active = index;
             this.gettrendlist();
+            this.$router.replace({
+                path:'/home/charts',
+                query:{
+                    lottype:this.lottypes[index].lottype
+                }
+            })
         },
         setLottype(){
             if(this.$route.query.lottype){
