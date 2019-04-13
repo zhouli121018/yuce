@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div v-if="!is_ios" class="container" id="home_page">
+    <div class="container" id="home_page">
       <div class="fixed_title">
         <van-nav-bar
           title="彩票选号助手"
@@ -36,11 +36,11 @@
       </van-row>
       <div class="xian"></div>
       
-      <rank  :ishome="1" @get_notices="get_notices" />
+      <rank  :ishome="1" @get_notices="get_notices" @set_isios="set_isios"/>
       <a :href="banner_url" v-show="false" id="banner_a">1</a>
     </div>
 
-    <div class="container" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem !important;">
+    <div class="container" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem !important;position:absolute;top:0;z-index:1001">
         <!-- <title-bar title_name="添加到主屏幕" /> -->
         <div style="background:#EFEFEF;padding:0.2rem 0.15rem;margin:0 0.3rem 0.2rem;">
             <div style="text-align:center;font-size:0.5rem;color:#DB3030;font-weight:bold;padding:0.2rem 0;">温馨提示</div>
@@ -80,7 +80,8 @@ export default {
       left_text:'登录',
       left_path:'/login/index',
       banner_url:'#',
-      is_ios:false
+      is_ios:false,
+      isFirstEnter:false
     }
   },
   methods: {
@@ -107,6 +108,11 @@ export default {
         this.notice = data.notices;
         this.advs = data.advs;
     },
+    set_isios(msg){
+      this.$nextTick(()=>{
+        this.is_ios = msg;
+      })
+    },
     goAnnounceDetail(param){
       let url = param.url;
       let index = url.indexOf('=');
@@ -121,24 +127,21 @@ export default {
     }
   },
   created(){
-    if(!this.$store.getters.isback){
-      //判断 浏览器类型
-      if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
-        if(!localStorage.getItem('isadd')){
-          // this.$router.push('/home/ios')
-          this.is_ios = true;
-        }
+    this.isFirstEnter=true;
+
+    //判断 浏览器类型
+    if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+      if(!localStorage.getItem('isadd')){
+        this.is_ios = true;
       }
     }
-    
+  },
+  activated(){
     if(localStorage['uid'] && localStorage['uid']!=''){
       this.left_text = '会员中心';
       this.left_path = '/personal/index'
     }
   },
-  computed:{
-      
-  }
 }
 </script>
 

@@ -16,16 +16,6 @@ export default {
             
         }
     },
-    methods:{
-      
-    },
-
-    created(){
-    
-  },
-  computed:{
-      
-  }
 }
 </script>
 

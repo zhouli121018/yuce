@@ -76,6 +76,7 @@ export default {
             ],
             rankName: '近七期排名',
             show: false,
+            isfirstEnter:false
         }
     },
     methods:{
@@ -149,13 +150,6 @@ export default {
         })
       },
       async getexprank () {
-          if(this.ishome == 1 && this.$store.getters.isback){
-            let data = this.$store.getters.home_index_data;
-            this.rank_list = data.list;
-            this.kjdes = data.kjdes;
-            this.$emit('get_notices', {notices:data.notices,advs:data.advs});
-            this.$store.dispatch('set_isback',false)
-          }else{
             const { data }    = await getexprank({
               ishome :this.ishome,
               lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
@@ -166,21 +160,18 @@ export default {
             this.rank_list = data.list;
             this.kjdes = data.kjdes;
             if(this.ishome == 1){
-              this.$store.dispatch('set_home_index_data',data)
               this.$emit('get_notices', {notices:data.notices,advs:data.advs});
+              
             }
-          }
+          // }
           
       },
       
     },
 
     created(){
-    
+     this.isfirstEnter = true;
   },
-  mounted(){
-      
-  }
 }
 </script>
 

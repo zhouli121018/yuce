@@ -2,10 +2,10 @@
     <div class="app_main">
         <transition>
             <div>
-                <!-- <keep-alive> -->
+                <keep-alive>
                     <router-view v-if="$route.meta.cache"></router-view>
-                <!-- </keep-alive> -->
-                <!-- <router-view v-if="!$route.meta.cache"></router-view> -->
+                </keep-alive>
+                <router-view v-if="!$route.meta.cache"></router-view>
             </div>
             
         </transition>

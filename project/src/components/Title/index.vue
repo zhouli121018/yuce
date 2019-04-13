@@ -38,13 +38,11 @@
     methods: {
       // 返回
       goBack(){
-          if(this.$store.getters.home_index_data){
-            this.$store.dispatch('set_isback',true)
-            setTimeout(() => {
-              this.$store.dispatch('set_isback',false)
-            }, 500);
-          }
-          this.$router.go(-1)
+        this.$store.dispatch('set_isback',true)
+        setTimeout(() => {
+          this.$store.dispatch('set_isback',false)
+        }, 500);
+        this.$router.go(-1)
       },
       onClickRight(){
         if(this.right_url){

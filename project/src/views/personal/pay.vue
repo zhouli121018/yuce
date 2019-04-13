@@ -38,7 +38,7 @@ export default {
             type: '',
             info: null,
             isFirstEnter:false
-        }
+        } 
     },
     methods: {
         async getwechatcode() {

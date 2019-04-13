@@ -206,16 +206,7 @@ export default [
                 component: _import('personal/simulateBetting'),
                 meta:{
                     title:'模拟投注',
-                    cache: true
-                }
-            },
-            {//福彩3D09
-                path: 'wining',
-                name:'wining',
-                component: _import('personal/wining'),
-                meta:{
-                    title:'福彩3D09期大奖组',
-                    cache: true
+                    cache: false
                 }
             },
             {//预测排名
