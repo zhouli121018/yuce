@@ -8,14 +8,14 @@
             <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
             <CutDown @click="getvcode" :disabled="disabled" :mobile="mobile"></CutDown>
         </div>
-        <van-button type="danger" @click="loginbypass">登录</van-button>
+        <van-button type="danger" @click="loginbyvcode">登录</van-button>
     </div>
 </template>
 
 <script>
 import { validatePhone } from '@/utils/validate'
 import CutDown from '@/components/CutDown'
-import { getvcode, loginbypass } from '@/api/index'
+import { getvcode, loginbyvcode } from '@/api/index'
 export default {
     components: {
         CutDown
@@ -33,11 +33,18 @@ export default {
                 phone: this.mobile
             })
         },
-        async loginbypass () {
-            const { data }    = await loginbypass({
+        async loginbyvcode () {
+            let obj = {
                 phone: this.mobile,
-                pass: this.code
-            })
+                vcode: this.code
+            };
+            if(sessionStorage.getItem('cid')){ //渠道号
+                obj.cid = sessionStorage.getItem('cid')
+            }
+            if(sessionStorage.getItem('pid')){ //推荐码
+                obj.pid = sessionStorage.getItem('pid')
+            }
+            const { data }    = await loginbyvcode(obj)
             if(data.errorcode == 0) {
                 window.localStorage['uid'] = data.uid
                 window.localStorage['sid'] = data.sid

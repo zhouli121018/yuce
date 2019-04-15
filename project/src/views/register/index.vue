@@ -47,13 +47,20 @@ export default {
             this.$toast(data.message)
         },
         async regist() {
-            const { data } = await regist({
+            let obj = {
                 phone: this.phone,
                 pass: this.password,
                 vcode: this.vcode,
                 icode: this.code,
                 device: this.device
-            })
+            };
+            if(sessionStorage.getItem('cid')){ //渠道号
+                obj.cid = sessionStorage.getItem('cid')
+            }
+            if(sessionStorage.getItem('pid')){ //推荐码
+                obj.pid = sessionStorage.getItem('pid')
+            }
+            const { data } = await regist(obj)
             if(data.errorcode == 0) {
                 window.localStorage['uid'] = data.uid
                 window.localStorage['sid'] = data.sid

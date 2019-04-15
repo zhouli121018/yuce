@@ -135,6 +135,13 @@ export default {
         this.is_ios = true;
       }
     }
+
+    if(this.$route.query.cid){
+      sessionStorage['cid'] = this.$route.query.cid;
+    }
+    if(this.$route.query.pid){
+      sessionStorage['pid'] = this.$route.query.pid;
+    }
   },
   activated(){
     if(localStorage['uid'] && localStorage['uid']!=''){

@@ -32,6 +32,18 @@ export function loginbypass(data) {
     }
   })
 } 
+
+//3、验证码登录协议 loginbyvcode.php
+export function loginbyvcode(data) {
+  return request({
+    url: '/loginbyvcode.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+} 
+
 //提交反馈
 export function submitfeedback(data) {
   return request({
