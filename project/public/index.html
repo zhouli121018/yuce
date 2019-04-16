@@ -32,15 +32,16 @@
       }
       let _ref = document.head.getElementsByTagName('LINK')
       for(let k = 0; k < _ref.length; k++) {
+        console.log(_ref[k].rel)
         if(_ref[k].rel == 'apple-touch-startup-image') {
           _ref[k].href = '7501334launch.png'
         }
         if(_ref[k].rel == 'apple-touch-icon') {
           _ref[k].href = 'touch-icon-iphone120.png'
         }
-        if(_ref[k+1].rel == 'apple-touch-icon') {
-          _ref[k].href = 'touch-icon-iphone180.png'
-        }
+        // if(_ref[k].rel == 'apple-touch-icon') {
+        //   _ref[k].href = 'touch-icon-iphone180.png'
+        // }
       }
     </script>
   </body>
