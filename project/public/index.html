@@ -14,13 +14,34 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
     <script>
-      document.querySelector('[name="apple-mobile-web-app-capable"]').setAttribute('content','yes')
-      document.querySelector('[name="apple-mobile-web-app-title"]').setAttribute('content','彩票选号助手')
-      // document.head.innerHTML += '<meta name="apple-mobile-web-app-capable" content="yes">';
-      // document.head.innerHTML += '<meta name="apple-mobile-web-app-title" content="彩票选号助手">';
-      document.head.innerHTML += '<link rel="apple-touch-startup-image" href="7501334launch.png">';
-      document.head.innerHTML += '<link rel="apple-touch-icon" href="touch-icon-iphone120.png">';
-      document.head.innerHTML += '<link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone180.png">';
+      // document.querySelector('[name="apple-mobile-web-app-capable"]').setAttribute('content','yes')
+      // document.querySelector('[name="apple-mobile-web-app-title"]').setAttribute('content','彩票选号助手')
+      // // document.head.innerHTML += '<meta name="apple-mobile-web-app-capable" content="yes">';
+      // // document.head.innerHTML += '<meta name="apple-mobile-web-app-title" content="彩票选号助手">';
+      // document.head.innerHTML += '<link rel="apple-touch-startup-image" href="7501334launch.png">';
+      // document.head.innerHTML += '<link rel="apple-touch-icon" href="touch-icon-iphone120.png">';
+      // document.head.innerHTML += '<link rel="apple-touch-icon" sizes="180x180" href="touch-icon-iphone180.png">';
+      let _name = document.head.getElementsByTagName('META')
+      for(let i = 0; i < _name.length; i++) {
+        if(_name[i].name == 'apple-mobile-web-app-capable') {
+          _name[i].content = "yes"
+        }
+        if(_name[i].name == 'apple-mobile-web-app-title') {
+          _name[i].content = "彩票选号助手"
+        }
+      }
+      let _ref = document.head.getElementsByTagName('LINK')
+      for(let k = 0; k < _ref.length; k++) {
+        if(_ref[k].rel == 'apple-touch-startup-image') {
+          _ref[k].href = '7501334launch.png'
+        }
+        if(_ref[k].rel == 'apple-touch-icon') {
+          _ref[k].href = 'touch-icon-iphone120.png'
+        }
+        if(_ref[k+1].rel == 'apple-touch-icon') {
+          _ref[k].href = 'touch-icon-iphone180.png'
+        }
+      }
     </script>
   </body>
 </html>
