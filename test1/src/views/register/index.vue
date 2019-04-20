@@ -8,11 +8,11 @@
             <van-field label="密码" type="number" maxlength="11" clearable v-model="password" placeholder="请输入密码" />
         </div>
         <div class="van_box">
-            <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
+            <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="vcode" placeholder="请输入验证码" />
             <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone"></CutDown>
         </div>
         <div class="van_box">
-            <van-field label="邀请码" maxlength="11" type="number" :disabled="has_pid" class="van_field_code" clearable v-model="vcode" placeholder="输入邀请码双方可得10金币" />
+            <van-field label="邀请码" maxlength="11" type="number" :disabled="has_pid" class="van_field_code" clearable v-model="pid" placeholder="输入邀请码双方可得10金币" />
         </div>
         <van-button type="danger" @click="regist">注册</van-button>
     </div>
@@ -22,6 +22,7 @@
 import { validatePhone } from '@/utils/validate'
 import CutDown from '@/components/CutDown'
 import { getvcode, regist } from '@/api'
+import { Toast } from 'vant';
 export default {
     components: {
         CutDown
@@ -29,9 +30,9 @@ export default {
     data() {
         return {
             phone: '',
-            code: '', //验证码
+            pid: '', //邀请码
             password: '',
-            vcode: '', //邀请码
+            vcode: '', //验证码
             device: 0  ,//手机类型,
             has_pid:false
         }
@@ -48,18 +49,31 @@ export default {
             this.$toast(data.message)
         },
         async regist() {
+            if(!this.phone){
+                Toast('请输入手机号！');
+                return;
+            }
+            if(this.phone && !(/^1\d{10}$/.test(this.phone))){
+                Toast('请输入正确的手机号！');
+                return;
+            }
+            if(!this.password){
+                Toast('请输入密码！');
+                return;
+            }
+            if(!this.vcode){
+                Toast('请输入验证码！');
+                return;
+            }
             let obj = {
                 phone: this.phone,
                 pass: this.password,
                 vcode: this.vcode,
-                icode: this.code,
-                device: this.device
+                device: this.device,
+                pid: this.pid
             };
             if(sessionStorage.getItem('cid')){ //渠道号
                 obj.cid = sessionStorage.getItem('cid')
-            }
-            if(sessionStorage.getItem('pid')){ //推荐码
-                obj.pid = sessionStorage.getItem('pid')
             }
             const { data } = await regist(obj)
             if(data.errorcode == 0) {
@@ -92,7 +106,7 @@ export default {
         }
     },
     created(){
-        this.vcode = sessionStorage.getItem('pid');
+        this.pid = sessionStorage.getItem('pid');
         console.log(sessionStorage.getItem('pid'))
         if(sessionStorage.getItem('pid')){
             this.has_pid = true;

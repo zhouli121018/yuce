@@ -40,7 +40,7 @@
       <a :href="banner_url" v-show="false" id="banner_a">1</a>
     </div>
 
-    <div class="container" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem !important;position:absolute;top:0;z-index:1001">
+    <div class="container" v-if="is_ios" style="background:#F6F5F5;padding-top:0.4rem !important;position:absolute;top:0;z-index:1001;padding-bottom:2rem;">
         <!-- <title-bar title_name="添加到主屏幕" /> -->
         <div style="background:#EFEFEF;padding:0.2rem 0.15rem;margin:0 0.3rem 0.2rem;">
             <div style="text-align:center;font-size:0.5rem;color:#DB3030;font-weight:bold;padding:0.2rem 0;">温馨提示</div>
