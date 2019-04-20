@@ -31,7 +31,7 @@
     },
     data() {
       return {
-        count: 60,  // 初始倒计时数
+        count: 300,  // 初始倒计时数
         isStart: false, // 是否开始
         timer: null   // 定时器
       }
@@ -45,8 +45,8 @@
         // 广播click事件给父组件
         this.$emit('click')
         // 开启倒计时
-        this.isStart = true
-        this.start()
+        // this.isStart = true
+        // this.start()
       },
       start() {
         if (!this.count) {

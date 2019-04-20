@@ -6,7 +6,7 @@
         </div>
         <div class="van_box">
             <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="code" placeholder="请输入验证码" />
-            <CutDown @click="getvcode" :disabled="disabled" :mobile="mobile"></CutDown>
+            <CutDown ref="codeEl" @click="getvcode" :disabled="disabled" :mobile="mobile"></CutDown>
         </div>
         <van-button type="danger" @click="loginbyvcode">登录</van-button>
     </div>
@@ -32,6 +32,11 @@ export default {
                 noLoading: false,
                 phone: this.mobile
             })
+            if(data.errorcode == 0){
+                this.$refs.codeEl.isStart = true;
+                this.$refs.codeEl.start();
+            }
+            this.$toast(data.message)
         },
         async loginbyvcode () {
             let obj = {

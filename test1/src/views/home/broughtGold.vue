@@ -35,12 +35,12 @@
                 <div class="gold_center">
                     金币
                     <span>+1</span>
+                    <span>+1</span>
+                    <span>+1</span>
+                    <span>+1</span>
+                    <span>+2</span>
                     <span>+2</span>
                     <span>+3</span>
-                    <span>+4</span>
-                    <span>+5</span>
-                    <span>+6</span>
-                    <span>+7</span>
                 </div>
                 <p class="gary">备注: 签到间断金币从第一天开始</p>
             </div>
@@ -49,7 +49,7 @@
         <div class="broughtGold_box">
             <p class="red">领金币方式二</p>
             <div class="gold_content">
-                <p>分享邀请码好友注册各送10金币</p>
+                <p>分享邀请码好友注册各送4金币</p>
                 <div class="gold_center">
                     <p>{{info.share}}</p>
                     <span class="gold_span" @click="doCopy(info.share)">复制分享</span>

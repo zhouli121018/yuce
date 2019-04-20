@@ -130,4 +130,10 @@ export default {
 .van-button{
   white-space: nowrap;
 }
+textarea:disabled{
+  background-color:#fff;
+}
+img{
+  vertical-align :middle;
+}
 </style>

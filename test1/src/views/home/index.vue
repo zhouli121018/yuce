@@ -100,7 +100,9 @@ export default {
         this.$router.push(path)
       }else{
         this.banner_url = path;
-        document.getElementById('banner_a').click();
+        this.$nextTick(()=>{
+          document.getElementById('banner_a').click();
+        })
       }
       
     },

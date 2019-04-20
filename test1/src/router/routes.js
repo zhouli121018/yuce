@@ -191,12 +191,12 @@ export default [
                     cache: true
                 }
             },
-            {//专家界面---预测排名
+            {//专家预测
                 path: 'perdictRanking',
                 name:'perdictRanking',
                 component: _import('personal/perdictRanking'),
                 meta:{
-                    title:'预测排名',
+                    title:'专家预测',
                     cache: true
                 }
             },

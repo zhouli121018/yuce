@@ -3,8 +3,8 @@
         <title-bar :title_name="title_name" />
         <div>
             <h3 style="font-size:18px;text-align:center;padding:16px 0">{{title}}</h3>
-            <div style="text-indent:2em;line-height:22px;padding:0 10px;font-size:14px;">
-                {{content}}
+            <div style="text-indent:2em;line-height:22px;padding:0 10px;font-size:14px;" v-html="content">
+                
             </div>
         </div>
     </div>

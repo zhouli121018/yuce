@@ -3,10 +3,10 @@
         <title-bar title_name="开奖大厅"></title-bar>
         <ul>
             <li class="rank_item" v-for="(l,index) in list" :key="index" :class="{fu:l.type==0,ti:l.type==1}">
-                <div style="font-size:14px;padding:10px 2px;">
-                    <b style="font-size:16px;">{{l.title}}</b>
-                    <span style="padding:0 10px;">{{l.kjissue}}</span>
-                    <span style="padding:0 10px;">{{l.kjdate}}</span>
+                <div style="font-size:0.32rem;padding:0.3rem 0 0.3rem 0.1rem;white-space: nowrap;">
+                    <b style="font-size:0.38rem;">{{l.title}}</b>
+                    <span style="padding:0 0.03rem;">{{l.kjissue}}</span>
+                    <span style="padding:0 0.03rem;">{{l.kjdate}}</span>
                     <span>{{l.kjweek}}</span>
                 </div>
                 <div class="flex_box" style="padding:10px 8px;" @click="jump('/personal/historyRecord',{lottype:l.lottype,title_name:l.title.substring(0,l.title.length-4)})">

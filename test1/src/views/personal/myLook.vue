@@ -4,18 +4,18 @@
         
       <lottypes  @change_lottypes="getviews" ref="rankChild"/>
       <ul style="padding:0 0.2rem;">
-        <li class="rank_item" v-for="(l,index) in list" :key="index">
+        <li class="rank_item" v-for="(l,index) in list" :key="index" @click="goPerRank(l.uid)">
           <van-row type="flex" align="center">
-            <van-col span="24">
-              <van-row :gutter="10">
-                <van-col span="5">
-                  <img :src="$https_img+l.img" alt="" class="max_width_100" style="border-radius:50%;">
-                </van-col>
-                <van-col span="19" class="desc">
-                  <h3 class="flex_box"><span class="name_s">{{l.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{l.fans}}人关注</van-tag></h3>
-                  <div class="gary">{{ l.viewtimes+'次查看 '}}{{l.status}}</div>
-                </van-col>
-              </van-row>
+            <van-col span="18">
+                <van-row :gutter="10">
+                  <van-col span="5">
+                    <img :src="$https_img+l.img" alt="" class="max_width_100" style="border-radius:50%;">
+                  </van-col>
+                  <van-col span="19" class="desc">
+                    <h3 class="flex_box"><span class="name_s">{{l.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{l.fans}}人关注</van-tag></h3>
+                    <div class="gary" style="margin-bottom:0.2rem;color:#666;font-size:0.34rem">{{ l.viewtimes+'次查看 '}}{{l.status}}</div>
+                  </van-col>
+                </van-row>
             </van-col>
           </van-row>
           <div class="flex_box" style="padding:0.1rem 0 0.1rem 0.1rem;">
@@ -23,6 +23,7 @@
               <div class="flex_grow_1">
                   <span class="red red_round"  v-for="(red,i) in l.red_num_arr" :key="i">{{red}}</span>
                   <span class="red blue_round"  v-for="(blue,i) in l.blue_num_arr" :key="123+i">{{blue}}</span>
+                  <span style="color:red">{{l.hitdes}}</span>
               </div>
           </div>
         </li>
@@ -39,6 +40,14 @@ export default {
       }
   },
   methods:{
+    goPerRank(expid){
+      this.$router.push({
+        path:'/personal/perdictRanking',
+        query:{
+          expid:expid
+        }
+      })
+    },
     async getviews (resObj) {
       const { data }    = await getviews({
           lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
@@ -136,4 +145,5 @@ ul
       overflow:hidden
       white-space: nowrap;
       text-overflow: ellipsis;
+      font-weight:bold;
 </style>

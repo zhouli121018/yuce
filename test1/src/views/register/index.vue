@@ -5,14 +5,14 @@
             <van-field label="手机号" maxlength="11" type="number" clearable v-model="phone" placeholder="请输入手机号" />
         </div>
         <div class="van_box">
-            <van-field label="密码" type="number" maxlength="11" clearable v-model="password" placeholder="请输入密码" />
+            <van-field label="密码" type="number" maxlength="11" clearable v-model="password" placeholder="需6位数字密码" />
         </div>
         <div class="van_box">
             <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="vcode" placeholder="请输入验证码" />
-            <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone"></CutDown>
+            <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone" ref="codeEl"></CutDown>
         </div>
         <div class="van_box">
-            <van-field label="邀请码" maxlength="11" type="number" :disabled="has_pid" class="van_field_code" clearable v-model="pid" placeholder="输入邀请码双方可得10金币" />
+            <van-field label="邀请码" maxlength="11" type="number" :disabled="has_pid" class="van_field_code" clearable v-model="pid" placeholder="输入邀请码双方可得4金币" />
         </div>
         <van-button type="danger" @click="regist">注册</van-button>
     </div>
@@ -46,7 +46,12 @@ export default {
                 // icode: this.code,
                 // device: this.device
             })
+            if(data.errorcode == 0){
+                this.$refs.codeEl.isStart = true;
+                this.$refs.codeEl.start();
+            }
             this.$toast(data.message)
+            
         },
         async regist() {
             if(!this.phone){
@@ -107,11 +112,9 @@ export default {
     },
     created(){
         this.pid = sessionStorage.getItem('pid');
-        console.log(sessionStorage.getItem('pid'))
         if(sessionStorage.getItem('pid')){
             this.has_pid = true;
         }
-        console.log(this.has_pid)
         let u = navigator.userAgent, app = navigator.appVersion;
         let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
         let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端

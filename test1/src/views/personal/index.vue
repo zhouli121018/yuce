@@ -45,7 +45,7 @@
         <div class="xian"></div>
         <div>
             <van-cell title="意见反馈" is-link icon="feedback" @click="jumpTo('/home/feedback')"/>
-            <van-cell title="关于彩票预测大师" is-link  icon="about" @click="goAbout"/>
+            <van-cell title="关于彩票选号助手" is-link  icon="about" @click="goAbout"/>
         </div>
     </div>
 </template>

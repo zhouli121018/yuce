@@ -11,8 +11,9 @@
         </van-tabs>
         <div class="xian"></div>
         <div class="message_box">
-            <van-cell v-for="(l,index) in list" :key="index" :title="l.title" is-link :url="l.url"/>
+            <van-cell v-for="(l,index) in list" :key="index" :title="l.title" is-link @click="jumpTo(l.url)"/>
         </div>
+        <a :href="banner_url" v-show="false" id="banner_a">1</a>
     </div>
 </template>
 
@@ -23,9 +24,16 @@ export default {
         return {
             tabs_active: 0,
             list:[],
+            banner_url:'#'
         }
     },
     methods:{
+        jumpTo( path ){
+            this.banner_url = path;
+                this.$nextTick(()=>{
+                document.getElementById('banner_a').click();
+            })
+        },
         async gettrendlist () {
           const { data }    = await gettrendlist({
               lottype : this.lottypes[this.tabs_active].lottype,

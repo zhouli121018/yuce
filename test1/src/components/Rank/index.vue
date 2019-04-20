@@ -37,7 +37,7 @@
             </van-col>
             <van-col span="6" class="text_right">
               <van-button type="primary" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)" disabled>未 发 布</van-button>
-              <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.uid)">本期预测</van-button>
+              <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.cid)">本期预测</van-button>
               <van-button type="danger" size="small" @click="viewpred(item.uid)"  v-if="item.curstatus==2">已 查 看</van-button>
             </van-col>
           </van-row>
@@ -150,13 +150,20 @@ export default {
         })
       },
       async getexprank () {
-            const { data }    = await getexprank({
+        let obj = {
               ishome :this.ishome,
               lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
               postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
               ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
               issuenum : this.issuenum
-            });
+            }
+            if(localStorage.getItem('uid')){
+              obj.uid = localStorage.getItem('uid')
+            }
+            if(localStorage.getItem('sid')){
+              obj.sid = localStorage.getItem('sid')
+            }
+            const { data }    = await getexprank(obj);
             this.rank_list = data.list;
             this.kjdes = data.kjdes;
             if(this.ishome == 1){
@@ -190,7 +197,8 @@ export default {
   top 1rem
   background #fff
   z-index 999
-  box-shadow .02rem .02rem .02rem .02rem #e9e9e9
+  border 1px solid #e9e9e9
+  box-shadow 0 0 .08rem #e9e9e9
   transition  all 1s
   li 
     padding .3rem .2rem

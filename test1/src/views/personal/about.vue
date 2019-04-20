@@ -7,7 +7,7 @@ import {getabout } from '@/api'
 export default {
     data(){
         return {
-            title_name: '关于彩票预测大师',
+            title_name: '关于彩票选号助手',
             title:'',
             content:''
         }
