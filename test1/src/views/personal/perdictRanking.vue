@@ -232,7 +232,7 @@ export default {
         margin 0 0.1rem
         position relative
         top -0.05rem
-    img:last-child
+    img:nth-child(3)
         width .7rem
         
         position relative

@@ -38,7 +38,7 @@
             <van-col span="6" class="text_right">
               <van-button type="primary" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)" disabled>未 发 布</van-button>
               <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.cid)">本期预测</van-button>
-              <van-button type="danger" size="small" @click="viewpred(item.uid)"  v-if="item.curstatus==2">已 查 看</van-button>
+              <van-button type="danger" size="small" @click="viewpred(item.cid)"  v-if="item.curstatus==2">已 查 看</van-button>
             </van-col>
           </van-row>
           <van-row class="rank_item_bottom">

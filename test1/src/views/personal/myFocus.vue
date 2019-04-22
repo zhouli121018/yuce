@@ -153,7 +153,6 @@ export default {
   text-align center
   margin-right .2rem
   margin-bottom 0.1rem
-  font-size 0.2rem
 ul
   background #fff
 .container
