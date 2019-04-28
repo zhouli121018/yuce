@@ -21,7 +21,7 @@
         <div class="xian"></div>
         <div class="simulate_rules">
             <h4 class="rules_h">步骤:</h4>
-            <p>1.截屏保存图片或长按保存二维码图片</p>
+            <p>1.截屏保存图片</p>
             <p>2.打开微信扫一扫选择相册</p>
             <p>3.选择刚刚保存的二维码</p>
             <p>4.付款的时候添加备注</p>

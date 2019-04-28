@@ -13,8 +13,9 @@
         <div class="xian"></div>
         <div class="simulate_rules">
             <h4 class="rules_h">会员特权说明</h4>
-            <p>1.查看预测不准，开奖一小时内退金币</p>
-            <p>2.购买金币额外赠送</p>
+            <p>1.查看预测不准，开奖一小时内退金币。</p>
+            <p>2.购买金币额外赠送。</p>
+            <p>3.会员只有特权，不能查看预测。</p>
         </div>
         <div class="xian"></div>
         <div class="member_pay">

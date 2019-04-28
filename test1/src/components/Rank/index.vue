@@ -76,7 +76,8 @@ export default {
             ],
             rankName: '近七期排名',
             show: false,
-            isfirstEnter:false
+            isfirstEnter:false,
+            device:0
         }
     },
     methods:{
@@ -155,7 +156,8 @@ export default {
               lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
               postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
               ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
-              issuenum : this.issuenum
+              issuenum : this.issuenum,
+              device: this.device
             }
             if(localStorage.getItem('uid')){
               obj.uid = localStorage.getItem('uid')
@@ -178,6 +180,15 @@ export default {
 
     created(){
      this.isfirstEnter = true;
+     let u = navigator.userAgent, app = navigator.appVersion;
+      let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+      let isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+      if (isAndroid) {
+          this.device = 0
+      }
+      if (isIOS) {
+          this.device = 1
+      }
   },
 }
 </script>
@@ -193,7 +204,7 @@ export default {
   padding 0 .15rem
   box-sizing border-box 
   position absolute
-  right .7rem
+  right .2rem
   top 1rem
   background #fff
   z-index 999
@@ -207,11 +218,12 @@ export default {
     &.active 
       color #EC493C
 .ranking_box
-  width 100%
   display flex
   align-items center
   justify-content space-between
   position relative
+  span
+    flex-grow 1
   p 
     font-size .38rem
     padding-left .15rem
