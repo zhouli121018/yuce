@@ -18,8 +18,8 @@
       </div>
       <ul class="rank_ul">
         <li class="rank_item" v-for="(item,index) in rank_list" :key="index">
-          <van-row type="flex" align="center">
-            <van-col span="18">
+          <div  class="flex">
+            <div span="18" style="flex-grow:1">
               <div  @click="goPerRank(item.uid)">
                 <van-row :gutter="10">
                   <van-col span="5">
@@ -27,8 +27,8 @@
                   </van-col>
                   <van-col span="19" class="desc">
                     <h3 class="flex_box"><span class="name_s">{{item.uname}}</span> <van-tag color="#6B5BFF" class="fans" style="font-size:.35rem;white-space: nowrap;">{{item.fans}}人关注</van-tag>
-                      <van-button type="danger" size="mini" v-if="item.isfollow==0" @click="follow(item)">关注</van-button>
-                      <van-button type="danger" size="mini" v-if="item.isfollow==1" @click="follow(item)">取消关注</van-button>.
+                      <a href="#" v-if="item.isfollow==0" @click.prevent.stop="follow(item,index)" class="follow_class">关注</a>
+                      <a href="#" v-if="item.isfollow==1" @click.prevent.stop="follow(item,index)" class="follow_class">取消关注</a>
                     </h3>
                     <!-- <div style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.viewtimes}}次查看</div> -->
                     <div style="margin-top:0.2rem;color:#666;font-size:0.34rem">{{item.viewtimes}}次查看   
@@ -37,13 +37,13 @@
                 </van-row>
               </div>
               
-            </van-col>
-            <van-col span="6" class="text_right">
+            </div>
+            <div span="6" class="text_right">
               <van-button type="primary" size="small" v-if="item.curstatus==0" @click="goPerRank(item.uid)" disabled>未 发 布</van-button>
               <van-button type="danger" size="small" v-if="item.curstatus==1" @click="showTost(item.costcoin,item.cid)">本期预测</van-button>
               <van-button type="danger" size="small" @click="viewpred(item.cid)"  v-if="item.curstatus==2">已 查 看</van-button>
-            </van-col>
-          </van-row>
+            </div>
+          </div>
           <van-row class="rank_item_bottom">
             <van-col  style="color:#666;padding-top:.2rem;font-size:.34rem">{{item.prepred}} <span class="red">{{item.prestatus}}</span>
               <span class="red">{{item.foldes}}</span>
@@ -87,19 +87,24 @@ export default {
         }
     },
     methods:{
-      async follow (row) {
+      async follow (row,index) {
           let type = 0;
           if(row.isfollow == 0){
             type = 1;
           }
-          const { data }    = await follow({
-                  sid: localStorage['sid'], //localStorage['sid']
-                  uid: localStorage['uid'],  //localStorage['uid']
-                  expid: row.expid ,//专家id
-                  type:type
-          });
+          let obj = {
+            expid: row.uid ,//专家id
+            type:type
+          }
+          if(localStorage.getItem('sid')){
+            obj.sid = localStorage.getItem('sid');
+          }
+          if(localStorage.getItem('uid')){
+            obj.uid = localStorage.getItem('uid');
+          }
+          const { data }    = await follow(obj);
           if(data.errorcode == 0){
-              row.isfollow = type;
+              this.getexprank();
           }
       },
       isShow() {
@@ -215,6 +220,16 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.follow_class
+  font-size:.35rem;
+  color:red;
+  white-space: nowrap;
+  padding:.1rem 0;
+  width:1.6rem;
+  text-align:center;
+  border:1px solid red;
+  margin-left:.1rem;
+  border-radius:.1rem;
 /deep/ .dialog_content .van-dialog__message
   border-top 1px dashed #ccc
   margin-top .3rem
@@ -270,7 +285,7 @@ export default {
     padding:.3rem .2rem;
 }
 .rank_item{
-    padding:.2rem
+    padding:.2rem 0;
     border-top:1px solid #F0F0F0;
   }
 .gary
@@ -282,7 +297,7 @@ export default {
     color #666
 .flex_box
    .name_s
-      width:2.8rem
+      width:1.8rem
       padding-right:0.2rem
       display:inline-block
       overflow:hidden
