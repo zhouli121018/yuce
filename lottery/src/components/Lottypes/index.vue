@@ -120,8 +120,7 @@ export default {
         this.isFirstEnter=true;
     },
     activated(){
-        if(!this.$store.getters.isback || this.isFirstEnter){
-            if(this.$store.getters.lottypes){
+      if(this.$store.getters.lottypes){
                 this.setLottype();
                 this.$emit('change_lottypes')
             }else{
@@ -131,6 +130,8 @@ export default {
                     this.$emit('change_lottypes')
                 })
             }
+        if(!this.$store.getters.isback || this.isFirstEnter){
+            
         }
         this.isFirstEnter=false;
         this.$store.dispatch('set_isback',false)
