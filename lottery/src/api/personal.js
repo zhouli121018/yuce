@@ -88,3 +88,13 @@ export function follow (data) {
   })
 }
 
+//关注的专家 getmyexperts
+export function getmyexperts (data) {
+  return request({
+    url: '/getmyexperts.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

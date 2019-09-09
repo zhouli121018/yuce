@@ -182,12 +182,21 @@ export default [
                     cache: true
                 }
             },
-            {//我的关注
+            {//关注的玩法
                 path: 'myFocus',
                 name:'myFocus',
                 component: _import('personal/myFocus'),
                 meta:{
-                    title:'我的关注',
+                    title:'关注的玩法',
+                    cache: true
+                }
+            },
+            {//关注的专家 focusExp
+                path: 'focusExp',
+                name:'focusExp',
+                component: _import('personal/focusExp'),
+                meta:{
+                    title:'关注的专家',
                     cache: true
                 }
             },

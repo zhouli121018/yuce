@@ -1,6 +1,6 @@
 <template>
     <div class="container" style="background:#fff;">
-      <title-bar title_name="我的关注" />
+      <title-bar title_name="关注的玩法" />
         
       <lottypes  @change_lottypes="getmyfollow" ref="rankChild"/>
 <!-- <div class="xian"></div> -->

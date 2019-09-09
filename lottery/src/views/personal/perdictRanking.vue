@@ -119,7 +119,10 @@ export default {
                     sid: localStorage['sid'], //localStorage['sid']
                     uid: localStorage['uid'],  //localStorage['uid']
                     expid: this.$route.query.expid ,//专家id
-                    type:type
+                    type:type,
+                    lottype: this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+                    postype: this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+                    ycplaytype: this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype
             });
             if(data.errorcode == 0){
                 this.isfollow = type;

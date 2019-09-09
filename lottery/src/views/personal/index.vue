@@ -31,7 +31,8 @@
         </div>
         <div class="xian"></div>        
         <div>
-            <van-cell title="我的关注" is-link icon="shop" @click="jumpTo('/personal/myFocus')"/>
+            <van-cell title="关注的玩法" is-link icon="shop" @click="jumpTo('/personal/myFocus')"/>
+            <van-cell title="关注的专家" is-link icon="browsing-history" @click="jumpTo('/personal/focusExp')"/>
             <van-cell title="我的查看" is-link icon="look"  @click="jumpTo('/personal/myLook')"/>
             <!-- <van-cell title="我的消息" is-link icon="message" />  -->
             <van-cell icon="message" is-link @click="jumpTo('/personal/message/index')">
@@ -57,7 +58,7 @@ export default {
     data() {
         return {
             info: null,
-            isFirstEnter:false
+            isFirstEnter:false 
         }
     },
     methods:{
@@ -98,6 +99,11 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+/deep/ .van-icon.van-icon-browsing-history
+    font-size .92rem
+    color #FFB100
+    line-height .92rem
+    left: -.05rem;
 .my_centers
     width 60%!important
     p 
