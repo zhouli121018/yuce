@@ -2,7 +2,34 @@
     <div class="container" style="background:#fff;">
       <title-bar title_name="关注的玩法" />
         
-      <lottypes  @change_lottypes="getmyfollow" ref="rankChild"/>
+      <!-- <lottypes  @change_lottypes="getmyfollow" ref="rankChild"/> -->
+      <div>
+      <van-tabs v-model="tabs_active" :swipe-threshold="7" class="tabs_type" @click="change_lottype">
+        <van-tab v-for="l in lottypes" :key="l.lottype" :title="l.lotname" >
+          <div slot="title">
+            <img v-if="l.lottype==1004 || l.lottype==1006" src="../../assets/hainan.png" alt="" style="position:absolute;width:30px;right:1px;">
+            <span style="padding-top:6px;font-size:0.4rem;">{{l.lotname}}</span>
+          </div>
+        </van-tab>
+
+      </van-tabs>
+      <van-tabs v-model="num_active" :swipe-threshold="7" v-if="poslist && poslist.length>0" @click="change_pos" class="no_bottom_border border_color">
+        <van-tab v-for="(p,index) in poslist" :key="index" :title="p.name">
+          <div slot="title">
+            <img v-if="num_active==index" src="../../assets/an.png" alt="" style="position:absolute;width:0.5rem;left:50%;bottom:0;margin-left:-0.25rem;">
+            <span style="padding-bottom:6px;font-size:0.35rem">{{p.name}}</span>
+          </div>
+        </van-tab>
+      </van-tabs>
+      <van-row class="text_center btn_group" style="padding-bottom:0.2rem;">
+        <van-col span="6" v-for="(y,index) in ycplaytypes" :key="index">
+          <van-button :type="index==yc_active?'danger':'default'" size="small" @click="change_yc(index)">{{y.ycplayname}}</van-button>
+        </van-col>
+      </van-row>
+      <div class="xian"></div>
+      
+
+    </div>
 <!-- <div class="xian"></div> -->
       <ul style="padding:0 0.2rem;">
         <li class="rank_item" v-for="(l,index) in list" :key="index">
@@ -45,13 +72,34 @@
 
 <script>
 import { getmyfollow,viewpred } from '@/api/personal'
+import {getproperty} from '@/api/home'
 import { Dialog, Toast } from 'vant'
 export default {
     data() {
       return {
         list:[],
         costcoin:0,
+        tabs_active:0,
+        num_active:0,
+        yc_active:0,
+        lottypes:[]
       }
+  },
+  computed:{
+      poslist(){
+        if(this.$store.getters.lottypes){
+          return this.$store.getters.lottypes[this.tabs_active].poslist
+        }else {
+          return [];
+        }
+      },
+      ycplaytypes(){
+        if(this.$store.getters.lottypes){
+          return this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].ycplaytypes
+        }else {
+          return [];
+        }
+      },
   },
   methods:{
     goPerRank(expid){
@@ -64,9 +112,9 @@ export default {
     },
     async getmyfollow (resObj) {
       const { data }    = await getmyfollow({
-          lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
-          postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
-          ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
+          lottype : this.$store.getters.lottypes[this.tabs_active].lottype,
+          postype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].type,
+          ycplaytype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].ycplaytypes[this.yc_active].ycplaytype,
           sid: localStorage['sid'], //localStorage['sid']
           uid: localStorage['uid'],  //localStorage['uid']
       });
@@ -85,6 +133,31 @@ export default {
             }
           }
       });
+    },
+    setLottype(){
+      if(this.$route.query.lottype){
+          for(var i=0;i<this.$store.getters.lottypes.length;i++){
+              if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
+                  this.tabs_active = i
+              }
+          }
+      }
+      if(this.$route.query.postype){
+        let active_lottype = this.$store.getters.lottypes[this.tabs_active]
+          for(var i=0;i<active_lottype.poslist.length;i++){
+              if(active_lottype.poslist[i].type == this.$route.query.postype){
+                 this.num_active = i
+              }
+          }
+      }
+      if(this.$route.query.ycplaytype){
+        let active_pos = this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active]
+          for(var i=0;i<active_pos.ycplaytypes.length;i++){
+              if(active_pos.ycplaytypes[i].ycplaytype == this.$route.query.ycplaytype){
+                  this.yc_active = i
+              }
+          }
+      }
     },
 
     showTost(uid){
@@ -114,9 +187,9 @@ export default {
             this.$router.push({
               path:'/personal/myLook',
               query:{
-                lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
-                postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
-                ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
+                lottype : this.$store.getters.lottypes[this.tabs_active].lottype,
+                postype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].type,
+                ycplaytype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].ycplaytypes[this.yc_active].ycplaytype,
               }
             })
           }).catch(() => {
@@ -130,7 +203,25 @@ export default {
   },
   created(){
     
-  }
+  },
+  activated(){
+    if(!this.$store.getters.isback || this.isFirstEnter){
+        if(this.$store.getters.lottypes){
+          this.lottypes = this.$store.getters.lottypes;
+            this.setLottype();
+            this.getmyfollow()
+        }else{
+            getproperty().then(res=>{
+                this.$store.dispatch('set_lottypes',res.data.lottypes)
+                this.lottypes = this.$store.getters.lottypes;
+                this.setLottype();
+                this.getmyfollow();
+            })
+        }
+      }
+      this.isFirstEnter=false;
+      this.$store.dispatch('set_isback',false)
+    }
 
 }
 </script>
