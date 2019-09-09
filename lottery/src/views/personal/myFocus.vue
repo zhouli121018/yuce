@@ -82,10 +82,12 @@ export default {
         tabs_active:0,
         num_active:0,
         yc_active:0,
-        lottypes:[]
       }
   },
   computed:{
+      lottypes(){
+          return this.$store.getters.lottypes;
+      },
       poslist(){
         if(this.$store.getters.lottypes){
           return this.$store.getters.lottypes[this.tabs_active].poslist
@@ -102,6 +104,47 @@ export default {
       },
   },
   methods:{
+    change_lottype(index){
+      this.tabs_active = index;
+      this.num_active = 0;
+      this.yc_active = 0;
+      this.getmyfollow();
+    },
+    change_pos(index){
+      this.num_active = index;
+      this.yc_active = 0;
+      this.getmyfollow();
+    },
+    change_yc(index){
+      this.yc_active = index;
+      this.getmyfollow();
+    },
+    setLottype(){
+      if(this.$route.query.lottype){
+          for(var i=0;i<this.$store.getters.lottypes.length;i++){
+              if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
+                  this.tabs_active = i
+              }
+          }
+      }
+      if(this.$route.query.postype){
+        let active_lottype = this.$store.getters.lottypes[this.tabs_active]
+          for(var i=0;i<active_lottype.poslist.length;i++){
+              if(active_lottype.poslist[i].type == this.$route.query.postype){
+                 this.num_active = i
+              }
+          }
+      }
+      if(this.$route.query.ycplaytype){
+        let active_pos = this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active]
+          for(var i=0;i<active_pos.ycplaytypes.length;i++){
+              if(active_pos.ycplaytypes[i].ycplaytype == this.$route.query.ycplaytype){
+                  this.yc_active = i
+              }
+          }
+      }
+    },
+    
     goPerRank(expid){
       this.$router.push({
         path:'/personal/perdictRanking',
@@ -134,32 +177,6 @@ export default {
           }
       });
     },
-    setLottype(){
-      if(this.$route.query.lottype){
-          for(var i=0;i<this.$store.getters.lottypes.length;i++){
-              if(this.$store.getters.lottypes[i].lottype == this.$route.query.lottype){
-                  this.tabs_active = i
-              }
-          }
-      }
-      if(this.$route.query.postype){
-        let active_lottype = this.$store.getters.lottypes[this.tabs_active]
-          for(var i=0;i<active_lottype.poslist.length;i++){
-              if(active_lottype.poslist[i].type == this.$route.query.postype){
-                 this.num_active = i
-              }
-          }
-      }
-      if(this.$route.query.ycplaytype){
-        let active_pos = this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active]
-          for(var i=0;i<active_pos.ycplaytypes.length;i++){
-              if(active_pos.ycplaytypes[i].ycplaytype == this.$route.query.ycplaytype){
-                  this.yc_active = i
-              }
-          }
-      }
-    },
-
     showTost(uid){
       Dialog.confirm({
         title: '提示',
@@ -170,50 +187,51 @@ export default {
         // on cancel
       });
     },
-      async viewpred (cid) {
-        const { data }    = await viewpred({
-              sid: localStorage['sid'], //localStorage['sid']
-              uid: localStorage['uid'],  //localStorage['uid']
-              cid: cid,
+    async viewpred (cid) {
+      const { data }    = await viewpred({
+            sid: localStorage['sid'], //localStorage['sid']
+            uid: localStorage['uid'],  //localStorage['uid']
+            cid: cid,
+      });
+      if(data.errorcode == 0 && data.content){
+        Dialog.confirm({
+          title: '提示',
+          message: data.content,
+          confirmButtonText: '我的查看',
+          cancelButtonText: '关闭',
+        }).then(() => {
+          // on confirm
+          this.$router.push({
+            path:'/personal/myLook',
+            query:{
+              lottype : this.$store.getters.lottypes[this.tabs_active].lottype,
+              postype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].type,
+              ycplaytype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].ycplaytypes[this.yc_active].ycplaytype,
+            }
+          })
+        }).catch(() => {
+          // on cancel
         });
-        if(data.errorcode == 0 && data.content){
-          Dialog.confirm({
-            title: '提示',
-            message: data.content,
-            confirmButtonText: '我的查看',
-            cancelButtonText: '关闭',
-          }).then(() => {
-            // on confirm
-            this.$router.push({
-              path:'/personal/myLook',
-              query:{
-                lottype : this.$store.getters.lottypes[this.tabs_active].lottype,
-                postype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].type,
-                ycplaytype : this.$store.getters.lottypes[this.tabs_active].poslist[this.num_active].ycplaytypes[this.yc_active].ycplaytype,
-              }
-            })
-          }).catch(() => {
-            // on cancel
-          });
-        }
-          
-      },
+      }
+        
+    },
 
 
   },
   created(){
-    
+    this.isFirstEnter=true;
   },
   activated(){
     if(!this.$store.getters.isback || this.isFirstEnter){
         if(this.$store.getters.lottypes){
-          this.lottypes = this.$store.getters.lottypes;
+            this.tabs_active = this.$store.getters.tabs_active
+            this.num_active = this.$store.getters.num_active
+            this.yc_active = this.$store.getters.yc_active
             this.setLottype();
             this.getmyfollow()
         }else{
             getproperty().then(res=>{
                 this.$store.dispatch('set_lottypes',res.data.lottypes)
-                this.lottypes = this.$store.getters.lottypes;
                 this.setLottype();
                 this.getmyfollow();
             })

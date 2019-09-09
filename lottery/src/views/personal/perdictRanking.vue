@@ -19,7 +19,8 @@
         <textarea placeholder="个人简介" id="textarea" v-model="jianjie" style="line-height:1.4" disabled></textarea>
         <div class="xian"></div>
         
-        <lottypes @change_lottypes="getexpert" ref="rankChild"/>
+        <!-- <lottypes @change_lottypes="getexpert" ref="rankChild"/> -->
+        <lotchild @change_lottypes="getexpert" ref="rankChild"/>
 
         <div class="period_time">
             <span>期次</span>

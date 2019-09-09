@@ -2,7 +2,9 @@
     <div class="container" style="background:#fff;">
       <title-bar title_name="我的查看" />
         
-      <lottypes  @change_lottypes="getviews" ref="rankChild"/>
+      <!-- <lottypes  @change_lottypes="getviews" ref="rankChild"/> -->
+      <lotchild @change_lottypes="getviews" ref="rankChild"/>
+
       <ul style="padding:0 0.2rem;">
         <li class="rank_item" v-for="(l,index) in list" :key="index" @click="goPerRank(l.uid)">
           <van-row type="flex" align="center">
