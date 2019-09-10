@@ -46,7 +46,10 @@ export default {
       this.$router.push({
         path:'/personal/perdictRanking',
         query:{
-          expid:expid
+          expid:expid,
+          lottype:this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+          postype:this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+          ycplaytype:this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
         }
       })
     },

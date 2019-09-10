@@ -35,10 +35,11 @@
               <div class="flex_grow_1" v-if="l.cid==0 && l.curstatus==0">
                   <span>本期还未预测</span>
               </div>
-              <div class="flex_grow_1" v-if="l.cid>0">
-                  <span style="padding:10px 0;color:#EC493C;font-size:16px;">还未查看该预测</span>
+              <div class="flex_grow_1"  style="font-size:.38rem;">
+                  <div style="padding:.1rem 0;color:#EC493C;" v-if="l.cid>0">还未查看该预测</div>
               </div>
           </div>
+          <div v-if="l.preddes" v-html="l.preddes" style="padding-top:.1rem"></div>
         </li>
       </ul>
     </div>
@@ -59,7 +60,11 @@ export default {
       this.$router.push({
         path:'/personal/perdictRanking',
         query:{
-          expid:expid
+          expid:expid,
+          lottype:this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+          postype:this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+          ycplaytype:this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype,
+
         }
       })
     },
@@ -73,6 +78,8 @@ export default {
       });
       this.costcoin = data.costcoin;
       this.list = data.list;
+      // this.list[0].preddes = '上期测：9,1,2,3,6,9<span style="color:#EC493C">【全中】</span>'
+      // this.list[1].preddes = ''
       this.list.forEach(val => {
           if(val.cid == 0 && val.curstatus!=0){
             let index_blue = val.pred.indexOf('#');
