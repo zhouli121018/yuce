@@ -50,7 +50,7 @@
             <van-cell title="关于彩票选号助手" is-link  icon="about" @click="goAbout"/>
         </div>
         <div class="text_center" style="text-align:center;padding:.5rem 0 1.2rem">
-            <van-button @click="logout" type="danger" size="small" style="width:30%">退出账号</van-button>
+            <van-button @click="logout" type="danger" size="small" style="width:30%">退出帐号</van-button>
         </div>
     </div>
 </template>

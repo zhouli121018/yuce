@@ -49,7 +49,7 @@
         <div class="broughtGold_box">
             <p class="red">领金币方式二</p>
             <div class="gold_content">
-                <!-- <p>分享邀请码好友注册各送4金币</p> -->
+                <p>分享链接邀请好友注册奖励5金币</p>
                 <div class="gold_center">
                     <p>{{info.share}}</p>
                     <span class="gold_span" @click="doCopy(info.share)">复制分享</span>

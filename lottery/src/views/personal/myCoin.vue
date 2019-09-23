@@ -38,6 +38,9 @@ export default {
             }
           const { data }    = await getmycoinlist(obj);
           this.list = data.list;
+        //   this.list = [
+        //       {createtime:'2019-01-01',type:'yao',coin:10}
+        //   ]
         },
     },
     created(){
@@ -50,8 +53,8 @@ export default {
 table th
     font-weight bold
     text-align left
-    background #dddddd
-    padding .2rem .1rem
+    padding .3rem .1rem
+    border-bottom 1px solid #ddd
 table td
     padding .3rem .1rem
     border-bottom 1px solid #ddd

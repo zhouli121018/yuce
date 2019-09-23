@@ -29,7 +29,10 @@ export default {
     created(){
         document.addEventListener('visibilitychange',()=>{
             if(document.hidden){}else{
-                this.$router.go(0);
+                if(this.$route.name == 'home'){
+                    console.log(this.$route)
+                    this.$router.go(0);
+                }
             }
         })
     }
