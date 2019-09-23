@@ -153,9 +153,12 @@ export default {
   },
   activated(){
     
-    if(localStorage['uid'] && localStorage['uid']!=''){
+    if(localStorage.getItem('uid') && localStorage.getItem('sid')){
       this.left_text = '会员中心';
       this.left_path = '/personal/index'
+    }else{
+      this.left_text = '登录';
+      this.left_path = '/login/index'
     }
   },
 }

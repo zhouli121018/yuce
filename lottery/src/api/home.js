@@ -134,3 +134,14 @@ export function getjiqiao (data) {
     }
   })
 }
+
+//获取我的金币 getmycoinlist
+export function getmycoinlist (data) {
+  return request({
+    url: '/getmycoinlist.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+}

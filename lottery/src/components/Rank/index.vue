@@ -310,4 +310,7 @@ export default {
       font-weight:bold;
 .rank_ul
   padding 0 0.2rem
+.fans.van-tag
+  width 1.6rem
+  overflow hidden
 </style>

@@ -7,24 +7,29 @@
 <!-- <div class="xian"></div> -->
       <ul style="padding:0 0.2rem;">
         <li class="rank_item" v-for="(l,index) in list" :key="index">
-          <van-row type="flex" align="center">
-            <van-col span="18">
+          <div class="flex">
+            <div span="18" style="flex-grow:1">
               <div @click="goPerRank(l.uid)">
                 <van-row :gutter="10">
                   <van-col span="5">
                     <img :src="$https_img+l.img" alt="" class="max_width_100" style="border-radius:50%;">
                   </van-col>
                   <van-col span="19" class="desc">
-                    <h3 class="flex_box"><span class="name_s">{{l.uname}}</span> <van-tag color="#6B5BFF" class="fans">{{l.fans}}人关注</van-tag></h3>
+                    <h3 class="flex_box"><span class="name_s">{{l.uname}}</span> 
+                      <van-tag color="#6B5BFF" class="fans" style="font-size: 0.35rem;
+    white-space: nowrap;
+    background-color: rgb(107, 91, 255);">{{l.fans}}人关注</van-tag>
+                      <a href="#" @click.prevent.stop="follow(l,index)" class="follow_class">取消关注</a>
+                    </h3>
                     <div class="gary" style="margin-bottom:0.2rem;color:#666;font-size:0.34rem">{{ l.viewtimes+'次查看 '}}{{l.status}}</div>
                   </van-col>
                 </van-row>
               </div>
-            </van-col>
-            <van-col span="6" class="text_right">
+            </div>
+            <div span="6" class="text_right">
               <van-button type="danger" size="small" v-if="l.cid>0" @click="showTost(l.cid)">查看预测</van-button>
-            </van-col>
-          </van-row>
+            </div>
+          </div>
           
           <div class="flex_box" style="padding:0.1rem 0 0.1rem 0.1rem;">
               <span class="nowrap" style="padding-right:4px;" v-if="l.cid==0">{{l.issue}}期:</span>
@@ -46,7 +51,7 @@
 </template>
 
 <script>
-import { getmyfollow,viewpred } from '@/api/personal'
+import { getmyfollow,viewpred,follow } from '@/api/personal'
 import { Dialog, Toast } from 'vant'
 export default {
     data() {
@@ -56,6 +61,26 @@ export default {
       }
   },
   methods:{
+    async follow (row,index) {
+        let type = 0;
+        let obj = {
+          expid: row.uid ,//专家id
+          type:type,
+          lottype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].lottype,
+          postype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].type,
+          ycplaytype : this.$store.getters.lottypes[this.$refs.rankChild.tabs_active].poslist[this.$refs.rankChild.num_active].ycplaytypes[this.$refs.rankChild.yc_active].ycplaytype
+        }
+        if(localStorage.getItem('sid')){
+          obj.sid = localStorage.getItem('sid');
+        }
+        if(localStorage.getItem('uid')){
+          obj.uid = localStorage.getItem('uid');
+        }
+        const { data }    = await follow(obj);
+        if(data.errorcode == 0){
+            this.getmyfollow();
+        }
+    },
     goPerRank(expid){
       this.$router.push({
         path:'/personal/perdictRanking',
@@ -144,6 +169,16 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.follow_class
+  font-size:.35rem;
+  color:red;
+  white-space: nowrap;
+  padding:.1rem 0;
+  width:1.6rem;
+  text-align:center;
+  border:1px solid red;
+  margin-left:.1rem;
+  border-radius:.1rem;
 .gary
     color #666
     padding .1rem 0
@@ -182,7 +217,7 @@ ul
     margin-top:10px;
   }
   .rank_item{
-    padding:10px 10px;
+    padding:0.2rem 0;
     border-top:1px solid #F0F0F0;
   }
   .rank_item .desc>h3{
@@ -201,7 +236,7 @@ ul
     white-space nowrap
   .flex_box
    .name_s
-      width:2.8rem
+      width:1.8rem
       padding-right:0.2rem
       display:inline-block
       overflow:hidden
@@ -212,4 +247,10 @@ ul
     span
       &:last-child
         margin-right 0
+.rank_ul
+  padding 0 0.2rem
+.fans.van-tag
+  width 1.6rem
+  overflow hidden
+  white-space: nowrap;
 </style>

@@ -10,7 +10,7 @@
             <van-button class="orange_btn" round @click="info.ischeck==0?signIn():''" :disabled="info.ischeck==1?true:false">{{info.ischeck==1?'已签到':'签到'}}</van-button>
         </div>
         <div class="broughtGold_gold">
-            <div style="position:relative;">
+            <div style="position:relative;" @click="jumpTo('/personal/myCoin')">
                 <p class="red">{{info.coin}}</p>
                 <p>我的金币</p>
                 <div style="width:1px;height:70%;background:#e9e9e9; position: absolute; right: 0;top: 15%;"></div>
@@ -49,7 +49,7 @@
         <div class="broughtGold_box">
             <p class="red">领金币方式二</p>
             <div class="gold_content">
-                <p>分享邀请码好友注册各送4金币</p>
+                <!-- <p>分享邀请码好友注册各送4金币</p> -->
                 <div class="gold_center">
                     <p>{{info.share}}</p>
                     <span class="gold_span" @click="doCopy(info.share)">复制分享</span>
@@ -99,6 +99,9 @@ export default {
         }
     },
     methods: {
+        jumpTo(path){
+            this.$router.push(path)
+        },
         async getcoindesc() {
             const { data } = await getcoindesc({
                 sid: localStorage.getItem('sid'),

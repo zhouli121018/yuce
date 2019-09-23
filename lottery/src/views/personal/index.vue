@@ -41,12 +41,16 @@
                     <van-tag type="danger" v-if="info && info.unread" style="background-color:#DB3030;margin-left:0.1rem;top:-0.18rem;position:relative;border-radius:0.6rem">{{info.unread}}</van-tag>
                 </template>
             </van-cell>
+            <van-cell title="我的金币" is-link icon="coin"  @click="jumpTo('/personal/myCoin')"/>
             
         </div>
         <div class="xian"></div>
         <div>
             <van-cell title="意见反馈" is-link icon="feedback" @click="jumpTo('/home/feedback')"/>
             <van-cell title="关于彩票选号助手" is-link  icon="about" @click="goAbout"/>
+        </div>
+        <div class="text_center" style="text-align:center;padding:.5rem 0 1.2rem">
+            <van-button @click="logout" type="danger" size="small" style="width:30%">退出账号</van-button>
         </div>
     </div>
 </template>
@@ -62,6 +66,19 @@ export default {
         }
     },
     methods:{
+        logout(){
+            Dialog.confirm({
+                className:'small_padding',
+                message: '退出当前帐号？'
+            }).then(() => {
+                // on confirm
+                localStorage.clear();
+                this.$router.push('/home/index')
+            }).catch(() => {
+                // on cancel
+            });
+            
+        },
         jumpTo(path){
             this.$router.push(path);
         },
@@ -125,6 +142,12 @@ export default {
     height .88rem
     background url('~@/assets/look.png') no-repeat
     background-size contain
+/deep/ .van-icon-coin::before
+    content ''
+    width .88rem
+    height .88rem
+    background url('~@/assets/icon.png') no-repeat
+    background-size contain
 /deep/ .van-icon-message::before
     content ''
     width .88rem
@@ -179,4 +202,6 @@ export default {
 .title_photo
     width .88rem!important
     height .88rem!important
+/deep/  .van-cell__right-icon
+    line-height: 0.88rem;
 </style>

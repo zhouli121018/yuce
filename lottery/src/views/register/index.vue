@@ -11,7 +11,7 @@
             <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="vcode" placeholder="请输入验证码" />
             <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone" ref="codeEl"></CutDown>
         </div>
-        <div class="van_box">
+        <div class="van_box" v-if="false">
             <van-field label="邀请码" maxlength="11" type="number" :disabled="has_pid" class="van_field_code" clearable v-model="pid" placeholder="输入邀请码双方可得4金币" />
         </div>
         <van-button type="danger" @click="regist">注册</van-button>
@@ -75,7 +75,7 @@ export default {
                 pass: this.password,
                 vcode: this.vcode,
                 device: this.device,
-                pid: this.pid
+                // pid: this.pid
             };
             if(sessionStorage.getItem('cid')){ //渠道号
                 obj.cid = sessionStorage.getItem('cid')

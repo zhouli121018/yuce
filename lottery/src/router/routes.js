@@ -245,6 +245,15 @@ export default [
                     cache: false
                 }
             },
+            {//我的金币
+                path: 'myCoin',
+                name:'myCoin',
+                component: _import('personal/myCoin'),
+                meta:{
+                    title:'我的金币',
+                    cache: false
+                }
+            },
             {//微信支付页面
                 path: 'pay',
                 name:'pay',
