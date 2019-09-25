@@ -2,14 +2,15 @@
     <div class="container">
         <title-bar title_name="新用户注册" />
         <div class="van_box">
-            <van-field label="手机号" maxlength="11" type="number" clearable v-model="phone" placeholder="请输入手机号" />
+            <van-field label="帐号" maxlength="10"  clearable v-model="account" placeholder="10位以内的数字+字符" />
         </div>
         <div class="van_box">
             <van-field label="密码" type="number" maxlength="11" clearable v-model="password" placeholder="需6位数字密码" />
         </div>
         <div class="van_box">
-            <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="vcode" placeholder="请输入验证码" />
-            <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone" ref="codeEl"></CutDown>
+            <van-field label="手机号" maxlength="11" type="number" clearable v-model="phone" placeholder="作为找回帐号联系方式" />
+            <!-- <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="vcode" placeholder="请输入验证码" /> -->
+            <!-- <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone" ref="codeEl"></CutDown> -->
         </div>
         <div class="van_box">
             <van-field label="邀请码" maxlength="11" type="number" :disabled="has_pid" class="van_field_code" clearable v-model="pid" />
@@ -29,6 +30,7 @@ export default {
     },
     data() {
         return {
+            account: '',
             phone: '',
             pid: '', //邀请码
             password: '',
@@ -54,6 +56,14 @@ export default {
             
         },
         async regist() {
+            if(!this.account){
+                Toast('请输入帐号！');
+                return;
+            }
+            if(!this.password){
+                Toast('请输入密码！');
+                return;
+            }
             if(!this.phone){
                 Toast('请输入手机号！');
                 return;
@@ -62,18 +72,11 @@ export default {
                 Toast('请输入正确的手机号！');
                 return;
             }
-            if(!this.password){
-                Toast('请输入密码！');
-                return;
-            }
-            if(!this.vcode){
-                Toast('请输入验证码！');
-                return;
-            }
             let obj = {
+                account: this.account,
                 phone: this.phone,
                 pass: this.password,
-                vcode: this.vcode,
+                // vcode: this.vcode,
                 device: this.device,
                 pid: this.pid
             };
