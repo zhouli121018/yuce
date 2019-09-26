@@ -8,7 +8,7 @@
             <van-field label="密码" type="number" maxlength="11" clearable v-model="password" placeholder="需6位数字密码" />
         </div>
         <div class="van_box">
-            <van-field label="手机号" maxlength="11" type="number" clearable v-model="phone" placeholder="作为找回帐号联系方式" />
+            <van-field label="手机号" maxlength="11" type="number" clearable v-model="phone" placeholder="做为找回帐号联系方式" />
             <!-- <van-field label="验证码" maxlength="11" type="number" class="van_field" clearable v-model="vcode" placeholder="请输入验证码" /> -->
             <!-- <CutDown @click="codeVerify" :disabled="disabled" :mobile="phone" ref="codeEl"></CutDown> -->
         </div>
@@ -22,7 +22,7 @@
 <script>
 import { validatePhone } from '@/utils/validate'
 import CutDown from '@/components/CutDown'
-import { getvcode, regist } from '@/api'
+import { getvcode, regist_account } from '@/api'
 import { Toast } from 'vant';
 export default {
     components: {
@@ -64,14 +64,14 @@ export default {
                 Toast('请输入密码！');
                 return;
             }
-            if(!this.phone){
-                Toast('请输入手机号！');
-                return;
-            }
-            if(this.phone && !(/^1\d{10}$/.test(this.phone))){
-                Toast('请输入正确的手机号！');
-                return;
-            }
+            // if(!this.phone){
+            //     Toast('请输入手机号！');
+            //     return;
+            // }
+            // if(this.phone && !(/^1\d{10}$/.test(this.phone))){
+            //     Toast('请输入正确的手机号！');
+            //     return;
+            // }
             let obj = {
                 account: this.account,
                 phone: this.phone,
@@ -83,7 +83,7 @@ export default {
             if(sessionStorage.getItem('cid')){ //渠道号
                 obj.cid = sessionStorage.getItem('cid')
             }
-            const { data } = await regist(obj)
+            const { data } = await regist_account(obj)
             if(data.errorcode == 0) {
                 window.localStorage['uid'] = data.uid
                 window.localStorage['sid'] = data.sid

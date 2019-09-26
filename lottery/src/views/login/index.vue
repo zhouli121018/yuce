@@ -2,7 +2,7 @@
     <div class="container">
         <title-bar title_name="登录" right_text="注册" right_url="/register/index"/>
         <div class="van_box">
-            <van-field label="帐号" maxlength="11"  clearable v-model="mobile" placeholder="帐号或者手机号" />
+            <van-field label="帐号" maxlength="11"  clearable v-model="mobile" placeholder="帐号或手机号" />
         </div>
         <div class="van_box">
             <van-field label="密码" maxlength="11" type="number" class="van_field" clearable v-model="code" placeholder="请输入密码" />

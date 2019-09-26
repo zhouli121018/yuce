@@ -22,6 +22,17 @@ export function regist(data) {
   })
 } 
 
+//1、用户注册协议 regist_account
+export function regist_account(data) {
+  return request({
+    url: '/regist_account.php',
+    method: 'post',
+    data:{
+      ...data
+    }
+  })
+} 
+
 //2、手机号登录密码协议 loginbypass.php
 export function loginbypass(data) {
   return request({
